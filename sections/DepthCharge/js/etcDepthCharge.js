@@ -6,7 +6,7 @@
 var Block = function (container) {
   var i;
   this.container = container;
-  this.config = etc_config_id;
+  this.config = etc_dc_config[container.attr('id')];
 
   // Let's set some stats statically
   this.h = container.outerHeight();
@@ -251,7 +251,6 @@ function applyAttributes(t){
       }
 
       if ( k.smartsize.status == 1) {
-        //k.smartsize.w;
         attrSizes.push(pixelize(k.smartsize.w) + ' ' + pixelize(k.smartsize.h));
       } else {
         attrSizes.push('auto auto');
@@ -307,7 +306,6 @@ function churnWaypoints(t,p){
   // Let's check to see if we're supposed to be centering the image
   var hpoint = 0;
   t.centered == '1' && (hpoint = '50%');
-  console.log(hpoint);
 
   // What direction is the parallax supposed to be moving?
   if(t.vratio < 0){
@@ -338,10 +336,8 @@ function engageDepthCharge(s){
   doc.h = jQuery(document).height();
 
   jQuery('.depthChargeBlock').each(function(){
-
     var block = new Block(jQuery(this));
     console.log(block);
-    console.log(etc_config_id);
   });
 }
 

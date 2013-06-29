@@ -395,7 +395,8 @@ array(
   	function section_template() {
 	  	$i = 0;
 	  	$images = false;
-	  	while ($i++ <= 3):
+	  	$sprites = false;
+	  	while ($i++ < 3):
 	  		if( $this->opt('background'.$i.'_image') != '' ):
 	  			$images[] = $this->opt('background'.$i.'_image');
 	  			$bg_v_ratios[] = $this->opt('background'.$i.'_vspeed');
@@ -408,6 +409,16 @@ array(
 	  			$sp_v_offset[] = $this->opt('sprite'.$i.'_voffset');
 	  		endif;
 	  	endwhile;
+	  	if( !$images ):
+	  		$images[] = 'http://etcio.fwd.wf/wp-content/uploads/2013/06/canmore_rocky_mountains-hd-wallpaper.jpg';
+	  		$bg_v_ratios[] = '-1.5';
+	  		$resizes[] = '1';
+	  		$bg_centered[] = '1';
+	  	endif;
+	  	if( !$sprites ):
+	  		$sprites[] = 'http://new.daaba.org/wp-content/uploads/2013/05/Logo.png';
+	  		$sp_v_ratios[] = '-1.25';
+	  	endif;
 
 	  	$height = $this->opt('height');
 
@@ -427,23 +438,25 @@ array(
 		$sp_v_ratios = json_encode($sp_v_ratios);
 		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
+
+		$id = $this->oset['clone_id'];
    	?>
    		<script>
-   			var etc_config_id = [];
-   			etc_config_id.ploffset = 37;
-   			etc_config_id.bg_ratio_v = <?= $bg_v_ratios; ?>;
-   			etc_config_id.sp_ratio_v = <?= $sp_v_ratios; ?>;
-   			etc_config_id.bg_centered = <?= $bg_centered; ?>;
-   			etc_config_id.bg_smartsize = <?= $resizes; ?>;
+   			var etc_dc_config = etc_dc_config || [];
+   			etc_dc_config['<?= $id ?>'] = [];
+   			var c = etc_dc_config['<?= $id ?>'];
+   			c.ploffset = 37;
+   			c.bg_ratio_v = <?= $bg_v_ratios; ?>;
+   			c.sp_ratio_v = <?= $sp_v_ratios; ?>;
+   			c.bg_centered = <?= $bg_centered; ?>;
+   			c.bg_smartsize = <?= $resizes; ?>;
    		</script>
-   		<div>
-			<div class="depthChargeBlock" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px;">
+		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px;">
 	<?php foreach( $sprites as $sprite ): ?>
-				<div class="depthChargeSprite">
-					<img src="<?= $sprite ?>" />
-				</div>
-	<?php endforeach; ?>
+			<div class="depthChargeSprite">
+				<img src="<?= $sprite ?>" />
 			</div>
+	<?php endforeach; ?>
 		</div>
 		<?php
 	}
