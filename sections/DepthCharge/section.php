@@ -77,10 +77,12 @@ array(
 												)
 											),
 			array(
-						'type'		=> 'text',
-						'key'			=> 'background1_image',
-						'label'		=> 'Background Image'
-											),
+            			'key'           => 'background1_image',
+            			'label'			=> 'Background Image',
+            			'type'          => 'image_upload',
+            			'imgsize'       => '256',        // The image preview 'max' size
+            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+        									),
 			array(
 						'type'		=> 'check',
 						'key'			=> 'background1_smartsize',
@@ -133,10 +135,12 @@ array(
 												)
 											),
 			array(
-						'type'		=> 'text',
-						'key'			=> 'background2_image',
-						'label'		=> 'Background Image'
-											),
+            			'key'           => 'background2_image',
+            			'label'			=> 'Background Image',
+            			'type'          => 'image_upload',
+            			'imgsize'       => '256',        // The image preview 'max' size
+            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+        									),
 			array(
 						'type'		=> 'check',
 						'key'			=> 'background2_smartsize',
@@ -189,10 +193,12 @@ array(
 												)
 											),
 			array(
-						'type'		=> 'text',
-						'key'			=> 'background3_image',
-						'label'		=> 'Background Image'
-											),
+            			'key'           => 'background3_image',
+            			'label'			=> 'Background Image',
+            			'type'          => 'image_upload',
+            			'imgsize'       => '256',        // The image preview 'max' size
+            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+        									),
 			array(
 						'type'		=> 'check',
 						'key'			=> 'background3_smartsize',
@@ -245,10 +251,12 @@ array(
 												)
 											),
 			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite1_image',
-						'label'		=> 'Sprite Image'
-											),
+            			'key'           => 'sprite1_image',
+            			'label'			=> 'Sprite Image',
+            			'type'          => 'image_upload',
+            			'imgsize'       => '256',        // The image preview 'max' size
+            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+        									),
 			array(
 						'type'		=> 'text',
 						'key'			=> 'sprite1_voffset',
@@ -301,10 +309,12 @@ array(
 												)
 											),
 			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite2_image',
-						'label'		=> 'Sprite Image'
-											),
+            			'key'           => 'sprite2_image',
+            			'label'			=> 'Sprite Image',
+            			'type'          => 'image_upload',
+            			'imgsize'       => '256',        // The image preview 'max' size
+            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+        									),
 			array(
 						'type'		=> 'text',
 						'key'			=> 'sprite2_voffset',
@@ -357,10 +367,12 @@ array(
 												)
 											),
 			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite3_image',
-						'label'		=> 'Sprite Image'
-											),
+            			'key'           => 'sprite3_image',
+            			'label'			=> 'Sprite Image',
+            			'type'          => 'image_upload',
+            			'imgsize'       => '256',        // The image preview 'max' size
+            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+        									),
 			array(
 						'type'		=> 'text',
 						'key'			=> 'sprite3_voffset',
@@ -388,6 +400,7 @@ array(
 	  			$images[] = $this->opt('background'.$i.'_image');
 	  			$bg_v_ratios[] = $this->opt('background'.$i.'_vspeed');
 	  			$resizes[] = $this->opt('background'.$i.'_smartsize');
+	  			$bg_centered[] = $this->opt('background'.$i.'_center');
 	  		endif;
 	  		if( $this->opt('sprite'.$i.'_image') != '' ):
 	  			$sprites[] = $this->opt('sprite'.$i.'_image');
@@ -398,13 +411,10 @@ array(
 
 	  	$height = $this->opt('height');
 
-		function urlify($u){
-			return "url('$u')";
-		}
 
 	  	if ( $images != false ) {
 	  		foreach ( $images as $image ){
-	  			$imageurls[] = urlify($image);
+	  			$imageurls[] = "url('$image')";
 	  		}
 			$imagesOutput = implode(",", $imageurls);
 		}
@@ -415,6 +425,7 @@ array(
 		}
 		$bg_v_ratios = json_encode($bg_v_ratios);
 		$sp_v_ratios = json_encode($sp_v_ratios);
+		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
    	?>
    		<script>
@@ -422,6 +433,7 @@ array(
    			etc_config_id.ploffset = 37;
    			etc_config_id.bg_ratio_v = <?= $bg_v_ratios; ?>;
    			etc_config_id.sp_ratio_v = <?= $sp_v_ratios; ?>;
+   			etc_config_id.bg_centered = <?= $bg_centered; ?>;
    			etc_config_id.bg_smartsize = <?= $resizes; ?>;
    		</script>
    		<div>

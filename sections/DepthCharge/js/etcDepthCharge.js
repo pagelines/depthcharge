@@ -6,6 +6,7 @@
 var Block = function (container) {
   var i;
   this.container = container;
+  this.config = etc_config_id;
 
   // Let's set some stats statically
   this.h = container.outerHeight();
@@ -26,15 +27,22 @@ var Block = function (container) {
   }
 
   // Let's attach the scroll speed for each backdrop if they are set
-  if(etc_config_id.bg_ratio_v){
-    for ( i = 0; i < etc_config_id.bg_ratio_v.length; i++ ){
-      this.backdrops[i].vratio = etc_config_id.bg_ratio_v[i];
+  if(this.config.bg_ratio_v){
+    for ( i = 0; i < this.config.bg_ratio_v.length; i++ ){
+      this.backdrops[i].vratio = this.config.bg_ratio_v[i];
     }
   }
 
-  if(etc_config_id.bg_ratio_h){
-    for ( i = 0; i < etc_config_id.bg_ratio_h.length; i++ ){
-      this.backdrops[i].hratio = etc_config_id.bg_ratio_h[i];
+  if(this.config.bg_ratio_h){
+    for ( i = 0; i < this.config.bg_ratio_h.length; i++ ){
+      this.backdrops[i].hratio = this.config.bg_ratio_h[i];
+    }
+  }
+
+  // Let's attach the centering configuration for each backdrop
+  if(this.config.bg_centered){
+    for ( i = 0; i < this.config.bg_centered.length; i++ ){
+      this.backdrops[i].centered = this.config.bg_centered[i];
     }
   }
 
@@ -44,7 +52,7 @@ var Block = function (container) {
   for ( i = 0; i < jQuery('.depthChargeSprite').size(); i++ ){
     this.sprites.push(new Sprite(jQuery('.depthChargeSprite').eq(i)));
     s = this.sprites[i];
-    s.vratio = Number(etc_config_id.sp_ratio_v[i]);
+    s.vratio = Number(this.config.sp_ratio_v[i]);
     // get the offsets here
   }
 
@@ -84,7 +92,7 @@ function churnSmartPosition(t,p){
   // p is the parent (block)
   var output = [];
   // o is wrong, have to attach it to the proper configuration options (vh offset)
-  output.top = (p.h/2)-(t.h/2)+etc_config_id.ploffset;
+  output.top = (p.h/2)-(t.h/2)+p.config.ploffset;
   output.left = (p.w/2)-(t.w/2);
   return output;
 }
@@ -211,8 +219,8 @@ function churnAttributes(t){
       t.backdrops[i].waypoints = churnWaypoints(k,t);
     }
 
-    for ( i = 0; i < etc_config_id.bg_smartsize.length; i++ ) {
-      t.backdrops[i].smartsize['status'] = etc_config_id.bg_smartsize[i];
+    for ( i = 0; i < t.config.bg_smartsize.length; i++ ) {
+      t.backdrops[i].smartsize['status'] = t.config.bg_smartsize[i];
     }
   }
   if(t.sprites){
@@ -296,19 +304,24 @@ function churnWaypoints(t,p){
   // These waypoints are strictly based on vertical positioning for the time being
   // Need to update these to accept horizontals with next version
 
+  // Let's check to see if we're supposed to be centering the image
+  var hpoint = 0;
+  t.centered == '1' && (hpoint = '50%');
+  console.log(hpoint);
+
   // What direction is the parallax supposed to be moving?
   if(t.vratio < 0){
-    waypoints[0]['w'] = '50%';
-    waypoints[0]['h'] = 0+etc_config_id.ploffset;
-    waypoints[1]['w'] = '50%';
-    waypoints[1]['h'] = (p.target.h * t.vratio)+etc_config_id.ploffset;
+    waypoints[0]['w'] = hpoint;
+    waypoints[0]['h'] = 0+p.config.ploffset;
+    waypoints[1]['w'] = hpoint;
+    waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
   } else {
-    waypoints[0]['w'] = '50%';
-    waypoints[0]['h'] = p.h-(p.h * t.vratio)+etc_config_id.ploffset;
+    waypoints[0]['w'] = hpoint;
+    waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
     if(waypoints[0]['h'] < p.h){
-      waypoints[0]['h'] = p.ot-p.h+etc_config_id.ploffset;
+      waypoints[0]['h'] = p.ot-p.h+p.config.ploffset;
     }
-    waypoints[1]['w'] = '50%';
+    waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = 0;
   }
 
