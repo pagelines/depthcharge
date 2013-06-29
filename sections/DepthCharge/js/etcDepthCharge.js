@@ -315,10 +315,13 @@ function churnWaypoints(t,p){
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
   } else {
     waypoints[0]['w'] = hpoint;
-    waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
-    if(waypoints[0]['h'] < p.h){
-      waypoints[0]['h'] = p.ot-p.h+p.config.ploffset;
-    }
+    //waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
+    waypoints[0]['h'] = (p.h)-(p.target.h * t.vratio)+p.config.ploffset;
+    console.log(waypoints[0]['h']);
+    //if(Math.abs(waypoints[0]['h']) < p.h){
+    //  console.log('is less than ' + p.h);
+    //  waypoints[0]['h'] = p.ot-p.h+p.config.ploffset;
+    //}
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = 0;
   }
@@ -337,7 +340,6 @@ function engageDepthCharge(s){
 
   jQuery('.depthChargeBlock').each(function(){
     var block = new Block(jQuery(this));
-    console.log(block);
   });
 }
 
