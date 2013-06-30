@@ -25,6 +25,7 @@
 /* @ Pullquote Section */
 
 .depthChargeBlock{
+	position: relative;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-color: pink;

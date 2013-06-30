@@ -34,6 +34,11 @@ array(
 						'type'		=> 'text',
 						'key'			=> 'height',
 						'label'		=> 'Block Height'
+											),
+			array(
+						'type'		=> 'check',
+						'key'			=> 'fullheight',
+						'label'		=> 'Full Height? (overrides height)'
 											)
 										)
 									),
@@ -259,6 +264,11 @@ array(
         									),
 			array(
 						'type'		=> 'text',
+						'key'			=> 'sprite1_class',
+						'label'		=> 'Custom Class'
+											),
+			array(
+						'type'		=> 'text',
 						'key'			=> 'sprite1_voffset',
 						'label'		=> 'Sprite Vertical Offset'
 											),
@@ -315,6 +325,11 @@ array(
             			'imgsize'       => '256',        // The image preview 'max' size
             			'sizelimit'     => '2048000'     // Image upload max size default 512kb
         									),
+			array(
+						'type'		=> 'text',
+						'key'			=> 'sprite2_class',
+						'label'		=> 'Custom Class'
+											),
 			array(
 						'type'		=> 'text',
 						'key'			=> 'sprite2_voffset',
@@ -375,6 +390,11 @@ array(
         									),
 			array(
 						'type'		=> 'text',
+						'key'			=> 'sprite3_class',
+						'label'		=> 'Custom Class'
+											),
+			array(
+						'type'		=> 'text',
 						'key'			=> 'sprite3_voffset',
 						'label'		=> 'Sprite Vertical Offset'
 											),
@@ -396,6 +416,7 @@ array(
 	  	$i = 0;
 	  	$images = false;
 	  	$sprites = false;
+	  	$sp_v_ratios = false;
 	  	while ($i++ < 3):
 	  		if( $this->opt('background'.$i.'_image') != '' ):
 	  			$images[] = $this->opt('background'.$i.'_image');
@@ -404,7 +425,7 @@ array(
 	  			$bg_centered[] = $this->opt('background'.$i.'_center');
 	  		endif;
 	  		if( $this->opt('sprite'.$i.'_image') != '' ):
-	  			$sprites[] = $this->opt('sprite'.$i.'_image');
+	  			$sprites[]['image'] = $this->opt('sprite'.$i.'_image');
 	  			$sp_v_ratios[] = $this->opt('sprite'.$i.'_vspeed');
 	  			$sp_v_offset[] = $this->opt('sprite'.$i.'_voffset');
 	  		endif;
@@ -415,12 +436,14 @@ array(
 	  		$resizes[] = '1';
 	  		$bg_centered[] = '1';
 	  	endif;
-	  	if( !$sprites ):
-	  		$sprites[] = 'http://new.daaba.org/wp-content/uploads/2013/05/Logo.png';
-	  		$sp_v_ratios[] = '-1.25';
-	  	endif;
+	  	// Let's just remove the default sprite for now
+	  	//if( !$sprites ):
+	  	//	$sprites[] = 'http://new.daaba.org/wp-content/uploads/2013/05/Logo.png';
+	  	//	$sp_v_ratios[] = '-1.25';
+	  	//endif;
 
 	  	$height = $this->opt('height');
+	  	$fullheight = $this->opt('fullheight');
 
 
 	  	if ( $images != false ) {
@@ -435,7 +458,9 @@ array(
 				return;
 		}
 		$bg_v_ratios = json_encode($bg_v_ratios);
-		$sp_v_ratios = json_encode($sp_v_ratios);
+   		if( $sp_v_ratios ):
+			$sp_v_ratios = json_encode($sp_v_ratios);
+		endif;
 		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
 
@@ -447,16 +472,21 @@ array(
    			var c = etc_dc_config['<?= $id ?>'];
    			c.ploffset = 37;
    			c.bg_ratio_v = <?= $bg_v_ratios; ?>;
+   			<?php if( $sp_v_ratios ): ?>
    			c.sp_ratio_v = <?= $sp_v_ratios; ?>;
+   			<?php endif; ?>
    			c.bg_centered = <?= $bg_centered; ?>;
    			c.bg_smartsize = <?= $resizes; ?>;
+   			c.fullheight = <?= $fullheight ?>;
    		</script>
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px;">
-	<?php foreach( $sprites as $sprite ): ?>
-			<div class="depthChargeSprite">
-				<img src="<?= $sprite ?>" />
-			</div>
-	<?php endforeach; ?>
+	<?php if( $sprites ): ?>
+		<?php foreach( $sprites as $sprite ): ?>
+				<div class="depthChargeSprite">
+					<img src="<?= $sprite['image'] ?>" />
+				</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
 		</div>
 		<?php
 	}

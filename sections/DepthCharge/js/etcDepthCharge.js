@@ -8,6 +8,15 @@ var Block = function (container) {
   this.container = container;
   this.config = etc_dc_config[container.attr('id')];
 
+  // Let's put an override in here temporarily to measure the size of the nav bar in case the height is set
+  // to something else besides 37
+  this.config.ploffset = jQuery('#navbar').outerHeight();
+  console.log(this.config.ploffset);
+
+  if( this.config.fullheight == '1' ) {
+    container.css('height', jQuery(window).height()-this.config.ploffset);
+  }
+
   // Let's set some stats statically
   this.h = container.outerHeight();
   this.w = container.outerWidth();
@@ -317,7 +326,6 @@ function churnWaypoints(t,p){
     waypoints[0]['w'] = hpoint;
     //waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
     waypoints[0]['h'] = (p.h)-(p.target.h * t.vratio)+p.config.ploffset;
-    console.log(waypoints[0]['h']);
     //if(Math.abs(waypoints[0]['h']) < p.h){
     //  console.log('is less than ' + p.h);
     //  waypoints[0]['h'] = p.ot-p.h+p.config.ploffset;
@@ -345,10 +353,18 @@ function engageDepthCharge(s){
 
 window.onload = function(){
   engageDepthCharge();
+  /**
   var s = skrollr.init({
-    forceHeight: true,
+    forceHeight: false,
     smoothScroll: true
   });
+  */
+  if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+    var s = skrollr.init({
+        forceHeight: false,
+        smoothScroll: true
+    });
+  }
 };
 
 window.onresize = function(){
