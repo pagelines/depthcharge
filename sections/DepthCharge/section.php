@@ -17,7 +17,7 @@ class etcDepthCharge extends PageLinesSection {
 
 	function section_styles(){
 		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'));
-		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.min.js');
+		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.js');
 	}
 
 	function section_head( $clone_id ){
