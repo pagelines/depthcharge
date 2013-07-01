@@ -475,7 +475,6 @@ array(
 		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
 
-
 		$id = $this->oset['clone_id'];
    	?>
    		<script>

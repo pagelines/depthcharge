@@ -10,8 +10,7 @@ var Block = function (container) {
 
   // Let's put an override in here temporarily to measure the size of the nav bar in case the height is set
   // to something else besides 37
-  this.config.ploffset = jQuery('#navbar').outerHeight();
-  this.config.ploffset = 0;
+  this.config.ploffset = jQuery('#navbar').outerHeight() + jQuery('#wpadminbar').outerHeight();
 
   if( this.config.fullheight == '1' ) {
     container.css('height', jQuery(window).height()-this.config.ploffset);
