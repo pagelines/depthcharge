@@ -416,6 +416,8 @@ array(
 	  	$i = 0;
 	  	$images = false;
 	  	$sprites = false;
+	  	$height = false;
+	  	$fullheight = false;
 	  	$sp_v_ratios = false;
 	  	while ($i++ < 3):
 	  		if( $this->opt('background'.$i.'_image') != '' ):
@@ -442,8 +444,17 @@ array(
 	  	//	$sp_v_ratios[] = '-1.25';
 	  	//endif;
 
-	  	$height = $this->opt('height');
-	  	$fullheight = $this->opt('fullheight');
+	  	if ( !$fullheight ):
+	  		$fullheight = 0;
+	  	else:
+	  		$fullheight = $this->opt('fullheight');
+	  	endif;
+
+	  	if ( !$height ):
+	  		$height = 400;
+	  	else:
+	  		$height = $this->opt('height');
+	  	endif;
 
 
 	  	if ( $images != false ) {
@@ -463,6 +474,7 @@ array(
 		endif;
 		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
+
 
 		$id = $this->oset['clone_id'];
    	?>

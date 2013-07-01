@@ -11,6 +11,7 @@ var Block = function (container) {
   // Let's put an override in here temporarily to measure the size of the nav bar in case the height is set
   // to something else besides 37
   this.config.ploffset = jQuery('#navbar').outerHeight();
+  this.config.ploffset = 0;
 
   if( this.config.fullheight == '1' ) {
     container.css('height', jQuery(window).height()-this.config.ploffset);
@@ -302,10 +303,10 @@ function churnWaypoints(t,p){
   // Will need to rewrite this to allow for unlimited potential waypoints and horizontals, right now hardwire for 2 verticals
   if(p.ot>win.h){
     waypoints[0]['index'] = 'bottom-top';
-    waypoints[1]['index'] = 'bottom-' + p.target.h;
+    waypoints[1]['index'] = 'bottom-' + Math.round(p.target.h);
   } else {
     waypoints[0]['index'] = 0;
-    waypoints[1]['index'] = p.ot + p.h;
+    waypoints[1]['index'] = Math.round(p.ot + p.h);
   }
 
   // These waypoints are strictly based on vertical positioning for the time being
@@ -360,7 +361,7 @@ window.onload = function(){
   */
   if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     var s = skrollr.init({
-        forceHeight: false,
+        forceHeight: true,
         smoothScroll: true
     });
   }
