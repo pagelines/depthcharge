@@ -416,8 +416,6 @@ array(
 	  	$i = 0;
 	  	$images = false;
 	  	$sprites = false;
-	  	$height = false;
-	  	$fullheight = false;
 	  	$sp_v_ratios = false;
 	  	while ($i++ < 3):
 	  		if( $this->opt('background'.$i.'_image') != '' ):
@@ -444,18 +442,16 @@ array(
 	  	//	$sp_v_ratios[] = '-1.25';
 	  	//endif;
 
-	  	if ( !$fullheight ):
+	  	$fullheight = $this->opt('fullheight');
+	  	$height = $this->opt('height');
+
+	  	if ( $fullheight == '' ):
 	  		$fullheight = 0;
-	  	else:
-	  		$fullheight = $this->opt('fullheight');
 	  	endif;
 
-	  	if ( !$height ):
+	  	if ( $height == '' ):
 	  		$height = 400;
-	  	else:
-	  		$height = $this->opt('height');
 	  	endif;
-
 
 	  	if ( $images != false ) {
 	  		foreach ( $images as $image ){
