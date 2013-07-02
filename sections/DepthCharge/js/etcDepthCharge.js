@@ -365,10 +365,7 @@ function churnWaypoints(t,p){
     waypoints[0]['h'] = 0 + Math.round(p.ot);
     //console.log(waypoints[0]['h']);
     waypoints[1]['w'] = hpoint;
-    waypoints[1]['h'] = ((p.target.h + Math.round(p.ot)) * t.vratio)+p.config.ploffset;
-    //console.log(Math.round(p.ot));
-    //console.log(p.target.h);
-    //console.log(waypoints[1]['h']);
+    waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
   } else {
     waypoints[0]['w'] = hpoint;
     //waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
