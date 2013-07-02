@@ -364,12 +364,16 @@ function churnWaypoints(t,p){
     //waypoints[0]['h'] = 0+p.config.ploffset;
     waypoints[0]['h'] = 0 + Math.round(p.ot);
     //console.log(waypoints[0]['h']);
+    console.log('tick');
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
   } else {
     waypoints[0]['w'] = hpoint;
     //waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
-    waypoints[0]['h'] = (p.h)-(p.target.h * t.vratio)+p.config.ploffset;
+    waypoints[0]['h'] = (( p.h - p.target.h + p.config.ploffset ) * t.vratio) + p.h + p.config.ploffset;
+    console.log(p.h);
+    console.log(p.target.h);
+    console.log(p.config.ploffset);
     //if(Math.abs(waypoints[0]['h']) < p.h){
     //  console.log('is less than ' + p.h);
     //  waypoints[0]['h'] = p.ot-p.h+p.config.ploffset;
