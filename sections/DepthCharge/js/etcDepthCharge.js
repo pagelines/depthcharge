@@ -19,8 +19,8 @@ var Block = function (container) {
   // Let's set some stats statically
   this.h = container.outerHeight();
   this.w = container.outerWidth();
-  this.ot = container.offset().top;
-  this.ob = doc.h - this.ot - this.h;
+  this.ot = Math.round(container.offset().top);
+  this.ob = Math.round(doc.h - this.ot - this.h);
 
   // Let's churn our perfect world
   this.target = churnTargetDimensions(this);
@@ -133,9 +133,10 @@ function churnTargetDimensions(t){
 
   // Let's calculate the bottom "pull" to see if the offset from bottom is smaller than the viewport
   var bPull = 0;
-  if(t.ob<win.h){
-    bPull = win.h - t.ob - t.h;
-  }
+  // ****** HAVE TO FIX THE BOTTOM PULL
+  //if(t.ob<win.h){
+  //  bPull = win.h - t.ob - t.h;
+  //}
 
   var output = [];
   // Let's calculate the appropriate height
@@ -144,6 +145,10 @@ function churnTargetDimensions(t){
   }
   else{
     output.h = (t.h + t.ot - bPull);
+    //console.log(t.ot);
+    //console.log(t.h);
+    //console.log(bPull);
+    //console.log(output.h);
   }
 
   // Let's calculate the appropriate width
@@ -271,6 +276,7 @@ function applyAttributes(t){
   var key;
   var attributes = [];
 
+  // Let's delete the current data tags that are attached (have to use js not jQuery because it doesn't update)
   existingData = getDataAttributes(t.container);
   for ( key in existingData ) {
     if ( existingData.hasOwnProperty(key) ) {
@@ -304,6 +310,9 @@ function applyAttributes(t){
         t.container.attr('data-'+key,'background-position: ' + attributes[key].join(',') + ';');
       }
     }
+
+    // Let's add the background sizes
+    t.container.css('background-size', attrSizes);
 
   }
 
@@ -352,9 +361,14 @@ function churnWaypoints(t,p){
   // What direction is the parallax supposed to be moving?
   if(t.vratio < 0){
     waypoints[0]['w'] = hpoint;
-    waypoints[0]['h'] = 0+p.config.ploffset;
+    //waypoints[0]['h'] = 0+p.config.ploffset;
+    waypoints[0]['h'] = 0 + Math.round(p.ot);
+    //console.log(waypoints[0]['h']);
     waypoints[1]['w'] = hpoint;
-    waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
+    waypoints[1]['h'] = ((p.target.h + Math.round(p.ot)) * t.vratio)+p.config.ploffset;
+    //console.log(Math.round(p.ot));
+    //console.log(p.target.h);
+    //console.log(waypoints[1]['h']);
   } else {
     waypoints[0]['w'] = hpoint;
     //waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
@@ -402,6 +416,7 @@ function engageDepthCharge(s){
 
   jQuery('.depthChargeBlock').each(function(){
     var block = new Block(jQuery(this));
+    console.log(block);
   });
 
 }
