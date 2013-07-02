@@ -10,7 +10,6 @@ Cloning: true
 Class Name: etcDepthCharge
 Filter: full-width
 V3: true
-Loading: active
 */
 
 class etcDepthCharge extends PageLinesSection {
@@ -445,12 +444,12 @@ array(
 	  	$fullheight = $this->opt('fullheight');
 	  	$height = $this->opt('height');
 
-	  	if ( $fullheight == '' ):
-	  		$fullheight = 0;
-	  	endif;
-
 	  	if ( $height == '' ):
 	  		$height = 400;
+	  	endif;
+
+	  	if ( $fullheight == '' ):
+	  		$fullheight = 0;
 	  	endif;
 
 	  	if ( $images != false ) {
@@ -470,14 +469,13 @@ array(
 		endif;
 		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
-
 		$id = $this->oset['clone_id'];
+
    	?>
    		<script>
    			var etc_dc_config = etc_dc_config || [];
    			etc_dc_config['<?= $id ?>'] = [];
    			var c = etc_dc_config['<?= $id ?>'];
-   			c.ploffset = 37;
    			c.bg_ratio_v = <?= $bg_v_ratios; ?>;
    			<?php if( $sp_v_ratios ): ?>
    			c.sp_ratio_v = <?= $sp_v_ratios; ?>;

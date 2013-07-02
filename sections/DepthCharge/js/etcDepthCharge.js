@@ -240,10 +240,44 @@ function churnAttributes(t){
   }
 }
 
+function getDataAttributeNames(elem) {
+    var names = [],
+        rDataAttr = /^data-/;
+    jQuery.each(elem.attributes, function(i, attr) {
+        if (attr.specified && rDataAttr.test(attr.name)) {
+            names.push(attr.name);
+        }
+    });
+    return names;
+}
+
+function getDataAttributes(node) {
+    var d = {};
+    var re_dataAttr = /^data\-(.+)$/;
+
+    jQuery.each(node.get(0).attributes, function(index, attr) {
+        if (re_dataAttr.test(attr.nodeName)) {
+            var key = attr.nodeName.match(re_dataAttr)[1];
+            d[key] = attr.nodeValue;
+        }
+    });
+
+    return d;
+}
+
 function applyAttributes(t){
   // t should be a block or parent entity
   var i,j,k;
+  var key;
   var attributes = [];
+
+  existingData = getDataAttributes(t.container);
+  for ( key in existingData ) {
+    if ( existingData.hasOwnProperty(key) ) {
+      t.container.removeAttr('data-' + key );
+    }
+  }
+
   if(t.backdrops){
     var attrSizes = [];
     for ( i = 0; i < t.backdrops.length; i++ ) {
@@ -264,19 +298,19 @@ function applyAttributes(t){
         attrSizes.push('auto auto');
       }
     }
-    for ( var key in attributes ) {
+
+    for ( key in attributes ) {
       if ( attributes.hasOwnProperty(key) ) {
         t.container.attr('data-'+key,'background-position: ' + attributes[key].join(',') + ';');
       }
     }
 
-    t.container.css('background-size', attrSizes);
   }
 
   if(t.sprites){
     for ( i = 0; i < t.sprites.length; i++ ) {
       k = t.sprites[i];
-      for ( var key in k.path ) {
+      for ( key in k.path ) {
         if ( k.path.hasOwnProperty(key) ) {
           k.element.attr('data-' + key,'top: ' + k.path[key].h + 'px; left: ' + k.path[key].w + 'px;');
         }
@@ -345,9 +379,31 @@ function engageDepthCharge(s){
   doc.w = jQuery(document).width();
   doc.h = jQuery(document).height();
 
+  jQuery.fn.hasAttrMatching = function (expr) {
+      var reg, data;
+      if (!expr) {
+          return this;
+      } else {
+          if (typeof expr === 'string') {
+              reg = new RegExp(expr);
+          } else if (typeof expr === 'object' && expr.test) {
+              reg = expr;
+          }
+          return this.filter(function () {
+              data = $(this).data();
+              for (var a in data) {
+                  if (data.hasOwnProperty(a)) {
+                      return reg.test(a);
+                  }
+              }
+          });
+      }
+  };
+
   jQuery('.depthChargeBlock').each(function(){
     var block = new Block(jQuery(this));
   });
+
 }
 
 window.onload = function(){
