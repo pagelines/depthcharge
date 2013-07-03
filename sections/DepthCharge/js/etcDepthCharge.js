@@ -104,7 +104,7 @@ function churnSmartPosition(t,p){
   // p is the parent (block)
   var output = [];
   // o is wrong, have to attach it to the proper configuration options (vh offset)
-  output.top = (p.h/2)-(t.h/2)+p.config.ploffset;
+  output.top = (p.h/2)-(t.h/2);
   output.left = (p.w/2)-(t.w/2);
   return output;
 }
@@ -177,13 +177,11 @@ function churnSize(t,p){
   } else {
     oHeight = (p.target.h*Math.abs(t.vratio));
     if ( oHeight < (p.h+(p.h*Math.abs(t.vratio)))){
-      oHeight = p.h+(p.h*Math.abs(t.vratio));
+      console.log(oHeight);
+      //oHeight = p.h+(p.h*Math.abs(t.vratio));
+      oHeight = p.ot + (p.h*Math.abs(t.vratio));
+      console.log(oHeight);
     }
-  }
-
-  if ((p.target.h*Math.abs(t.vratio)) < (p.h*Math.abs(t.vratio)) ) {
-    oHeight = (p.h*Math.abs(t.vratio));
-  } else {
   }
 
   wRatio = t.w/p.target.w;
@@ -380,6 +378,8 @@ function churnWaypoints(t,p){
     waypoints[0]['h'] = 0 + Math.round(p.ot);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
+    console.log(p.target.h * t.vratio);
+    console.log(t.smartsize.oHeight);
   } else {
     waypoints[0]['w'] = hpoint;
     waypoints[0]['h'] = p.ot-t.smartsize.oHeight+p.h+p.config.ploffset;
@@ -433,7 +433,7 @@ window.onload = function(){
   engageDepthCharge();
   /**
   var s = skrollr.init({
-    forceHeight: false,
+    forceHeight: true,
     smoothScroll: true
   });
   */
