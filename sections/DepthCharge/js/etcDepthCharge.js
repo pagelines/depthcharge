@@ -7,6 +7,9 @@ var Block = function (container) {
   var i;
   this.container = container;
   this.config = etc_dc_config[container.attr('id')];
+  this.plid = container.attr('id');
+
+  console.log(this.plid);
 
   // Let's put an override in here temporarily to measure the size of the nav bar in case the height is set
   // to something else besides 37
@@ -61,8 +64,9 @@ var Block = function (container) {
   // Let's create sprite objects for every sprite
   this.sprites = [];
   var s;
-  for ( i = 0; i < jQuery('.depthChargeSprite').size(); i++ ){
-    this.sprites.push(new Sprite(jQuery('.depthChargeSprite').eq(i)));
+  for ( i = 0; i < jQuery('#' + this.plid + ' .depthChargeSprite').size(); i++ ){
+    console.log('hello');
+    this.sprites.push(new Sprite(jQuery('#' + this.plid + ' .depthChargeSprite').eq(i)));
     s = this.sprites[i];
     s.vratio = Number(this.config.sp_ratio_v[i]);
     // get the offsets here
@@ -373,18 +377,17 @@ function churnWaypoints(t,p){
 
   // What direction is the parallax supposed to be moving?
   if(t.vratio <= 0){
-    console.log('tick');
     waypoints[0]['w'] = hpoint;
     waypoints[0]['h'] = 0 + Math.round(p.ot);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
-    console.log(p.target.h * t.vratio);
-    console.log(t.smartsize.oHeight);
+    //console.log(p.target.h * t.vratio);
+    //console.log(t.smartsize.oHeight);
   } else {
     waypoints[0]['w'] = hpoint;
     waypoints[0]['h'] = p.ot-t.smartsize.oHeight+p.h+p.config.ploffset;
-    console.log(t.smartsize);
-    console.log(p.ot + ' - ' + t.smartsize.h + ' + ' + p.h + ' = ' + p.target.h);
+    //console.log(t.smartsize);
+    //console.log(p.ot + ' - ' + t.smartsize.h + ' + ' + p.h + ' = ' + p.target.h);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = 0;
   }
