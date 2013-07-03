@@ -41,20 +41,20 @@ var Block = function (container) {
   // Let's attach the scroll speed for each backdrop if they are set
   if(this.config.bg_ratio_v){
     for ( i = 0; i < this.config.bg_ratio_v.length; i++ ){
-      this.backdrops[i].vratio = this.config.bg_ratio_v[i];
+      this.backdrops[i].vratio = +this.config.bg_ratio_v[i];
     }
   }
 
   if(this.config.bg_ratio_h){
     for ( i = 0; i < this.config.bg_ratio_h.length; i++ ){
-      this.backdrops[i].hratio = this.config.bg_ratio_h[i];
+      this.backdrops[i].hratio = +this.config.bg_ratio_h[i];
     }
   }
 
   // Let's attach the centering configuration for each backdrop
   if(this.config.bg_centered){
     for ( i = 0; i < this.config.bg_centered.length; i++ ){
-      this.backdrops[i].centered = this.config.bg_centered[i];
+      this.backdrops[i].centered = +this.config.bg_centered[i];
     }
   }
 
@@ -168,14 +168,22 @@ function churnSize(t,p){
 
   // Let's put some checks and balances on this
   // The calculated height can't be less than the height itself of the block
-  if ((p.target.h*t.vratio) < (p.h) ) {
-    oHeight = (p.h);
-  } else {
-    if ( t.vratio > 0 ) {
-      oHeight = p.target.h + (p.target.h*t.vratio);
-    } else {
-      oHeight = (p.target.h*t.vratio);
+
+  if ( t.vratio >= 0 ) {
+    oHeight = p.target.h + (p.target.h*Math.abs(t.vratio));
+    if ( oHeight < (p.h*Math.abs(t.vratio))) {
+      oHeight = p.h*Math.abs(t.vratio);
     }
+  } else {
+    oHeight = (p.target.h*Math.abs(t.vratio));
+    if ( oHeight < (p.h+(p.h*Math.abs(t.vratio)))){
+      oHeight = p.h+(p.h*Math.abs(t.vratio));
+    }
+  }
+
+  if ((p.target.h*Math.abs(t.vratio)) < (p.h*Math.abs(t.vratio)) ) {
+    oHeight = (p.h*Math.abs(t.vratio));
+  } else {
   }
 
   wRatio = t.w/p.target.w;
@@ -199,14 +207,14 @@ function churnSize(t,p){
       multiplier = 1/hRatio;
       setDimension = multiplier*t.h;
       //console.log(1);
-      return { w:'auto', h:setDimension };
+      return { w:'auto', h:setDimension, oHeight: oHeight };
     }
     if(hSpread>wSpread){
       // Let's figure out how much we have the multiply the dimension
       multiplier = 1/wRatio;
       setDimension = multiplier*t.w;
       //console.log(2);
-      return { w:setDimension, h:'auto' };
+      return { w:setDimension, h:'auto', oHeight: oHeight };
     }
   }
 
@@ -215,13 +223,13 @@ function churnSize(t,p){
       multiplier = 1/hRatio;
       setDimension = multiplier*t.h;
       //console.log(3);
-      return { w:'auto', h:setDimension };
+      return { w:'auto', h:setDimension, oHeight: oHeight };
     }
     if(hSpread>wSpread){
       multiplier = 1/wRatio;
       setDimension = multiplier*t.w;
       //console.log(4);
-      return { w:setDimension, h:'auto' };
+      return { w:setDimension, h:'auto', oHeight: oHeight };
     }
   }
 
@@ -366,14 +374,16 @@ function churnWaypoints(t,p){
   t.centered == '1' && (hpoint = '50%');
 
   // What direction is the parallax supposed to be moving?
-  if(t.vratio < 0){
+  if(t.vratio <= 0){
+    console.log('tick');
     waypoints[0]['w'] = hpoint;
     waypoints[0]['h'] = 0 + Math.round(p.ot);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
   } else {
     waypoints[0]['w'] = hpoint;
-    waypoints[0]['h'] = p.ot-t.smartsize.h+p.h+p.config.ploffset;
+    waypoints[0]['h'] = p.ot-t.smartsize.oHeight+p.h+p.config.ploffset;
+    console.log(t.smartsize);
     console.log(p.ot + ' - ' + t.smartsize.h + ' + ' + p.h + ' = ' + p.target.h);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = 0;
