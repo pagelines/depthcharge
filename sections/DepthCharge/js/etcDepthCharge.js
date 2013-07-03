@@ -12,6 +12,10 @@ var Block = function (container) {
   // to something else besides 37
   this.config.ploffset = jQuery('#navbar').outerHeight() + jQuery('#wpadminbar').outerHeight();
 
+  if( this.config.pl == 1 ) {
+    this.config.ploffset = this.config.ploffset + 57;
+  }
+
   if( this.config.fullheight == '1' ) {
     container.css('height', jQuery(window).height()-this.config.ploffset);
   }
@@ -164,11 +168,14 @@ function churnSize(t,p){
 
   // Let's put some checks and balances on this
   // The calculated height can't be less than the height itself of the block
-  // !!!!!!!!!!!!Need to account for offset of mobile menu!
-  if ((p.target.h*Math.abs(t.vratio)) < (p.h) ) {
+  if ((p.target.h*t.vratio) < (p.h) ) {
     oHeight = (p.h);
   } else {
-    oHeight = (p.target.h*Math.abs(t.vratio));
+    if ( t.vratio > 0 ) {
+      oHeight = p.target.h + (p.target.h*t.vratio);
+    } else {
+      oHeight = (p.target.h*t.vratio);
+    }
   }
 
   wRatio = t.w/p.target.w;
@@ -361,23 +368,13 @@ function churnWaypoints(t,p){
   // What direction is the parallax supposed to be moving?
   if(t.vratio < 0){
     waypoints[0]['w'] = hpoint;
-    //waypoints[0]['h'] = 0+p.config.ploffset;
     waypoints[0]['h'] = 0 + Math.round(p.ot);
-    //console.log(waypoints[0]['h']);
-    console.log('tick');
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
   } else {
     waypoints[0]['w'] = hpoint;
-    //waypoints[0]['h'] = p.h-(p.h * t.vratio)+p.config.ploffset;
-    waypoints[0]['h'] = (( p.h - p.target.h + p.config.ploffset + 25 ) * t.vratio) + p.h + p.config.ploffset;
-    console.log(p.h);
-    console.log(p.target.h);
-    console.log(p.config.ploffset);
-    //if(Math.abs(waypoints[0]['h']) < p.h){
-    //  console.log('is less than ' + p.h);
-    //  waypoints[0]['h'] = p.ot-p.h+p.config.ploffset;
-    //}
+    waypoints[0]['h'] = p.ot-t.smartsize.h+p.h+p.config.ploffset;
+    console.log(p.ot + ' - ' + t.smartsize.h + ' + ' + p.h + ' = ' + p.target.h);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = 0;
   }

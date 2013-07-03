@@ -471,6 +471,12 @@ array(
 		$resizes = json_encode($resizes);
 		$id = $this->oset['clone_id'];
 
+		if( pl_draft_mode() ){
+    		$pl = 1;
+		} else {
+			$pl = 0;
+		};
+
    	?>
    		<script>
    			var etc_dc_config = etc_dc_config || [];
@@ -483,6 +489,7 @@ array(
    			c.bg_centered = <?= $bg_centered; ?>;
    			c.bg_smartsize = <?= $resizes; ?>;
    			c.fullheight = <?= $fullheight ?>;
+   			c.pl = <?= $pl ?>;
    		</script>
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px;">
 	<?php if( $sprites ): ?>
