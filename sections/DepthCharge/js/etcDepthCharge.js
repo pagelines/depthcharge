@@ -9,8 +9,6 @@ var Block = function (container) {
   this.config = etc_dc_config[container.attr('id')];
   this.plid = container.attr('id');
 
-  console.log(this.plid);
-
   // Let's put an override in here temporarily to measure the size of the nav bar in case the height is set
   // to something else besides 37
   this.config.ploffset = jQuery('#navbar').outerHeight() + jQuery('#wpadminbar').outerHeight();
@@ -65,7 +63,6 @@ var Block = function (container) {
   this.sprites = [];
   var s;
   for ( i = 0; i < jQuery('#' + this.plid + ' .depthChargeSprite').size(); i++ ){
-    console.log('hello');
     this.sprites.push(new Sprite(jQuery('#' + this.plid + ' .depthChargeSprite').eq(i)));
     s = this.sprites[i];
     s.vratio = Number(this.config.sp_ratio_v[i]);
@@ -178,13 +175,17 @@ function churnSize(t,p){
     if ( oHeight < (p.h*Math.abs(t.vratio))) {
       oHeight = p.h*Math.abs(t.vratio);
     }
+    if(p.ot>win.h){
+      //oHeight = oHeight + p.h;
+    }
+    //console.log(oHeight);
   } else {
     oHeight = (p.target.h*Math.abs(t.vratio));
     if ( oHeight < (p.h+(p.h*Math.abs(t.vratio)))){
-      console.log(oHeight);
+      //console.log(oHeight);
       //oHeight = p.h+(p.h*Math.abs(t.vratio));
       oHeight = p.ot + (p.h*Math.abs(t.vratio));
-      console.log(oHeight);
+      //console.log(oHeight);
     }
   }
 
@@ -361,8 +362,8 @@ function churnWaypoints(t,p){
 
   // Will need to rewrite this to allow for unlimited potential waypoints and horizontals, right now hardwire for 2 verticals
   if(p.ot>win.h){
-    waypoints[0]['index'] = 'bottom-top';
-    waypoints[1]['index'] = 'bottom-' + Math.round(p.target.h);
+    waypoints[0]['index'] = -p.target.h + '-bottom-bottom';
+    waypoints[1]['index'] = 'bottom-top';
   } else {
     waypoints[0]['index'] = 0;
     waypoints[1]['index'] = Math.round(p.ot + p.h);
@@ -381,7 +382,10 @@ function churnWaypoints(t,p){
     waypoints[0]['h'] = 0 + Math.round(p.ot);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = (p.target.h * t.vratio)+p.config.ploffset;
-    //console.log(p.target.h * t.vratio);
+    if(p.ot>win.h){
+      waypoints[0]['h'] = -p.target.h;
+      waypoints[1]['h'] = p.target.h;
+    }
     //console.log(t.smartsize.oHeight);
   } else {
     waypoints[0]['w'] = hpoint;
@@ -390,6 +394,11 @@ function churnWaypoints(t,p){
     //console.log(p.ot + ' - ' + t.smartsize.h + ' + ' + p.h + ' = ' + p.target.h);
     waypoints[1]['w'] = hpoint;
     waypoints[1]['h'] = 0;
+    if(p.ot>win.h){
+      waypoints[0]['h'] = 0;
+      waypoints[1]['h'] = p.target.h-t.smartsize.oHeight;
+    }
+    //console.log(t.smartsize.oHeight);
   }
 
   return waypoints;
