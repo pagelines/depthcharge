@@ -38,6 +38,11 @@ array(
 						'type'		=> 'check',
 						'key'			=> 'fullheight',
 						'label'		=> 'Full Height? (overrides height)'
+											),
+			array(
+						'type'		=> 'check',
+						'key'			=> 'contained',
+						'label'		=> 'Contain elements? (Overflow: Hidden)'
 											)
 										)
 									),
@@ -371,6 +376,7 @@ array(
 
 	  	$fullheight = $this->opt('fullheight');
 	  	$height = $this->opt('height');
+	  	$contained = ($this->opt('contained')) ? 'overflow: hidden;' : '';
 
 	  	if ( $height == '' ):
 	  		$height = 400;
@@ -419,7 +425,7 @@ array(
    			c.fullheight = <?= $fullheight ?>;
    			c.pl = <?= $pl ?>;
    		</script>
-		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px;">
+		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
 	<?php if( $sprites ): ?>
 		<?php foreach( $sprites as $sprite ): ?>
 				<div class="depthChargeSprite">
