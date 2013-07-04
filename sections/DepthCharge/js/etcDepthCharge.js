@@ -68,6 +68,7 @@ var Block = function (container) {
     s.vratio = +this.config.sp_ratio_v[i];
     s.voffset = +this.config.sp_offset_v[i];
     s.hoffset = +this.config.sp_offset_h[i];
+    s.slingshot = this.config.sp_slingshot[i];
   }
 
   // Let's churn our sizing to get to our perfect world
@@ -120,6 +121,10 @@ function churnPaths(t,p){
   path[0]['w'] = t.smartposition.left;
   path[0]['h'] = t.smartposition.top;
 
+  if(t.slingshot){
+    path[0]['h'] = path[0]['h'] - ((t.vratio+1)*((p.h/2) + p.ot - (win.h/2)));
+  }
+
   // Let's figure out the distance it should travel
   var d = [];
   d.w = 0;
@@ -129,6 +134,9 @@ function churnPaths(t,p){
   path[2000] = [];
   path[2000]['w'] = t.smartposition.left+d.w;
   path[2000]['h'] = t.smartposition.top+d.h;
+  if(t.slingshot){
+    path[2000]['h'] = path[2000]['h'] - ((t.vratio+1)*((p.h/2) + p.ot - (win.h/2)));
+  }
 
   return path;
 }

@@ -149,11 +149,16 @@ class etcDepthCharge extends PageLinesSection {
 														),
 						array(
 			            			'key'           => 'sprite'.$i.'_image',
-			            			'label'			=> 'Background Image',
+			            			'label'			=> 'Sprite Image',
 			            			'type'          => 'image_upload',
 			            			'imgsize'       => '256',        // The image preview 'max' size
 			            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
 			        									),
+						array(
+									'type'		=> 'check',
+									'key'			=> 'sprite'.$i.'_slingshot',
+									'label'		=> 'Slingshot Mode'
+														),
 						array(
 									'type'		=> 'text',
 									'key'			=> 'sprite'.$i.'_class',
@@ -200,6 +205,7 @@ class etcDepthCharge extends PageLinesSection {
 	  			$sp_v_ratios[] = $this->opt('sprite'.$i.'_vspeed');
 	  			$sp_v_offsets[] = $this->opt('sprite'.$i.'_voffset');
 	  			$sp_h_offsets[] = $this->opt('sprite'.$i.'_hoffset');
+	  			$sp_slingshot[] = $this->opt('sprite'.$i.'_slingshot');
 	  		endif;
 	  	endwhile;
 	  	if( !$images ):
@@ -231,6 +237,9 @@ class etcDepthCharge extends PageLinesSection {
    		if( $sp_v_offsets ):
 			$sp_v_offsets = json_encode($sp_v_offsets);
 		endif;
+   		if( $sp_slingshot ):
+			$sp_slingshot = json_encode($sp_slingshot);
+		endif;
    		if( $sp_h_offsets ):
 			$sp_h_offsets = json_encode($sp_h_offsets);
 		endif;
@@ -258,6 +267,9 @@ class etcDepthCharge extends PageLinesSection {
    			<?php endif; ?>
    			<?php if( $sp_h_offsets ): ?>
    			c.sp_offset_h = <?= $sp_h_offsets; ?>;
+   			<?php endif; ?>
+   			<?php if( $sp_slingshot ): ?>
+   			c.sp_slingshot = <?= $sp_slingshot; ?>;
    			<?php endif; ?>
    			c.bg_centered = <?= $bg_centered; ?>;
    			c.bg_smartsize = <?= $resizes; ?>;
