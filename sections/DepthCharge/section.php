@@ -250,8 +250,6 @@ class etcDepthCharge extends PageLinesSection {
 			        		);
 			endif;
 
-			plprint($opts);
-
 			$options[] = array(
 							'title'		=> 'Sprite ' . $i,
 							'type'		=> 'multi',
