@@ -65,8 +65,9 @@ var Block = function (container) {
   for ( i = 0; i < jQuery('#' + this.plid + ' .depthChargeSprite').size(); i++ ){
     this.sprites.push(new Sprite(jQuery('#' + this.plid + ' .depthChargeSprite').eq(i)));
     s = this.sprites[i];
-    s.vratio = Number(this.config.sp_ratio_v[i]);
-    // get the offsets here
+    s.vratio = +this.config.sp_ratio_v[i];
+    s.voffset = +this.config.sp_offset_v[i];
+    s.hoffset = +this.config.sp_offset_h[i];
   }
 
   // Let's churn our sizing to get to our perfect world
@@ -104,9 +105,8 @@ function churnSmartPosition(t,p){
   // t is the sprite object
   // p is the parent (block)
   var output = [];
-  // o is wrong, have to attach it to the proper configuration options (vh offset)
-  output.top = (p.h/2)-(t.h/2);
-  output.left = (p.w/2)-(t.w/2);
+  output.top = (p.h/2)-(t.h/2)+t.voffset;
+  output.left = (p.w/2)-(t.w/2)+t.hoffset;
   return output;
 }
 

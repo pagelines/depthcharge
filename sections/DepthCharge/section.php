@@ -196,9 +196,10 @@ class etcDepthCharge extends PageLinesSection {
 	  			$bg_centered[] = $this->opt('background'.$i.'_center');
 	  		endif;
 	  		if( $this->opt('sprite'.$i.'_image') != '' ):
-	  			$sprites[]['image'] = $this->opt('sprite'.$i.'_image');
+	  			$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'));
 	  			$sp_v_ratios[] = $this->opt('sprite'.$i.'_vspeed');
-	  			$sp_v_offset[] = $this->opt('sprite'.$i.'_voffset');
+	  			$sp_v_offsets[] = $this->opt('sprite'.$i.'_voffset');
+	  			$sp_h_offsets[] = $this->opt('sprite'.$i.'_hoffset');
 	  		endif;
 	  	endwhile;
 	  	if( !$images ):
@@ -207,23 +208,10 @@ class etcDepthCharge extends PageLinesSection {
 	  		$resizes[] = '1';
 	  		$bg_centered[] = '1';
 	  	endif;
-	  	// Let's just remove the default sprite for now
-	  	//if( !$sprites ):
-	  	//	$sprites[] = 'http://new.daaba.org/wp-content/uploads/2013/05/Logo.png';
-	  	//	$sp_v_ratios[] = '-1.25';
-	  	//endif;
 
-	  	$fullheight = $this->opt('fullheight');
-	  	$height = $this->opt('height');
+	  	$height = ($this->opt('height')) ? $this->opt('height') : '400';
+	  	$fullheight = ($this->opt('fullheight')) ? $this->opt('fullheight') : '0';
 	  	$contained = ($this->opt('contained')) ? 'overflow: hidden;' : '';
-
-	  	if ( $height == '' ):
-	  		$height = 400;
-	  	endif;
-
-	  	if ( $fullheight == '' ):
-	  		$fullheight = 0;
-	  	endif;
 
 	  	if ( $images != false ) {
 	  		foreach ( $images as $image ){
@@ -239,6 +227,12 @@ class etcDepthCharge extends PageLinesSection {
 		$bg_v_ratios = json_encode($bg_v_ratios);
    		if( $sp_v_ratios ):
 			$sp_v_ratios = json_encode($sp_v_ratios);
+		endif;
+   		if( $sp_v_offsets ):
+			$sp_v_offsets = json_encode($sp_v_offsets);
+		endif;
+   		if( $sp_h_offsets ):
+			$sp_h_offsets = json_encode($sp_h_offsets);
 		endif;
 		$bg_centered = json_encode($bg_centered);
 		$resizes = json_encode($resizes);
@@ -259,6 +253,12 @@ class etcDepthCharge extends PageLinesSection {
    			<?php if( $sp_v_ratios ): ?>
    			c.sp_ratio_v = <?= $sp_v_ratios; ?>;
    			<?php endif; ?>
+   			<?php if( $sp_v_offsets ): ?>
+   			c.sp_offset_v = <?= $sp_v_offsets; ?>;
+   			<?php endif; ?>
+   			<?php if( $sp_h_offsets ): ?>
+   			c.sp_offset_h = <?= $sp_h_offsets; ?>;
+   			<?php endif; ?>
    			c.bg_centered = <?= $bg_centered; ?>;
    			c.bg_smartsize = <?= $resizes; ?>;
    			c.fullheight = <?= $fullheight ?>;
@@ -267,7 +267,7 @@ class etcDepthCharge extends PageLinesSection {
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
 	<?php if( $sprites ): ?>
 		<?php foreach( $sprites as $sprite ): ?>
-				<div class="depthChargeSprite">
+				<div class="depthChargeSprite <?= $sprite['class']?>">
 					<img src="<?= $sprite['image'] ?>" />
 				</div>
 		<?php endforeach; ?>
