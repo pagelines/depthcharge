@@ -459,7 +459,7 @@ window.onload = function(){
   */
   if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     var s = skrollr.init({
-        forceHeight: false,
+        forceHeight: true,
         smoothScroll: true
     });
   }
