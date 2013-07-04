@@ -23,322 +23,161 @@ class etcDepthCharge extends PageLinesSection {
 		$prefix = ($clone_id != '') ? '.clone_'.$clone_id : '';
 	}
 
+	var $default_backdrops = 1;
+	var $default_sprites = 1;
+
 	function section_opts() {
-		$opts = array(
-array(
-				'title'			=> 'Block Options',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type'		=> 'text',
-						'key'			=> 'height',
-						'label'		=> 'Block Height'
-											),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'fullheight',
-						'label'		=> 'Full Height? (overrides height)'
-											),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'contained',
-						'label'		=> 'Contain elements? (Overflow: Hidden)'
-											)
-										)
-									),
-			array(
-				'title'			=> 'Background #1',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type' 		=> 'select',
-						'key'			=> 'background1_vspeed',
-						'label' 	=> 'Scrolling Speed',
-						'opts'		=> array(
-							'5'			=> array('name' => 'Lightning Reverse'),
-							'2'			=> array('name' => 'Speedy Reverse'),
-							'1.5'		=> array('name' => 'Fast Reverse'),
-							'1.25'		=> array('name' => 'Heightened Reverse'),
-							'1'			=> array('name' => 'Reverse'),
-							'.5'		=> array('name' => 'Half Reverse'),
-							'.25'		=> array('name' => 'Slow Reverse'),
-							'.1'		=> array('name' => 'Turtle Reverse'),
-							'-.6'		=> array('name' => 'Turtle Forward'),
-							'-.75'		=> array('name' => 'Slow Forward'),
-							'-1'		=> array('name' => 'Half Forward'),
-							'-1.5'		=> array('name' => 'Forward'),
-							'-1.75'		=> array('name' => 'Heightened Forward'),
-							'-2'		=> array('name' => 'Fast Forward'),
-							'-2.5'		=> array('name' => 'Speedy Forward'),
-							'-5.5'		=> array('name' => 'Lightning')
-												)
-											),
-			array(
-            			'key'           => 'background1_image',
-            			'label'			=> 'Background Image',
-            			'type'          => 'image_upload',
-            			'imgsize'       => '256',        // The image preview 'max' size
-            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-        									),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'background1_smartsize',
-						'label'		=> 'SmartSize'
-											),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'background1_center',
-						'label'		=> 'Center'
-											)
-										)
-									),
-array(
-				'title'			=> 'Background #2',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type' 		=> 'select',
-						'key'			=> 'background2_vspeed',
-						'label' 	=> 'Scrolling Speed',
-						'opts'		=> array(
-							'5'			=> array('name' => 'Lightning Reverse'),
-							'2'			=> array('name' => 'Speedy Reverse'),
-							'1.5'		=> array('name' => 'Fast Reverse'),
-							'1.25'		=> array('name' => 'Heightened Reverse'),
-							'1'			=> array('name' => 'Reverse'),
-							'.5'		=> array('name' => 'Half Reverse'),
-							'.25'		=> array('name' => 'Slow Reverse'),
-							'.1'		=> array('name' => 'Turtle Reverse'),
-							'-.6'		=> array('name' => 'Turtle Forward'),
-							'-.75'		=> array('name' => 'Slow Forward'),
-							'-1'		=> array('name' => 'Half Forward'),
-							'-1.5'		=> array('name' => 'Forward'),
-							'-1.75'		=> array('name' => 'Heightened Forward'),
-							'-2'		=> array('name' => 'Fast Forward'),
-							'-2.5'		=> array('name' => 'Speedy Forward'),
-							'-5.5'		=> array('name' => 'Lightning')
-												)
-											),
-			array(
-            			'key'           => 'background2_image',
-            			'label'			=> 'Background Image',
-            			'type'          => 'image_upload',
-            			'imgsize'       => '256',        // The image preview 'max' size
-            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-        									),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'background2_smartsize',
-						'label'		=> 'SmartSize'
-											),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'background2_center',
-						'label'		=> 'Center'
-											)
-										),
-									),
-array(
-				'title'			=> 'Background #3',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type' 			=> 'select',
-						'key'			=> 'background3_vspeed',
-						'label' 		=> 'Scrolling Speed',
-						'opts'			=> array(
-							'5'			=> array('name' => 'Lightning Reverse'),
-							'2'			=> array('name' => 'Speedy Reverse'),
-							'1.5'		=> array('name' => 'Fast Reverse'),
-							'1.25'		=> array('name' => 'Heightened Reverse'),
-							'1'			=> array('name' => 'Reverse'),
-							'.5'		=> array('name' => 'Half Reverse'),
-							'.25'		=> array('name' => 'Slow Reverse'),
-							'.1'		=> array('name' => 'Turtle Reverse'),
-							'-.6'		=> array('name' => 'Turtle Forward'),
-							'-.75'		=> array('name' => 'Slow Forward'),
-							'-1'		=> array('name' => 'Half Forward'),
-							'-1.5'		=> array('name' => 'Forward'),
-							'-1.75'		=> array('name' => 'Heightened Forward'),
-							'-2'		=> array('name' => 'Fast Forward'),
-							'-2.5'		=> array('name' => 'Speedy Forward'),
-							'-5.5'		=> array('name' => 'Lightning')
-												)
-											),
-			array(
-            			'key'           => 'background3_image',
-            			'label'			=> 'Background Image',
-            			'type'          => 'image_upload',
-            			'imgsize'       => '256',        // The image preview 'max' size
-            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-        									),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'background3_smartsize',
-						'label'		=> 'SmartSize'
-											),
-			array(
-						'type'		=> 'check',
-						'key'			=> 'background3_center',
-						'label'		=> 'Center'
-											)
-										)
-									),
-array(
-				'title'			=> 'Sprite #1',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type' 		=> 'select',
-						'key'			=> 'sprite1_vspeed',
-						'label' 	=> 'Scrolling Speed',
-						'opts'		=> array(
-							'5'			=> array('name' => 'Lightning Reverse'),
-							'2'			=> array('name' => 'Speedy Reverse'),
-							'1.5'		=> array('name' => 'Fast Reverse'),
-							'1.25'		=> array('name' => 'Heightened Reverse'),
-							'1'			=> array('name' => 'Reverse'),
-							'.5'		=> array('name' => 'Half Reverse'),
-							'.25'		=> array('name' => 'Slow Reverse'),
-							'.1'		=> array('name' => 'Turtle Reverse'),
-							'-.1'		=> array('name' => 'Turtle Forward'),
-							'-.25'		=> array('name' => 'Slow Forward'),
-							'-.5'		=> array('name' => 'Half Forward'),
-							'-1'		=> array('name' => 'Forward'),
-							'-1.25'		=> array('name' => 'Heightened Forward'),
-							'-1.5'		=> array('name' => 'Fast Forward'),
-							'-2'		=> array('name' => 'Speedy Forward'),
-							'-5'		=> array('name' => 'Lightning')
-												)
-											),
-			array(
-            			'key'           => 'sprite1_image',
-            			'label'			=> 'Sprite Image',
-            			'type'          => 'image_upload',
-            			'imgsize'       => '256',        // The image preview 'max' size
-            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-        									),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite1_class',
-						'label'		=> 'Custom Class'
-											),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite1_voffset',
-						'label'		=> 'Sprite Vertical Offset'
-											),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite1_hoffset',
-						'label'		=> 'Sprite Horizontal Offset'
-											),
-										)
-									),
-array(
-				'title'			=> 'Sprite #2',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type' 		=> 'select',
-						'key'			=> 'sprite2_vspeed',
-						'label' 	=> 'Scrolling Speed',
-						'opts'		=> array(
-							'5'			=> array('name' => 'Lightning Reverse'),
-							'2'			=> array('name' => 'Speedy Reverse'),
-							'1.5'		=> array('name' => 'Fast Reverse'),
-							'1.25'		=> array('name' => 'Heightened Reverse'),
-							'1'			=> array('name' => 'Reverse'),
-							'.5'		=> array('name' => 'Half Reverse'),
-							'.25'		=> array('name' => 'Slow Reverse'),
-							'.1'		=> array('name' => 'Turtle Reverse'),
-							'-.1'		=> array('name' => 'Turtle Forward'),
-							'-.25'		=> array('name' => 'Slow Forward'),
-							'-.5'		=> array('name' => 'Half Forward'),
-							'-1'		=> array('name' => 'Forward'),
-							'-1.25'		=> array('name' => 'Heightened Forward'),
-							'-1.5'		=> array('name' => 'Fast Forward'),
-							'-2'		=> array('name' => 'Speedy Forward'),
-							'-5'		=> array('name' => 'Lightning')
-												)
-											),
-			array(
-            			'key'           => 'sprite2_image',
-            			'label'			=> 'Sprite Image',
-            			'type'          => 'image_upload',
-            			'imgsize'       => '256',        // The image preview 'max' size
-            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-        									),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite2_class',
-						'label'		=> 'Custom Class'
-											),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite2_voffset',
-						'label'		=> 'Sprite Vertical Offset'
-											),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite2_hoffset',
-						'label'		=> 'Sprite Horizontal Offset'
-											),
-										)
-									),
-array(
-				'title'			=> 'Sprite #3',
-				'type'			=> 'multi',
-				'opts'			=> array(
-			array(
-						'type' 		=> 'select',
-						'key'			=> 'sprite3_vspeed',
-						'label' 	=> 'Scrolling Speed',
-						'opts'		=> array(
-							'5'			=> array('name' => 'Lightning Reverse'),
-							'2'			=> array('name' => 'Speedy Reverse'),
-							'1.5'		=> array('name' => 'Fast Reverse'),
-							'1.25'		=> array('name' => 'Heightened Reverse'),
-							'1'			=> array('name' => 'Reverse'),
-							'.5'		=> array('name' => 'Half Reverse'),
-							'.25'		=> array('name' => 'Slow Reverse'),
-							'.1'		=> array('name' => 'Turtle Reverse'),
-							'-.1'		=> array('name' => 'Turtle Forward'),
-							'-.25'		=> array('name' => 'Slow Forward'),
-							'-.5'		=> array('name' => 'Half Forward'),
-							'-1'		=> array('name' => 'Forward'),
-							'-1.25'		=> array('name' => 'Heightened Forward'),
-							'-1.5'		=> array('name' => 'Fast Forward'),
-							'-2'		=> array('name' => 'Speedy Forward'),
-							'-5'		=> array('name' => 'Lightning')
-												)
-											),
-			array(
-            			'key'           => 'sprite3_image',
-            			'label'			=> 'Sprite Image',
-            			'type'          => 'image_upload',
-            			'imgsize'       => '256',        // The image preview 'max' size
-            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-        									),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite3_class',
-						'label'		=> 'Custom Class'
-											),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite3_voffset',
-						'label'		=> 'Sprite Vertical Offset'
-											),
-			array(
-						'type'		=> 'text',
-						'key'			=> 'sprite3_hoffset',
-						'label'		=> 'Sprite Horizontal Offset'
-											),
-										)
-									),
-								);
-		return $opts;
+		$options = array();
+		$options[] = array(
+				'title'	=> 'Block Options',
+				'type'	=> 'multi',
+				'opts'	=> array(
+						array(
+								'type'		=> 'text',
+								'key'		=> 'height',
+								'default'	=>	'400',
+								'label'		=> 'Block Height',
+						),
+						array(
+								'type'		=> 'count_select',
+								'key'		=> 'backdrop_count',
+								'count_start'	=> '1',
+								'count_number'	=> '12',
+								'default'	=> '1',
+								'label'		=> 'Number of Backdrops'
+						),
+						array(
+								'type'		=> 'count_select',
+								'key'		=> 'sprite_count',
+								'count_start'	=> '1',
+								'count_number'	=> '12',
+								'default'	=> '1',
+								'label'		=> 'Number of Sprites'
+						),
+						array(
+								'type'		=> 'check',
+								'key'		=> 'fullheight',
+								'default'	=> '0',
+								'label'		=> 'Full Height? (overrides height)',
+						),
+						array(
+								'type'		=> 'check',
+								'default'	=> '0',
+								'key'		=> 'contained',
+								'label'		=> 'Contain elements? (Overflow: Hidden)',
+						)
+					)
+				);
+
+		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
+		$backdrops = ($this->opt('backdrop_count')) ? $this->opt('backdrop_count') : $this->default_backdrops;
+
+		for($i = 1; $i <= $backdrops; $i++ ){
+			$opts = array(
+						array(
+									'type' 		=> 'select',
+									'key'			=> 'background'.$i.'_vspeed',
+									'label' 	=> 'Scrolling Speed',
+									'opts'		=> array(
+										'5'			=> array('name' => 'Lightning Reverse'),
+										'2'			=> array('name' => 'Speedy Reverse'),
+										'1.5'		=> array('name' => 'Fast Reverse'),
+										'1.25'		=> array('name' => 'Heightened Reverse'),
+										'1'			=> array('name' => 'Reverse'),
+										'.5'		=> array('name' => 'Half Reverse'),
+										'.25'		=> array('name' => 'Slow Reverse'),
+										'.1'		=> array('name' => 'Turtle Reverse'),
+										'-.6'		=> array('name' => 'Turtle Forward'),
+										'-.75'		=> array('name' => 'Slow Forward'),
+										'-1'		=> array('name' => 'Half Forward'),
+										'-1.5'		=> array('name' => 'Forward'),
+										'-1.75'		=> array('name' => 'Heightened Forward'),
+										'-2'		=> array('name' => 'Fast Forward'),
+										'-2.5'		=> array('name' => 'Speedy Forward'),
+										'-5.5'		=> array('name' => 'Lightning')
+															)
+														),
+						array(
+			            			'key'           => 'background'.$i.'_image',
+			            			'label'			=> 'Background Image',
+			            			'type'          => 'image_upload',
+			            			'imgsize'       => '256',        // The image preview 'max' size
+			            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+			        									),
+						array(
+									'type'		=> 'check',
+									'key'			=> 'background'.$i.'_smartsize',
+									'label'		=> 'SmartSize'
+														),
+						array(
+									'type'		=> 'check',
+									'key'			=> 'background'.$i.'_center',
+									'label'		=> 'Center'
+														),
+						);
+			$options[] = array(
+							'title'		=> 'Background ' . $i,
+							'type'		=> 'multi',
+							'opts'		=> $opts,
+						);
+		}
+
+		for($i = 1; $i <= $sprites; $i++ ){
+			$opts = array(
+						array(
+									'type' 		=> 'select',
+									'key'			=> 'sprite'.$i.'_vspeed',
+									'label' 	=> 'Scrolling Speed',
+									'opts'		=> array(
+										'5'			=> array('name' => 'Lightning Reverse'),
+										'2'			=> array('name' => 'Speedy Reverse'),
+										'1.5'		=> array('name' => 'Fast Reverse'),
+										'1.25'		=> array('name' => 'Heightened Reverse'),
+										'1'			=> array('name' => 'Reverse'),
+										'.5'		=> array('name' => 'Half Reverse'),
+										'.25'		=> array('name' => 'Slow Reverse'),
+										'.1'		=> array('name' => 'Turtle Reverse'),
+										'-.6'		=> array('name' => 'Turtle Forward'),
+										'-.75'		=> array('name' => 'Slow Forward'),
+										'-1'		=> array('name' => 'Half Forward'),
+										'-1.5'		=> array('name' => 'Forward'),
+										'-1.75'		=> array('name' => 'Heightened Forward'),
+										'-2'		=> array('name' => 'Fast Forward'),
+										'-2.5'		=> array('name' => 'Speedy Forward'),
+										'-5.5'		=> array('name' => 'Lightning')
+															)
+														),
+						array(
+			            			'key'           => 'sprite'.$i.'_image',
+			            			'label'			=> 'Background Image',
+			            			'type'          => 'image_upload',
+			            			'imgsize'       => '256',        // The image preview 'max' size
+			            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
+			        									),
+						array(
+									'type'		=> 'text',
+									'key'			=> 'sprite'.$i.'_class',
+									'label'		=> 'Custom Class'
+														),
+						array(
+									'type'		=> 'text',
+									'key'			=> 'sprite'.$i.'_voffset',
+									'label'		=> 'Sprite Vertical Offset'
+														),
+						array(
+									'type'		=> 'text',
+									'key'			=> 'sprite'.$i.'_hoffset',
+									'label'		=> 'Sprite Horizontal Offset'
+														)
+						);
+			$options[] = array(
+							'title'		=> 'Sprite ' . $i,
+							'type'		=> 'multi',
+							'opts'		=> $opts,
+						);
+		}
+
+		return $options;
 	}
 
 	/**
