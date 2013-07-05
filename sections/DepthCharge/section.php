@@ -265,46 +265,6 @@ class etcDepthCharge extends PageLinesSection {
 	  	$backdrop_count = ($this->opt('backdrop_count')) ? $this->opt('backdrop_count') : 1;
 	  	$sp_v_ratios = false;
 
-	  	$section_output = (!$this->active_loading) ? render_nested_sections( $this->meta['content'] ) : false;
-		
-		$style = '';
-		$inner_style = '';
-		
-		$inner_style .= ($this->opt('pl_area_height')) ? sprintf('min-height: %spx;', $this->opt('pl_area_height')) : '';
-		
-		$style .= ($this->opt('pl_area_image')) ? sprintf('background-image: url(%s);', $this->opt('pl_area_image')) : '';
-		
-		$classes = ($this->opt('pl_area_parallax')) ? 'pl-parallax' : '';
-		
-		// If there is no output, there should be no padding or else the empty area will have height.
-		if( $section_output ){
-						
-			$default_padding = (pl_setting('section_area_default_pad'))	? pl_setting('section_area_default_pad') : '20px';		
-					
-			$padding = ($this->opt('pl_area_pad')) ? $this->opt('pl_area_pad') : $default_padding; 
-			
-			$padding = ( strpos($padding, 'px') ) ? $padding : $padding.'px';
-			
-			$padding_bottom = ($this->opt('pl_area_pad_bottom')) ? $this->opt('pl_area_pad_bottom') : $padding; 
-			
-			$style .= sprintf('padding-top: %s; padding-bottom: %s;', $padding, $padding_bottom);
-			
-			
-			
-		
-			$content_class = ( $padding != '0px	' ) ? 'nested-section-area' : '';
-			
-			$buffer = ( pl_draft_mode() ) ? sprintf('<div class="pl-sortable pl-sortable-buffer span12 offset0"></div>') : '';
-			
-			$section_output = $buffer . $section_output . $buffer;
-			
-		} else {
-			
-			$pad_css = ''; 
-			$content_class = '';
-
-		}
-
 	  	$i = 0;
 	  	while ($i++ < $backdrop_count ):
 	  		$images[] = ($this->opt('background'.$i.'_image')) ? $this->opt('background'.$i.'_image') : 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg';
@@ -348,8 +308,6 @@ class etcDepthCharge extends PageLinesSection {
 			echo setup_section_notify($this);
 			return;
 		}
-
-
 
 		$bg_v_ratios = json_encode($bg_v_ratios);
    		if( isset($sp_v_ratios) ):
