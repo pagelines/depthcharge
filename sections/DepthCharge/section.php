@@ -16,15 +16,15 @@ class etcDepthCharge extends PageLinesSection {
 
 	function section_styles(){
 		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.js',array(),'0.6.8',true);
-
+		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'),'1.0b',true);
 		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
 		for($i = 1; $i <= $sprites; $i++){
-			if( $this->opt('sprite'.$i.'_type') == 'fittext' ):
-				wp_enqueue_script('fittext', $this->base_url.'/js/jquery.fittext.js',array(),'1.0',true);
+			if( $this->opt('sprite'.$i.'_type') == 'text' ):
+				wp_enqueue_script('slabtext', $this->base_url.'/js/jquery.slabtext.min.js',array(),'2.3',true);
 				break;
 			endif;
 		}
-		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'),'1.0b',true);
+
 	}
 
 	function section_head( $clone_id ){
@@ -32,22 +32,9 @@ class etcDepthCharge extends PageLinesSection {
 		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
 
 		for($i = 1; $i <= $sprites; $i++){
-			if( $this->opt('sprite'.$i.'_type') == 'fittext' ):
+			if( $this->opt('sprite'.$i.'_type') == 'text' ):
 				$sprite_font = ($this->opt('sprite'.$i.'_font')) ? $this->opt('sprite'.$i.'_font') : 'josefin_sans';
-				$sprite_ftsize = ($this->opt('sprite'.$i.'_ftsize')) ? $this->opt('sprite'.$i.'_ftsize') : '.2';
-				echo load_custom_font( $sprite_font, $prefix.' .depthChargeSprite:nth-child('.$i.') h2.fittext' );
-				?>
-				
-				<script type="text/javascript">
-				/*<![CDATA[*/ 
-					jQuery(document).ready(function(){ 
-					
-						jQuery('<?php echo $prefix;?> .depthChargeSprite:nth-child(<?= $i ?>) .fittext').fitText(<?= $sprite_ftsize ?>);
-					
-					});
-				/*]]>*/</script>
-				
-				<?php 
+				echo load_custom_font( $sprite_font, $prefix.' .depthChargeSprite:nth-child('.$i.') h1' );
 			endif;
 		}
 	}
@@ -203,7 +190,7 @@ class etcDepthCharge extends PageLinesSection {
 									'label' 	=> 'Type of Sprite',
 									'opts'		=> array(
 										'img'		=> array('name' => 'Image'),
-										'fittext'	=> array('name' => 'FitText'),
+										'text'	=> array('name' => 'SlabText'),
 															)
 														),
 												);
@@ -215,7 +202,7 @@ class etcDepthCharge extends PageLinesSection {
 			            	'imgsize'       => '256',        // The image preview 'max' size
 			           		'sizelimit'     => '2048000'     // Image upload max size default 512kb
 			        		);
-			elseif ( $sprite_type == 'fittext' ):
+			elseif ( $sprite_type == 'text' ):
 				$opts[] = array(
 			            	'key'           => 'sprite'.$i.'_text',
 			            	'label'			=> 'Text',
@@ -229,24 +216,20 @@ class etcDepthCharge extends PageLinesSection {
 			        		);
 				$opts[] = array(
 							'type' 		=> 'select',
-							'key'			=> 'sprite'.$i.'_ftsize',
-							'label' 	=> 'Fit Text Ratio',
+							'key'			=> 'sprite'.$i.'_textwidth',
+							'label' 	=> 'SlabText Width',
+							'default'	=> '80%',
 							'opts'		=> array(
-								'1.5'		=> array('name' => '1.5'),
-								'1.4'		=> array('name' => '1.4'),
-								'1.3'		=> array('name' => '1.3'),
-								'1.2'		=> array('name' => '1.2'),
-								'1.1'		=> array('name' => '1.1'),
-								'1'			=> array('name' => '1.0'),
-								'.9'		=> array('name' => '.9'),
-								'.8'		=> array('name' => '.8'),
-								'.7'		=> array('name' => '.7'),
-								'.6'		=> array('name' => '.6'),
-								'.5'		=> array('name' => '.5'),
-								'.4'		=> array('name' => '.4'),
-								'.3'		=> array('name' => '.3'),
-								'.2'		=> array('name' => '.2'),
-								'.1'		=> array('name' => '.1'),
+								'100%'		=> array('name' => '100%'),
+								'90%'		=> array('name' => '90%'),
+								'80%'		=> array('name' => '80%'),
+								'70%'		=> array('name' => '70%'),
+								'60%'		=> array('name' => '60%'),
+								'50%'		=> array('name' => '50%'),
+								'40%'		=> array('name' => '40%'),
+								'30%'		=> array('name' => '30%'),
+								'20%'		=> array('name' => '20%'),
+								'10%'		=> array('name' => '10%'),
 											)
 							);
 				$opts[] = array(
@@ -275,6 +258,46 @@ class etcDepthCharge extends PageLinesSection {
 	  	$backdrop_count = ($this->opt('backdrop_count')) ? $this->opt('backdrop_count') : 1;
 	  	$sp_v_ratios = false;
 
+	  	$section_output = (!$this->active_loading) ? render_nested_sections( $this->meta['content'] ) : false;
+		
+		$style = '';
+		$inner_style = '';
+		
+		$inner_style .= ($this->opt('pl_area_height')) ? sprintf('min-height: %spx;', $this->opt('pl_area_height')) : '';
+		
+		$style .= ($this->opt('pl_area_image')) ? sprintf('background-image: url(%s);', $this->opt('pl_area_image')) : '';
+		
+		$classes = ($this->opt('pl_area_parallax')) ? 'pl-parallax' : '';
+		
+		// If there is no output, there should be no padding or else the empty area will have height.
+		if( $section_output ){
+						
+			$default_padding = (pl_setting('section_area_default_pad'))	? pl_setting('section_area_default_pad') : '20px';		
+					
+			$padding = ($this->opt('pl_area_pad')) ? $this->opt('pl_area_pad') : $default_padding; 
+			
+			$padding = ( strpos($padding, 'px') ) ? $padding : $padding.'px';
+			
+			$padding_bottom = ($this->opt('pl_area_pad_bottom')) ? $this->opt('pl_area_pad_bottom') : $padding; 
+			
+			$style .= sprintf('padding-top: %s; padding-bottom: %s;', $padding, $padding_bottom);
+			
+			
+			
+		
+			$content_class = ( $padding != '0px	' ) ? 'nested-section-area' : '';
+			
+			$buffer = ( pl_draft_mode() ) ? sprintf('<div class="pl-sortable pl-sortable-buffer span12 offset0"></div>') : '';
+			
+			$section_output = $buffer . $section_output . $buffer;
+			
+		} else {
+			
+			$pad_css = ''; 
+			$content_class = '';
+
+		}
+
 	  	$i = 0;
 	  	while ($i++ < $backdrop_count ):
 	  		$images[] = ($this->opt('background'.$i.'_image')) ? $this->opt('background'.$i.'_image') : 'http://etcio.fwd.wf/wp-content/uploads/2013/06/canmore_rocky_mountains-hd-wallpaper.jpg';
@@ -286,7 +309,7 @@ class etcDepthCharge extends PageLinesSection {
 	  	$i = 0;
 	  	while( $i++ < $sprite_count ):
 	  		$s_image = ($this->opt('sprite'.$i.'_image')) ? $this->opt('sprite'.$i.'_image') : 'http://wptest.sessioner.com/wp-content/uploads/2013/07/PageLines-Logo.png';
-	  		$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'), 'type' => $this->opt('sprite'.$i.'_type'), 'text' => $this->opt('sprite'.$i.'_text'), 'color' => $this->opt('sprite'.$i.'_color'));
+	  		$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'), 'type' => $this->opt('sprite'.$i.'_type'), 'text' => $this->opt('sprite'.$i.'_text'), 'color' => $this->opt('sprite'.$i.'_color'), 'textwidth' => $this->opt('sprite'.$i.'_textwidth'));
 	  		$sp_v_ratios[] = ($this->opt('sprite'.$i.'_vspeed')) ? $this->opt('sprite'.$i.'_vspeed') : '-1';
 	  		$sp_v_offsets[] = ($this->opt('sprite'.$i.'_voffset')) ? $this->opt('sprite'.$i.'_voffset') : '0';
 	  		$sp_h_offsets[] = ($this->opt('sprite'.$i.'_hoffset')) ? $this->opt('sprite'.$i.'_hoffset') : '0';
@@ -356,11 +379,11 @@ class etcDepthCharge extends PageLinesSection {
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
 	<?php if( isset($sprites) ): ?>
 		<?php foreach( $sprites as $sprite ): ?>
-				<div class="depthChargeSprite <?= $sprite['class']?>">
+				<div class="depthChargeSprite <?= $sprite['class']?>" style="width: <?= $sprite['textwidth'] ?>;">
 					<?php if ( $sprite['type'] == 'img' ): ?>
 					<img src="<?= $sprite['image'] ?>" />
-					<?php elseif ( $sprite['type'] == 'fittext' ):  ?>
-					<h2 class="fittext" style="color: <?= '#'.$sprite['color'] ?>"><?= $sprite['text'] ?></h2>
+					<?php elseif ( $sprite['type'] == 'text' ):  ?>
+					<h1 style="color: <?= '#'.$sprite['color'] ?>;"><span class="slabtext"><?= $sprite['text'] ?></span></h1>
 					<?php endif; ?>
 				</div>
 		<?php endforeach; ?>
