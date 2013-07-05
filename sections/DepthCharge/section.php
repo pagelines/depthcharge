@@ -24,7 +24,6 @@ class etcDepthCharge extends PageLinesSection {
 				break;
 			endif;
 		}
-
 	}
 
 	function section_head( $clone_id ){
@@ -94,6 +93,7 @@ class etcDepthCharge extends PageLinesSection {
 									'type' 		=> 'select',
 									'key'			=> 'background'.$i.'_vspeed',
 									'label' 	=> 'Scrolling Speed',
+									'default'	=> '.5',
 									'opts'		=> array(
 										'5'			=> array('name' => 'Lightning Reverse'),
 										'2'			=> array('name' => 'Speedy Reverse'),
@@ -116,17 +116,20 @@ class etcDepthCharge extends PageLinesSection {
 						array(
 			            			'key'           => 'background'.$i.'_image',
 			            			'label'			=> 'Background Image',
+			            			'default'		=> 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg',
 			            			'type'          => 'image_upload',
 			            			'imgsize'       => '256',        // The image preview 'max' size
 			            			'sizelimit'     => '2048000'     // Image upload max size default 512kb
 			        									),
 						array(
 									'type'		=> 'check',
+									'default'	=> '0',
 									'key'			=> 'background'.$i.'_smartsize',
 									'label'		=> 'SmartSize'
 														),
 						array(
 									'type'		=> 'check',
+									'default'	=> '0',
 									'key'			=> 'background'.$i.'_center',
 									'label'		=> 'Center'
 														),
@@ -145,6 +148,7 @@ class etcDepthCharge extends PageLinesSection {
 								'type' 		=> 'select',
 								'key'			=> 'sprite'.$i.'_vspeed',
 								'label' 	=> 'Scrolling Speed',
+								'default'	=> '.5',
 								'opts'		=> array(
 										'5'      => array('name' => 'Lightning Reverse'),
 										'2'      => array('name' => 'Speedy Reverse'),
@@ -166,6 +170,7 @@ class etcDepthCharge extends PageLinesSection {
 														),
 						array(
 									'type'		=> 'check',
+									'default'	=> '0',
 									'key'			=> 'sprite'.$i.'_slingshot',
 									'label'		=> 'Slingshot Mode'
 														),
@@ -186,7 +191,8 @@ class etcDepthCharge extends PageLinesSection {
 														),
 						array(
 									'type' 		=> 'select',
-									'key'			=> 'sprite'.$i.'_type',
+									'key'		=> 'sprite'.$i.'_type',
+									'default'	=> 'text',
 									'label' 	=> 'Type of Sprite',
 									'opts'		=> array(
 										'img'		=> array('name' => 'Image'),
@@ -212,6 +218,7 @@ class etcDepthCharge extends PageLinesSection {
 				$opts[] = array(
 			            	'key'           => 'sprite'.$i.'_font',
 			            	'label'			=> 'Font',
+			            	'default'		=> 'josefin_sans',
 			            	'type'          => 'type'
 			        		);
 				$opts[] = array(
@@ -236,7 +243,7 @@ class etcDepthCharge extends PageLinesSection {
 			            	'key'           => 'sprite'.$i.'_color',
 			            	'label'			=> 'Text Color',
 			            	'type'          => 'color',
-			            	'default'		=> '#FFFFFF'
+			            	'default'		=> 'FFFFFF'
 			        		);
 			endif;
 
@@ -300,7 +307,7 @@ class etcDepthCharge extends PageLinesSection {
 
 	  	$i = 0;
 	  	while ($i++ < $backdrop_count ):
-	  		$images[] = ($this->opt('background'.$i.'_image')) ? $this->opt('background'.$i.'_image') : 'http://etcio.fwd.wf/wp-content/uploads/2013/06/canmore_rocky_mountains-hd-wallpaper.jpg';
+	  		$images[] = ($this->opt('background'.$i.'_image')) ? $this->opt('background'.$i.'_image') : 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg';
 	  		$bg_v_ratios[] = ($this->opt('background'.$i.'_vspeed')) ? $this->opt('background'.$i.'_vspeed') : '-1.5';
 	  		$resizes[] = ($this->opt('background'.$i.'_smartsize')) ? $this->opt('background'.$i.'_smartsize') : '1';
 	  		$bg_centered[] = ($this->opt('background'.$i.'_center')) ? $this->opt('background'.$i.'_center') : '1';
@@ -308,7 +315,7 @@ class etcDepthCharge extends PageLinesSection {
 
 	  	$i = 0;
 	  	while( $i++ < $sprite_count ):
-	  		$s_image = ($this->opt('sprite'.$i.'_image')) ? $this->opt('sprite'.$i.'_image') : 'http://wptest.sessioner.com/wp-content/uploads/2013/07/PageLines-Logo.png';
+	  		$s_image = ($this->opt('sprite'.$i.'_image')) ? $this->opt('sprite'.$i.'_image') : 'http://f.cl.ly/items/1V3Y0p0W3G2i2z1L0c1R/PageLines-Logo.png';
 	  		$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'), 'type' => $this->opt('sprite'.$i.'_type'), 'text' => $this->opt('sprite'.$i.'_text'), 'color' => $this->opt('sprite'.$i.'_color'), 'textwidth' => $this->opt('sprite'.$i.'_textwidth'));
 	  		$sp_v_ratios[] = ($this->opt('sprite'.$i.'_vspeed')) ? $this->opt('sprite'.$i.'_vspeed') : '-1';
 	  		$sp_v_offsets[] = ($this->opt('sprite'.$i.'_voffset')) ? $this->opt('sprite'.$i.'_voffset') : '0';
