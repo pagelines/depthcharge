@@ -15,7 +15,6 @@ V3: true
 class etcDepthCharge extends PageLinesSection {
 
 	function section_styles(){
-		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.min.js',array('jquery'),'1.0b',true);
 		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.js',array(),'0.6.8',true);
 
 		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
@@ -25,6 +24,7 @@ class etcDepthCharge extends PageLinesSection {
 				break;
 			endif;
 		}
+		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'),'1.0b',true);
 	}
 
 	function section_head( $clone_id ){
