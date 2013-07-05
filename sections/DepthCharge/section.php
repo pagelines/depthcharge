@@ -15,7 +15,7 @@ V3: true
 class etcDepthCharge extends PageLinesSection {
 
 	function section_styles(){
-		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.js',array(),'0.6.8',true);
+		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.min.js',array(),'0.6.8',true);
 		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.min.js',array('jquery'),'1.0b',true);
 		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
 		for($i = 1; $i <= $sprites; $i++){
@@ -39,10 +39,31 @@ class etcDepthCharge extends PageLinesSection {
 	}
 
 	var $default_backdrops = 1;
-	var $default_sprites = 1;
+	var $default_sprites = 0;
 
 	function section_opts() {
+
+		$instructions_template = <<<EOD
+<div>
+	<p>Welcome to DepthCharge - the smartest and most advanced parallax engine available, and available exclusively for Pagelines DMS.</p>
+	<p>To get an idea of what you can accomplish easily with this plugin, visit the <a href="#" class="btn btn-primary btn-mini">DEMO</a> page.</p>
+	<p style="text-transform: uppercase;"><strong>Explanation of Features</strong></p>
+	<p><u>Panel</u> : Turns your DepthCharge "block" into a full-height panel. <em>Pro Tip: Combine multiple panels together to create a windowed website that showcases important items.</em></p>
+	<p><u>Contain</u> : Contains the elements so they don't overflow outside of the bounds of the DepthCharge block.</p>
+	<p><u>Slingshot</u> : Sprite path will be drawn so it meets the middle of the DepthCharge block when in the middle of the screen. <em>Pro Tip: Combine this with panel mode.</em></p>
+	<p><u>SmartSize</u> : The size of image will automatically be calculated based on the distance the scroll speed requires. This is most important for high scrolling speeds.</p>
+	<p><u>Centered</u> : The background will be centered horizontally in the block.</p>
+	<p><u>Offsets</u> : By default, sprites are anchored in the center of your block. Offets (px) can be added to move the anchor.</p>
+</div>
+EOD;
+
 		$options = array();
+		$options[] = array(
+            'key'           => 'instructions',
+            'type'          => 'template',
+            'title'			=> 'Instructions',
+            'template'      => $instructions_template
+        );
 		$options[] = array(
 				'title'	=> 'Block Options',
 				'type'	=> 'multi',
@@ -56,7 +77,7 @@ class etcDepthCharge extends PageLinesSection {
 						array(
 								'type'		=> 'count_select',
 								'key'		=> 'backdrop_count',
-								'count_start'	=> '1',
+								'count_start'	=> '0',
 								'count_number'	=> '12',
 								'default'	=> '1',
 								'label'		=> 'Number of Backdrops'
@@ -64,22 +85,22 @@ class etcDepthCharge extends PageLinesSection {
 						array(
 								'type'		=> 'count_select',
 								'key'		=> 'sprite_count',
-								'count_start'	=> '1',
+								'count_start'	=> '0',
 								'count_number'	=> '12',
-								'default'	=> '1',
+								'default'	=> '0',
 								'label'		=> 'Number of Sprites'
 						),
 						array(
 								'type'		=> 'check',
 								'key'		=> 'fullheight',
 								'default'	=> '0',
-								'label'		=> 'Full Height? (overrides height)',
+								'label'		=> 'Panel',
 						),
 						array(
 								'type'		=> 'check',
 								'default'	=> '0',
 								'key'		=> 'contained',
-								'label'		=> 'Contain elements? (Overflow: Hidden)',
+								'label'		=> 'Contained',
 						)
 					)
 				);
@@ -131,7 +152,7 @@ class etcDepthCharge extends PageLinesSection {
 									'type'		=> 'check',
 									'default'	=> '0',
 									'key'			=> 'background'.$i.'_center',
-									'label'		=> 'Center'
+									'label'		=> 'Centered'
 														),
 						);
 			$options[] = array(
@@ -172,7 +193,7 @@ class etcDepthCharge extends PageLinesSection {
 									'type'		=> 'check',
 									'default'	=> '0',
 									'key'			=> 'sprite'.$i.'_slingshot',
-									'label'		=> 'Slingshot Mode'
+									'label'		=> 'Slingshot'
 														),
 						array(
 									'type'		=> 'text',
@@ -182,12 +203,12 @@ class etcDepthCharge extends PageLinesSection {
 						array(
 									'type'		=> 'text',
 									'key'			=> 'sprite'.$i.'_voffset',
-									'label'		=> 'Sprite Vertical Offset'
+									'label'		=> 'Vertical Offset'
 														),
 						array(
 									'type'		=> 'text',
 									'key'			=> 'sprite'.$i.'_hoffset',
-									'label'		=> 'Sprite Horizontal Offset'
+									'label'		=> 'Horizontal Offset'
 														),
 						array(
 									'type' 		=> 'select',
@@ -350,10 +371,18 @@ class etcDepthCharge extends PageLinesSection {
    			<?php if( isset($sp_slingshot) ): ?>
    			c.sp_slingshot = <?= $sp_slingshot; ?>;
    			<?php endif; ?>
+   			<?php if( isset($bg_centered) ): ?>
    			c.bg_centered = <?= $bg_centered; ?>;
+   			<?php endif; ?>
+			<?php if( isset($resizes) ): ?>
    			c.bg_smartsize = <?= $resizes; ?>;
+   			<?php endif; ?>
+			<?php if( isset($fullheight) ): ?>
    			c.fullheight = <?= $fullheight ?>;
+   			<?php endif; ?>
+   			<?php if( isset($pl) ): ?>
    			c.pl = <?= $pl ?>;
+   			<?php endif; ?>
    		</script>
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
 	<?php if( isset($sprites) ): ?>
