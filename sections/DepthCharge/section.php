@@ -316,7 +316,19 @@ class etcDepthCharge extends PageLinesSection {
 	  	$i = 0;
 	  	while( $i++ < $sprite_count ):
 	  		$s_image = ($this->opt('sprite'.$i.'_image')) ? $this->opt('sprite'.$i.'_image') : 'http://f.cl.ly/items/1V3Y0p0W3G2i2z1L0c1R/PageLines-Logo.png';
-	  		$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'), 'type' => $this->opt('sprite'.$i.'_type'), 'text' => $this->opt('sprite'.$i.'_text'), 'color' => $this->opt('sprite'.$i.'_color'), 'textwidth' => $this->opt('sprite'.$i.'_textwidth'));
+	  		if( $this->opt('sprite'.$i.'_type') == 'img' ):
+		  		$sprites[] = array( 
+		  			'image' => $this->opt('sprite'.$i.'_image'),
+		  			'class' => $this->opt('sprite'.$i.'_class'),
+		  			'type' => $this->opt('sprite'.$i.'_type'));
+		  	elseif( $this->opt('sprite'.$i.'_type') == 'text'):
+		  		$sprites[] = array( 
+		  			'class' => $this->opt('sprite'.$i.'_class'),
+		  			'type' => $this->opt('sprite'.$i.'_type'),
+		  			'text' => $this->opt('sprite'.$i.'_text'),
+		  			'color' => $this->opt('sprite'.$i.'_color'),
+		  			'textwidth' => $this->opt('sprite'.$i.'_textwidth'));
+		  	endif;
 	  		$sp_v_ratios[] = ($this->opt('sprite'.$i.'_vspeed')) ? $this->opt('sprite'.$i.'_vspeed') : '-1';
 	  		$sp_v_offsets[] = ($this->opt('sprite'.$i.'_voffset')) ? $this->opt('sprite'.$i.'_voffset') : '0';
 	  		$sp_h_offsets[] = ($this->opt('sprite'.$i.'_hoffset')) ? $this->opt('sprite'.$i.'_hoffset') : '0';
@@ -336,6 +348,8 @@ class etcDepthCharge extends PageLinesSection {
 			echo setup_section_notify($this);
 			return;
 		}
+
+
 
 		$bg_v_ratios = json_encode($bg_v_ratios);
    		if( isset($sp_v_ratios) ):
@@ -386,7 +400,7 @@ class etcDepthCharge extends PageLinesSection {
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
 	<?php if( isset($sprites) ): ?>
 		<?php foreach( $sprites as $sprite ): ?>
-				<div class="depthChargeSprite <?= $sprite['class']?>" style="width: <?= $sprite['textwidth'] ?>;">
+				<div class="depthChargeSprite <?= $sprite['class']?>" style="<?php echo ($sprite['type'] == 'text') ? 'width: '.$sprite['textwidth'] : '' ?>;">
 					<?php if ( $sprite['type'] == 'img' ): ?>
 					<img src="<?= $sprite['image'] ?>" />
 					<?php elseif ( $sprite['type'] == 'text' ):  ?>
