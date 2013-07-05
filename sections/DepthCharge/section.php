@@ -15,9 +15,16 @@ V3: true
 class etcDepthCharge extends PageLinesSection {
 
 	function section_styles(){
-		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'));
-		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.js');
-		wp_enqueue_script('fittext', $this->base_url.'/js/jquery.fittext.js');
+		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'),'1.0b',true);
+		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.js',array(),'0.6.8',true);
+
+		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
+		for($i = 1; $i <= $sprites; $i++){
+			if( $this->opt('sprite'.$i.'_type') == 'fittext' ):
+				wp_enqueue_script('fittext', $this->base_url.'/js/jquery.fittext.js',array(),'1.0',true);
+				break;
+			endif;
+		}
 	}
 
 	function section_head( $clone_id ){
