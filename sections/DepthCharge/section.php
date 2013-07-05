@@ -216,24 +216,20 @@ class etcDepthCharge extends PageLinesSection {
 			        		);
 				$opts[] = array(
 							'type' 		=> 'select',
-							'key'			=> 'sprite'.$i.'_ftsize',
-							'label' 	=> 'Fit Text Ratio',
+							'key'			=> 'sprite'.$i.'_textwidth',
+							'label' 	=> 'SlabText Width',
+							'default'	=> '80%',
 							'opts'		=> array(
-								'1.5'		=> array('name' => '1.5'),
-								'1.4'		=> array('name' => '1.4'),
-								'1.3'		=> array('name' => '1.3'),
-								'1.2'		=> array('name' => '1.2'),
-								'1.1'		=> array('name' => '1.1'),
-								'1'			=> array('name' => '1.0'),
-								'.9'		=> array('name' => '.9'),
-								'.8'		=> array('name' => '.8'),
-								'.7'		=> array('name' => '.7'),
-								'.6'		=> array('name' => '.6'),
-								'.5'		=> array('name' => '.5'),
-								'.4'		=> array('name' => '.4'),
-								'.3'		=> array('name' => '.3'),
-								'.2'		=> array('name' => '.2'),
-								'.1'		=> array('name' => '.1'),
+								'100%'		=> array('name' => '100%'),
+								'90%'		=> array('name' => '90%'),
+								'80%'		=> array('name' => '80%'),
+								'70%'		=> array('name' => '70%'),
+								'60%'		=> array('name' => '60%'),
+								'50%'		=> array('name' => '50%'),
+								'40%'		=> array('name' => '40%'),
+								'30%'		=> array('name' => '30%'),
+								'20%'		=> array('name' => '20%'),
+								'10%'		=> array('name' => '10%'),
 											)
 							);
 				$opts[] = array(
@@ -313,7 +309,7 @@ class etcDepthCharge extends PageLinesSection {
 	  	$i = 0;
 	  	while( $i++ < $sprite_count ):
 	  		$s_image = ($this->opt('sprite'.$i.'_image')) ? $this->opt('sprite'.$i.'_image') : 'http://wptest.sessioner.com/wp-content/uploads/2013/07/PageLines-Logo.png';
-	  		$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'), 'type' => $this->opt('sprite'.$i.'_type'), 'text' => $this->opt('sprite'.$i.'_text'), 'color' => $this->opt('sprite'.$i.'_color'));
+	  		$sprites[] = array( 'image' => $this->opt('sprite'.$i.'_image'), 'class' => $this->opt('sprite'.$i.'_class'), 'type' => $this->opt('sprite'.$i.'_type'), 'text' => $this->opt('sprite'.$i.'_text'), 'color' => $this->opt('sprite'.$i.'_color'), 'textwidth' => $this->opt('sprite'.$i.'_textwidth'));
 	  		$sp_v_ratios[] = ($this->opt('sprite'.$i.'_vspeed')) ? $this->opt('sprite'.$i.'_vspeed') : '-1';
 	  		$sp_v_offsets[] = ($this->opt('sprite'.$i.'_voffset')) ? $this->opt('sprite'.$i.'_voffset') : '0';
 	  		$sp_h_offsets[] = ($this->opt('sprite'.$i.'_hoffset')) ? $this->opt('sprite'.$i.'_hoffset') : '0';
@@ -383,11 +379,11 @@ class etcDepthCharge extends PageLinesSection {
 		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
 	<?php if( isset($sprites) ): ?>
 		<?php foreach( $sprites as $sprite ): ?>
-				<div class="depthChargeSprite <?= $sprite['class']?>">
+				<div class="depthChargeSprite <?= $sprite['class']?>" style="width: <?= $sprite['textwidth'] ?>;">
 					<?php if ( $sprite['type'] == 'img' ): ?>
 					<img src="<?= $sprite['image'] ?>" />
 					<?php elseif ( $sprite['type'] == 'text' ):  ?>
-					<h1 style="color: <?= '#'.$sprite['color'] ?>"><span class="slabtext"><?= $sprite['text'] ?></span></h1>
+					<h1 style="color: <?= '#'.$sprite['color'] ?>;"><span class="slabtext"><?= $sprite['text'] ?></span></h1>
 					<?php endif; ?>
 				</div>
 		<?php endforeach; ?>
