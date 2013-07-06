@@ -16,7 +16,7 @@ class etcDepthCharge extends PageLinesSection {
 
 	function section_styles(){
 		wp_enqueue_script('skrollr', $this->base_url.'/js/skrollr.min.js',array(),'0.6.8',true);
-		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.min.js',array('jquery'),'1.0b',true);
+		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js',array('jquery'),'1.0b',true);
 		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
 		for($i = 1; $i <= $sprites; $i++){
 			if( $this->opt('sprite'.$i.'_type') == 'text' ):
@@ -356,42 +356,47 @@ EOD;
    	?>
    		<script>
    			var etc_dc_config = etc_dc_config || [];
-   			etc_dc_config['<?= $id ?>'] = [];
-   			var c = etc_dc_config['<?= $id ?>'];
-   			c.bg_ratio_v = <?= $bg_v_ratios; ?>;
+   			etc_dc_config['<?php echo $id ?>'] = [];
+   			var c = etc_dc_config['<?php echo $id ?>'];
+   			c.bg_ratio_v = <?php echo $bg_v_ratios; ?>;
    			<?php if( isset($sp_v_ratios) ): ?>
-   			c.sp_ratio_v = <?= $sp_v_ratios; ?>;
+   			c.sp_ratio_v = <?php echo $sp_v_ratios; ?>;
    			<?php endif; ?>
    			<?php if( isset($sp_v_offsets) ): ?>
-   			c.sp_offset_v = <?= $sp_v_offsets; ?>;
+   			c.sp_offset_v = <?php echo $sp_v_offsets; ?>;
    			<?php endif; ?>
    			<?php if( isset($sp_h_offsets) ): ?>
-   			c.sp_offset_h = <?= $sp_h_offsets; ?>;
+   			c.sp_offset_h = <?php echo $sp_h_offsets; ?>;
    			<?php endif; ?>
    			<?php if( isset($sp_slingshot) ): ?>
-   			c.sp_slingshot = <?= $sp_slingshot; ?>;
+   			c.sp_slingshot = <?php echo $sp_slingshot; ?>;
    			<?php endif; ?>
    			<?php if( isset($bg_centered) ): ?>
-   			c.bg_centered = <?= $bg_centered; ?>;
+   			c.bg_centered = <?php echo $bg_centered; ?>;
    			<?php endif; ?>
 			<?php if( isset($resizes) ): ?>
-   			c.bg_smartsize = <?= $resizes; ?>;
+   			c.bg_smartsize = <?php echo $resizes; ?>;
    			<?php endif; ?>
 			<?php if( isset($fullheight) ): ?>
-   			c.fullheight = <?= $fullheight ?>;
+   			c.fullheight = <?php echo $fullheight ?>;
    			<?php endif; ?>
    			<?php if( isset($pl) ): ?>
-   			c.pl = <?= $pl ?>;
+   			c.pl = <?php echo $pl ?>;
+   			<?php endif; ?>
+   			<?php if( $contained != '0' ): ?>
+   			c.contained = true;
+   			<?php else: ?>
+   			c.contained = false;
    			<?php endif; ?>
    		</script>
-		<div class="depthChargeBlock" id="<?= $id ?>" style="background-image: <?= $imagesOutput; ?>; height: <?= $height; ?>px; <?= $contained; ?>">
+		<div class="depthChargeBlock" id="<?php echo $id ?>" style="background-image: <?php echo $imagesOutput; ?>; height: <?php echo $height; ?>px; <?php echo $contained; ?>">
 	<?php if( isset($sprites) ): ?>
 		<?php foreach( $sprites as $sprite ): ?>
-				<div class="depthChargeSprite <?= $sprite['class']?>" style="<?php echo ($sprite['type'] == 'text') ? 'width: '.$sprite['textwidth'] : '' ?>;">
+				<div class="depthChargeSprite <?php echo $sprite['class']?>" style="<?php echo ($sprite['type'] == 'text') ? 'width: '.$sprite['textwidth'] : '' ?>;">
 					<?php if ( $sprite['type'] == 'img' ): ?>
-					<img src="<?= $sprite['image'] ?>" />
+					<img src="<?php echo $sprite['image'] ?>" />
 					<?php elseif ( $sprite['type'] == 'text' ):  ?>
-					<h1 style="color: <?= '#'.$sprite['color'] ?>;"><span class="slabtext"><?= $sprite['text'] ?></span></h1>
+					<h1 style="color: <?php echo '#'.$sprite['color'] ?>;"><span class="slabtext"><?php echo $sprite['text'] ?></span></h1>
 					<?php endif; ?>
 				</div>
 		<?php endforeach; ?>
