@@ -1,0 +1,3 @@
+[submodule "sections/DepthCharge/lib"]
+	path = sections/DepthCharge/lib
+	url = ssh://sls@slsapp.com:1234/e/depthchargejs.git
