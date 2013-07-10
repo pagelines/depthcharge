@@ -463,7 +463,7 @@ function churnWaypoints(t,p){
     waypoints[0].w = hpoint;
     waypoints[0].h = 0;
     waypoints[1].w = hpoint;
-    waypoints[1].h = -t.smartsize.oHeight;
+    waypoints[1].h = -t.smartsize.oHeight + p.h;
     if( p.ot > win.h ){
       waypoints[0].h = waypoints[0].h - p.h;
       waypoints[1].h = waypoints[1].h - p.h;

@@ -6,11 +6,19 @@ The most advanced multi-layer parallax animation engine on the planet, and exclu
 
 DEVELOPER: E.T.Cook
 
+== SPECIAL SHOUT OUT ==
+
+Special shout out to James Giroux, whose cries in chat for a simple parallax solution inspired this section.
+
 == THANK YOUS ==
 
-Shout out to Nick, Ellen, Mikey, Aleks, Adam, AP and Simon.
-
-Special shout out to James Giroux, who was the inspiration for this section.
+Nick Haskins (nickhaskins.com)
+Ellen Moore (elsue.com)
+Mikey (tunatraffic.com)
+Aleksander Hansson
+Adam Munns
+Andrew Powers (pagelines.com)
+Simon Prosser (pagelines.com)
 
 == Changelog ==
 
