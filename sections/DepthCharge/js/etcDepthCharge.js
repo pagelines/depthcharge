@@ -441,7 +441,7 @@ function churnWaypoints(t,p){
   waypoints[1] = [];
 
   // Will need to rewrite this to allow for unlimited potential waypoints and horizontals, right now hardwire for 2 verticals
-  if(p.ot>win.h){
+  if( ( p.ot + p.config.ploffset ) > win.h ){
     waypoints[0]['index'] = 'bottom-top';
     waypoints[1]['index'] = -p.target.h + '-bottom-top';
   } else {
