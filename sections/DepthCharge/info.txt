@@ -1,0 +1,18 @@
+== DepthCharge ==
+
+The most advanced multi-layer parallax animation engine on the planet, and exclusive to DMS. Add depth and dimension to your sites. Even create full screen panels to showcase your content. All without adding any code.
+
+== CREDITS ==
+
+DEVELOPER: E.T.Cook
+
+== THANK YOUS ==
+
+Shout out to Nick, Ellen, Mikey, Aleks, Adam, AP and Simon.
+
+Special shout out to James Giroux, who was the inspiration for this section.
+
+== Changelog ==
+
+= 1.0 =
+* Initial release
