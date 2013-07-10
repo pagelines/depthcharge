@@ -243,7 +243,10 @@ function churnSize(t,p){
 
   aRatio = Math.abs(t.vratio);
 
+  //console.log(t.vratio);
+
   if ( t.vratio >= 0 ) {
+    // Reverse
     //console.log(233);
     //console.log('The target is: ' + p.target.h);
     oHeight = p.target.h + (p.target.h*aRatio);
@@ -257,18 +260,19 @@ function churnSize(t,p){
     }
     //console.log(oHeight);
   } else {
-    //console.log(244);
+    // Forward
+    //console.log(264);
     oHeight = (p.target.h*aRatio);
-    //console.log('245: ' + oHeight);
+    //console.log('266: ' + oHeight);
     if(p.ot >= win.h){
       oHeight = 2*p.h*aRatio;
-      //console.log('248: ' + oHeight);
+      //console.log('269: ' + oHeight);
       if ( oHeight < (p.h+(p.h*aRatio))){
         oHeight = (p.ot + p.h)*aRatio;
-        //console.log('252: ' + oHeight);
+        //console.log('272: ' + oHeight);
       }
     }
-    //console.log('254: ' + oHeight);
+    //console.log('275: ' + oHeight);
   }
 
   wRatio = t.w/p.target.w;
@@ -459,7 +463,7 @@ function churnWaypoints(t,p){
     waypoints[0].w = hpoint;
     waypoints[0].h = 0;
     waypoints[1].w = hpoint;
-    waypoints[1].h = t.smartsize.oHeight;
+    waypoints[1].h = -t.smartsize.oHeight;
     if( p.ot > win.h ){
       waypoints[0].h = waypoints[0].h - p.h;
       waypoints[1].h = waypoints[1].h - p.h;
@@ -511,7 +515,7 @@ function engageDepthCharge(s){
 
   jQuery('.depthChargeBlock').each(function(){
     var block = new Block(jQuery(this));
-    console.log(block);
+    //console.log(block);
   });
 
 }
