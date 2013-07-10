@@ -525,12 +525,12 @@ window.onload = function(){
     smoothScroll: true
   });
   */
-  //if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+  if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
     var s = skrollr.init({
         forceHeight: false,
         smoothScroll: true
     });
-  //}
+  }
   if(jQuery('.depthChargeSprite .slabtext')[0]){
     jQuery(".depthChargeSprite h1").slabText({
         // Don't slabtext the headers if the viewport is under 380px
