@@ -72,8 +72,8 @@ class etcDepthCharge extends PageLinesSection {
 	  	while ( $i++ < $backdrop_count ):
 			$images[]      = ($this->opt('background'.$i.'_image')) 	? $this->opt('background'.$i.'_image') 		: 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg';
 			$bg_v_ratios[] = ($this->opt('background'.$i.'_vspeed')) 	? $this->opt('background'.$i.'_vspeed') 	: '-1.5';
-			$resizes[]     = ($this->opt('background'.$i.'_smartsize')) ? $this->opt('background'.$i.'_smartsize') 	: '1';
-			$bg_centered[] = ($this->opt('background'.$i.'_center')) 	? $this->opt('background'.$i.'_center') 	: '1';
+			$resizes[]     = ($this->opt('background'.$i.'_smartsize')) ? $this->opt('background'.$i.'_smartsize') 	: '0';
+			$bg_centered[] = ($this->opt('background'.$i.'_center')) 	? $this->opt('background'.$i.'_center') 	: '0';
 	  	endwhile;
 
 	  	$i = 0;
