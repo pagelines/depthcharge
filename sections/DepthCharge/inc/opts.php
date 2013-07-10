@@ -102,13 +102,13 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 		),
 		array(
 			'type'    => 'check',
-			'default' => '1',
+			'default' => '0',
 			'key'     => 'background'.$i.'_smartsize',
 			'label'   => 'SmartSize'
 		),
 		array(
 			'type'    => 'check',
-			'default' => '1',
+			'default' => '0',
 			'key'     => 'background'.$i.'_center',
 			'label'   => 'Centered'
 		),
