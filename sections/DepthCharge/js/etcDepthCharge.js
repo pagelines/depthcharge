@@ -212,7 +212,6 @@ function churnTargetDimensions(t){
   else{
     output.h = (t.h + t.ot - bPull);
     //console.log(t.ot);
-    //console.log(t.h);
     //console.log(bPull);
     //console.log(output.h);
   }

@@ -85,9 +85,6 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 				'.5'		=> array('name' => 'Half Reverse'),
 				'.25'		=> array('name' => 'Slow Reverse'),
 				'.1'		=> array('name' => 'Turtle Reverse'),
-				'-.6'		=> array('name' => 'Turtle Forward'),
-				'-.75'		=> array('name' => 'Slow Forward'),
-				'-1'		=> array('name' => 'Half Forward'),
 				'-1.5'		=> array('name' => 'Forward'),
 				'-1.75'		=> array('name' => 'Heightened Forward'),
 				'-2'		=> array('name' => 'Fast Forward'),
@@ -105,13 +102,13 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 		),
 		array(
 			'type'    => 'check',
-			'default' => '0',
+			'default' => '1',
 			'key'     => 'background'.$i.'_smartsize',
 			'label'   => 'SmartSize'
 		),
 		array(
 			'type'    => 'check',
-			'default' => '0',
+			'default' => '1',
 			'key'     => 'background'.$i.'_center',
 			'label'   => 'Centered'
 		),
@@ -140,9 +137,6 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 				'.5'    => array('name' => 'Half Reverse'),
 				'.25'   => array('name' => 'Slow Reverse'),
 				'.1'    => array('name' => 'Turtle Reverse'),
-				'-.1'   => array('name' => 'Turtle Forward'),
-				'-.25'  => array('name' => 'Slow Forward'),
-				'-.5'   => array('name' => 'Half Forward'),
 				'-1'    => array('name' => 'Forward'),
 				'-1.25' => array('name' => 'Heightened Forward'),
 				'-1.5'  => array('name' => 'Fast Forward'),
