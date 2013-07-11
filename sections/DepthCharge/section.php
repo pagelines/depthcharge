@@ -20,7 +20,7 @@ class etcDepthCharge extends PageLinesSection {
 	function section_styles() {
 
 		wp_enqueue_script('skrollr',		$this->base_url.'/js/skrollr.min.js', array(), '0.6.8', true);
-		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.min.js', array('jquery'), $this->settings['p_ver'], true);
+		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.js', array('jquery'), $this->settings['p_ver'], true);
 
 		$sprites = $this->opt('sprite_count', array('default' => $this->default_sprites));
 
