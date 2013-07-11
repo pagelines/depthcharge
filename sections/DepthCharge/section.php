@@ -119,7 +119,7 @@ class etcDepthCharge extends PageLinesSection {
 			}
 		}
 
-		$id = $this->oset['clone_id'];
+		$id = $this->get_the_id();
 
 		$this->config[ $id ] = array(
 			'pl'           => pl_draft_mode(),

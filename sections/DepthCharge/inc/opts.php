@@ -174,8 +174,8 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 			'default' => 'text',
 			'label'   => 'Type of Sprite',
 			'opts'    => array(
-				'img'  => array('name' => 'Image'),
 				'text' => array('name' => 'SlabText'),
+				'img'  => array('name' => 'Image'),
 				)
 			),
 	);

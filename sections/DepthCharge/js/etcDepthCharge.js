@@ -463,9 +463,9 @@ function churnWaypoints(t,p){
     waypoints[0].h = 0;
     waypoints[1].w = hpoint;
     waypoints[1].h = -t.smartsize.oHeight + p.h;
-    console.log(466);
+    //console.log(466);
     if( ( p.ot + p.config.ploffset ) >= win.h ){
-      console.log(468);
+      //console.log(468);
       waypoints[0].h = waypoints[0].h;
       waypoints[1].h = waypoints[1].h;
     }
@@ -475,9 +475,9 @@ function churnWaypoints(t,p){
     waypoints[1].w = hpoint;
     waypoints[0].h = -(t.smartsize.oHeight-p.h);
     waypoints[1].h = -(0-p.h);
-    console.log(478);
+    //console.log(478);
     if( (p.ot + p.config.ploffset) >= win.h ){
-      console.log(480);
+      //console.log(480);
       waypoints[0].h = waypoints[0].h - p.h;
       waypoints[1].h = waypoints[1].h - p.h;
     }
