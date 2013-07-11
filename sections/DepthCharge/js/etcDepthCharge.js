@@ -525,19 +525,12 @@ function engageDepthCharge(s){
 
 window.onload = function(){
   engageDepthCharge();
-  /**
-  var s = skrollr.init({
+  skrollr.init({
     forceHeight: false,
-    smoothScroll: true
+    smoothScroll: true,
+    smoothScrollingDuration: 200
   });
-  */
-  //if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
-    var s = skrollr.init({
-        forceHeight: false,
-        smoothScroll: true,
-        smoothScrollingDuration: 200
-    });
-  //}
+
   if(jQuery('.depthChargeSprite .slabtext')[0]){
     jQuery(".depthChargeSprite h1").slabText({
         // Don't slabtext the headers if the viewport is under 380px
@@ -548,5 +541,7 @@ window.onload = function(){
 
 window.onresize = function(){
   engageDepthCharge();
-  skrollr.get().refresh();
+  if(skrollr) {
+    skrollr.get().refresh();
+  }
 };
