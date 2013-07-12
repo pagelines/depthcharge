@@ -4,7 +4,15 @@ The most advanced multi-layer parallax animation engine on the planet, and exclu
 
 == CREDITS ==
 
-DEVELOPER: E.T.Cook
+DEVELOPER: E.T.Cook (http://www.etc.io)
+
+== INSTRUCTIONS AND DEMOS ==
+
+The instructions and demos of what the system is capable of can be found at @ http://depthcharge.etc.io
+
+== SUPPORT ==
+
+Support can be had by going to http://help.etc.io
 
 == SPECIAL SHOUT OUT ==
 

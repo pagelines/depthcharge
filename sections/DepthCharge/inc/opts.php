@@ -7,7 +7,8 @@
 $instructions_template = <<<EOD
 <div>
 	<p>Welcome to DepthCharge - the smartest and most advanced parallax engine available, and available exclusively for Pagelines DMS.</p>
-	<p>To get an idea of what you can accomplish easily with this plugin, visit the <a href="http://depthcharge.etc.io" class="btn btn-primary btn-mini">DEMO</a> page.</p>
+	<p>To get an idea of what you can accomplish easily with this plugin, visit the <a href="http://depthcharge.etc.io" class="btn btn-primary btn-mini">DEMO</a> page.</p> 
+	<p>For support inquiries or assistance, visit the <a href="http://help.etc.io" class="btn btn-primary btn-mini">HELP</a> page.</p>
 	<p style="text-transform: uppercase;"><strong>Explanation of Features</strong></p>
 	<p><u>Panel</u> : Turns your DepthCharge "block" into a full-height panel. <em>Pro Tip: Combine multiple panels together to create a windowed website that showcases important items.</em></p>
 	<p><u>Contain</u> : Contains the elements so they don't overflow outside of the bounds of the DepthCharge block.</p>
