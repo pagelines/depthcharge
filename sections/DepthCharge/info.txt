@@ -6,6 +6,8 @@ The most advanced multi-layer parallax animation engine on the planet, and exclu
 
 DEVELOPER: E.T.Cook (http://www.etc.io)
 
+The core sequences are rendered by the wonderful skrollr js library, which can be found here https://github.com/Prinzhorn/skrollr. A very special thanks goes to Alexander Prinzhorn, whose hard work this project leans on heavily. The skrollr license is included in the js directory as skrollr.license.txt
+
 == INSTRUCTIONS AND DEMOS ==
 
 The instructions and demos of what the system is capable of can be found at @ http://depthcharge.etc.io
