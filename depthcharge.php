@@ -3,7 +3,7 @@
 Plugin Name: DepthCharge Section
 Author: etc.io
 Author URI: http://www.etc.io
-Version: 1.0
+Version: 1.1
 Description: DepthCharge
 Class Name: etcDepthCharge
 Workswith: templates, main, header, footer, morefoot

@@ -3,7 +3,7 @@
 Section: DepthCharge
 Author: etc.io
 Author URI: http://www.etc.io
-Version: 1.0c
+Version: 1.1
 Description: DepthCharge
 Workswith: templates, main, header, morefoot, content
 Cloning: true
