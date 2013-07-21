@@ -45,11 +45,11 @@ class etcDepthCharge extends PageLinesSection {
 	}
 
 	function skrollr_open() {
-		return '<div id="skrollr-body" class="etcDepthCharge-body">';
+		echo '<div id="skrollr-body" class="etcDepthCharge-body">';
 	}
 
 	function skrollr_close() {
-		return '</div>';
+		echo '</div>';
 	}
 
 
@@ -142,8 +142,8 @@ class etcDepthCharge extends PageLinesSection {
 			'contained'    => (bool) $contained,
 		);
 
-		add_action( 'pagelines_before_site', 'skrollr_open', 9 );
-		add_action( 'wp_footer', 'skrollr_close' );
+		add_action( 'pagelines_before_site', array(&$this, 'skrollr_open'), 9 );
+		add_action( 'wp_footer', array(&$this, 'skrollr_close' ));
 
    		?>
 		<div class="depthChargeBlock" id="<?php echo $id ?>" style="background-image: <?php echo $imagesOutput; ?>; height: <?php echo $height; ?>px; <?php echo $contained; ?>">
