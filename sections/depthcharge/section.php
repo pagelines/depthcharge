@@ -33,7 +33,7 @@ class etcDepthCharge extends PageLinesSection {
 	}
 
 	function section_head( $clone_id ){
-		$prefix = ($clone_id != '') ? '#DepthCharge'.$clone_id : '';
+		$prefix = ($clone_id != '') ? '#depthcharge'.$clone_id : '';
 		$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
 
 		for ( $i = 1; $i <= $sprites; $i++ ) {
@@ -42,10 +42,13 @@ class etcDepthCharge extends PageLinesSection {
 				echo load_custom_font( $sprite_font, $prefix.' .depthChargeSprite:nth-child('.$i.') h1' );
 			endif;
 		}
+		
+		add_action('pagelines_before_site', array(&$this, 'skrollr_open'), 9);
+		add_action('wp_footer', array(&$this, 'skrollr_close' ));
 	}
 
 	function skrollr_open() {
-		printf('<div id="skrollr-body" class="etcDepthCharge-body">');
+		printf('<div id="skrollr-body">');
 	}
 
 	function skrollr_close() {
@@ -141,9 +144,6 @@ class etcDepthCharge extends PageLinesSection {
 			'fullheight'   => $fullheight,
 			'contained'    => (bool) $contained,
 		);
-
-		add_action( 'pagelines_before_site', array(&$this, 'skrollr_open'), 9 );
-		add_action( 'wp_footer', array(&$this, 'skrollr_close' ));
 
    		?>
 		<div class="depthChargeBlock" id="<?php echo $id ?>" style="background-image: <?php echo $imagesOutput; ?>; height: <?php echo $height; ?>px; <?php echo $contained; ?>">
