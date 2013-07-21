@@ -42,9 +42,6 @@ class etcDepthCharge extends PageLinesSection {
 				echo load_custom_font( $sprite_font, $prefix.' .depthChargeSprite:nth-child('.$i.') h1' );
 			endif;
 		}
-
-		add_action( 'pagelines_before_site', 'skrollr_open', 9 );
-		add_action( 'wp_footer', 'skrollr_close' );
 	}
 
 	function skrollr_open() {
@@ -144,6 +141,10 @@ class etcDepthCharge extends PageLinesSection {
 			'fullheight'   => $fullheight,
 			'contained'    => (bool) $contained,
 		);
+
+		add_action( 'pagelines_before_site', 'skrollr_open', 9 );
+		add_action( 'wp_footer', 'skrollr_close' );
+
    		?>
 		<div class="depthChargeBlock" id="<?php echo $id ?>" style="background-image: <?php echo $imagesOutput; ?>; height: <?php echo $height; ?>px; <?php echo $contained; ?>">
 		<?php
