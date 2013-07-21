@@ -42,6 +42,17 @@ class etcDepthCharge extends PageLinesSection {
 				echo load_custom_font( $sprite_font, $prefix.' .depthChargeSprite:nth-child('.$i.') h1' );
 			endif;
 		}
+
+		add_action( 'pagelines_before_site', 'skrollr_open', 9 );
+		add_action( 'wp_footer', 'skrollr_close' );
+	}
+
+	function skrollr_open() {
+		echo '<div id="skrollr-body" class="etcDepthCharge-body">';
+	}
+
+	function skrollr_close() {
+		echo '</div>';
 	}
 
 
