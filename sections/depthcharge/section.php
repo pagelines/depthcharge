@@ -45,11 +45,11 @@ class etcDepthCharge extends PageLinesSection {
 	}
 
 	function skrollr_open() {
-		echo '<div id="skrollr-body" class="etcDepthCharge-body">';
+		printf('<div id="skrollr-body" class="etcDepthCharge-body">');
 	}
 
 	function skrollr_close() {
-		echo '</div>';
+		printf('</div>');
 	}
 
 
