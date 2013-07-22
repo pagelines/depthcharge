@@ -32,5 +32,11 @@ Simon Prosser (pagelines.com)
 
 == Changelog ==
 
-= 1.0 =
+= 1.11 = 2013.07.21
+* Mobile performance boost
+
+= 1.1 = 2013.07.21
+* Mobile Support
+
+= 1.0 = 2013.07.16
 * Initial release
