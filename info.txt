@@ -32,6 +32,20 @@ Simon Prosser (pagelines.com)
 
 == Changelog ==
 
+*** UPCOMING FEATURES ***
+Adding static html type in addition to slabtext and image
+Adding percentage based offset support
+Change from a fixed position architecture to floating div for better performance
+More precise controls for changing speed, including a slider
+Preset Recipes
+Make it a nestable section
+Different element types, like buttons
+** and much more **
+
+= 1.12 = 2013.11.19
+* Upgraded skrollr library
+* Made mobile support optional
+
 = 1.11 = 2013.07.21
 * Mobile performance boost
 

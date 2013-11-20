@@ -21,12 +21,6 @@ EOD;
 
 $options = array();
 $options[] = array(
-	'key'      => 'instructions',
-	'type'     => 'template',
-	'title'    => 'Instructions',
-	'template' => $instructions_template
-);
-$options[] = array(
 	'title'	=> 'Block Options',
 	'type'	=> 'multi',
 	'opts'	=> array(
@@ -66,6 +60,12 @@ $options[] = array(
 		)
 	)
 );
+$options[] = array(
+	'key'      => 'instructions',
+	'type'     => 'template',
+	'title'    => 'Instructions',
+	'template' => $instructions_template
+);
 
 $sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
 $backdrops = ($this->opt('backdrop_count')) ? $this->opt('backdrop_count') : $this->default_backdrops;
@@ -74,7 +74,7 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 	$opts = array(
 		array(
 			'type'    => 'select',
-			'key'     => 'background'.$i.'_vspeed',
+			'key'     => 'backdrop_'.$i.'_v_ratio',
 			'label'   => 'Scrolling Speed',
 			'default' => '.5',
 			'opts'    => array(
@@ -94,8 +94,8 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 			)
 		),
 		array(
-			'key'       => 'background'.$i.'_image',
-			'label'     => 'Background Image',
+			'key'       => 'backdrop_'.$i.'_image',
+			'label'     => 'Backdrop Image',
 			'default'   => 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg',
 			'type'      => 'image_upload',
 			'imgsize'   => '256',        // The image preview 'max' size
@@ -104,19 +104,21 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 		array(
 			'type'    => 'check',
 			'default' => '0',
-			'key'     => 'background'.$i.'_smartsize',
+			'key'     => 'backdrop_'.$i.'_smartsize',
 			'label'   => 'SmartSize'
 		),
 		array(
 			'type'    => 'check',
 			'default' => '0',
-			'key'     => 'background'.$i.'_center',
+			'key'     => 'backdrop_'.$i.'_center',
 			'label'   => 'Centered'
 		),
 	);
 	$options[] = array(
-		'title'		=> 'Background ' . $i,
-		'type'		=> 'multi',
+		'key'		=> 'backdrop_array',
+		'title'		=> 'Backdrop Settings',
+		'type'		=> 'accordion',
+		'col'		=> 2,
 		'opts'		=> $opts,
 	);
 }
@@ -126,7 +128,7 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 	$opts = array(
 		array(
 			'type' 		=> 'select',
-			'key'			=> 'sprite'.$i.'_vspeed',
+			'key'			=> 'sprite_'.$i.'_v_ratio',
 			'label' 	=> 'Scrolling Speed',
 			'default'	=> '.5',
 			'opts'		=> array(
@@ -151,31 +153,31 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 		array(
 			'type'    => 'check',
 			'default' => '0',
-			'key'     => 'sprite'.$i.'_slingshot',
+			'key'     => 'sprite_'.$i.'_slingshot',
 			'label'   => 'Slingshot'
 		),
 		array(
 			'type'  => 'text',
-			'key'   => 'sprite'.$i.'_class',
+			'key'   => 'sprite_'.$i.'_class',
 			'label' => 'Custom Class'
 		),
 		array(
 			'type'  => 'text',
-			'key'   => 'sprite'.$i.'_voffset',
+			'key'   => 'sprite_'.$i.'_v_offset',
 			'label' => 'Vertical Offset'
 		),
 		array(
 			'type'  => 'text',
-			'key'   => 'sprite'.$i.'_hoffset',
+			'key'   => 'sprite_'.$i.'_h_offset',
 			'label' => 'Horizontal Offset'
 		),
 		array(
 			'type'    => 'select',
-			'key'     => 'sprite'.$i.'_type',
-			'default' => 'text',
+			'key'     => 'sprite_'.$i.'_type',
+			'default' => 'slab',
 			'label'   => 'Type of Sprite',
 			'opts'    => array(
-				'text' => array('name' => 'SlabText'),
+				'slab' => array('name' => 'SlabText'),
 				'img'  => array('name' => 'Image'),
 				)
 			),
@@ -183,28 +185,28 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 
 	if ( $sprite_type == 'img' ):
 		$opts[] = array(
-			'key'           => 'sprite'.$i.'_image',
+			'key'           => 'sprite_'.$i.'_image',
 			'label'			=> 'Sprite Image',
 			'type'          => 'image_upload',
 			'imgsize'       => '256',        // The image preview 'max' size
 			'sizelimit'     => '2048000'     // Image upload max size default 512kb
 		);
-	elseif ( $sprite_type == 'text' ):
+	elseif ( $sprite_type == 'slab' ):
 		$opts[] = array(
-			'key'           => 'sprite'.$i.'_text',
-			'label'			=> 'Text',
+			'key'           => 'sprite_'.$i.'_heading',
+			'label'			=> 'Heading',
 			'type'          => 'text',
 			'default'		=> 'DepthCharge'
 		);
 		$opts[] = array(
-			'key'           => 'sprite'.$i.'_font',
+			'key'           => 'sprite_'.$i.'_font',
 			'label'			=> 'Font',
 			'default'		=> 'josefin_sans',
 			'type'          => 'type'
 		);
 		$opts[] = array(
 			'type'    => 'select',
-			'key'     => 'sprite'.$i.'_textwidth',
+			'key'     => 'sprite_'.$i.'_textwidth',
 			'label'   => 'SlabText Width',
 			'default' => '80%',
 			'opts'    => array(
@@ -221,7 +223,7 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 				)
 			);
 		$opts[] = array(
-			'key'     => 'sprite'.$i.'_color',
+			'key'     => 'sprite_'.$i.'_color',
 			'label'   => 'Text Color',
 			'type'    => 'color',
 			'default' => 'FFFFFF'
