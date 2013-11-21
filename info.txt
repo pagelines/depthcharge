@@ -42,7 +42,7 @@ Make it a nestable section
 Different element types, like buttons
 ** and much more **
 
-= 1.12 = 2013.11.19
+= 1.2 = 2013.11.20
 * Upgraded skrollr library
 * Made mobile support optional
 
