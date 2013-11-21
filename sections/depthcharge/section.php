@@ -10,6 +10,7 @@ Cloning: true
 Class Name: etcDepthCharge
 Filter: full-width
 V3: true
+PageLines: true
 */
 
 class etcDepthCharge extends PageLinesSection
