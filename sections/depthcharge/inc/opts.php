@@ -27,24 +27,8 @@ $options[] = array(
 		array(
 			'key'		=> 'height',
 			'type'		=> 'text',
-			'default'	=>	'400',
+			'default'	=> '400',
 			'label'		=> 'Block Height',
-		),
-		array(
-			'key'		=> 'backdrop_count',
-			'type'		=> 'count_select',
-			'count_start'	=> '0',
-			'count_number'	=> '12',
-			'default'	=> '1',
-			'label'		=> 'Number of Backdrops'
-		),
-		array(
-			'key'		=> 'sprite_count',
-			'type'		=> 'count_select',
-			'count_start'	=> '0',
-			'count_number'	=> '12',
-			'default'	=> '0',
-			'label'		=> 'Number of Sprites'
 		),
 		array(
 			'key'		=> 'fullheight',
