@@ -187,8 +187,10 @@ class etcDepthCharge extends PageLinesSection
 				$text_width = pl_array_get( 'textwidth', $sprite, '80%' );
 				$width      = ( 'slab' == pl_array_get( 'type', $sprite, 'img' ) ) ? "width: $text_width" : '';
 				$color      = pl_array_get( 'color', $sprite, 'FFF' );
+				$class      = !empty( $sprite['class'] ) ? " {$sprite['class']}" : '';
+
 		  		?>
-	  			<div class="depthChargeSprite <?php echo $sprite['class'] ?>"
+	  			<div class="depthChargeSprite<?php echo $class ?>"
 	  				style="<?php echo $width ?>;">
 					<?php if ( 'img' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
 						<img src="<?php echo pl_array_get( 'image', $sprite, 'http://f.cl.ly/items/1V3Y0p0W3G2i2z1L0c1R/PageLines-Logo.png') ?>" />
