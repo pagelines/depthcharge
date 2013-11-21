@@ -72,13 +72,8 @@ class etcDepthCharge extends PageLinesSection
 	{
 		$prefix       = !$clone_id ? "#depthcharge{$clone_id}" : '';
 		$sprite_array = $this->opt('sprite_array');
-		$sprite_count = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
-  		$sprite_array = $this->upgrade_to_array_format( 'sprite_array', $sprite_array, $this->sprite_format_upgrade_mapping, $sprite_count);
 
   		// Let's output the proper font for each slab sprite
-		if( !$sprite_array || $sprite_array == 'false' || !is_array($sprite_array) ){
-			$sprite_array = array( );
-		}
 
   		$i = 1;
 
@@ -105,21 +100,8 @@ class etcDepthCharge extends PageLinesSection
   	{
   		// Let's load up the backdrop and sprite arrays
   		$backdrop_array = $this->opt('backdrop_array');
-		$backdrop_count = ($this->opt('backdrop_count')) 	? $this->opt('backdrop_count') 	: 1;
-  		$backdrop_array = $this->upgrade_to_array_format( 'backdrop_array', $backdrop_array, $this->backdrop_format_upgrade_mapping, $backdrop_count);
-
-  		if( !$backdrop_array || $backdrop_array == 'false' || !is_array($backdrop_array) ){
-			$backdrop_array = array( array() );
-		}
-
   		$sprite_array = $this->opt('sprite_array');
-  		$sprite_count = ($this->opt('sprite_count')) 	? $this->opt('sprite_count') 	: 0;
-  		$sprite_array = $this->upgrade_to_array_format( 'sprite_array', $sprite_array, $this->sprite_format_upgrade_mapping, $sprite_count);
 
-  		if( !$sprite_array || $sprite_array == 'false' || !is_array($sprite_array) ){
-			$sprite_array = array( );
-		}
-		
 		// Load all of the other options
 		$height         = ($this->opt('height')) 			? $this->opt('height') 			: '400';
 		$fullheight     = ($this->opt('fullheight')) 		? $this->opt('fullheight')		: '0';
@@ -133,11 +115,6 @@ class etcDepthCharge extends PageLinesSection
 		$sp_slingshot   = array();
 
 	  	// Process the backdrop array - this should eventually change
-	  	if( is_array($backdrop_array) ){
-
-	  		$backdrops = count( $backdrop_array );
-
-	  		foreach( $backdrop_array as $backdrop ){
 	  	if ( is_array( $backdrop_array ) )
 	  	{
 	  		foreach ( $backdrop_array as $backdrop )
