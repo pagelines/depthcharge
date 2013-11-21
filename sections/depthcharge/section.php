@@ -71,16 +71,16 @@ class etcDepthCharge extends PageLinesSection
 
 	function section_head( $clone_id = null )
 	{
-		$prefix       = !$clone_id ? "#depthcharge{$clone_id}" : '';
-		$sprite_array = $this->opt('sprite_array');
+		if ( !$sprite_array = $this->opt('sprite_array') )
+			return;
 
   		// Let's output the proper font for each slab sprite
-
   		$i = 1;
+		$prefix = !$clone_id ? "#depthcharge{$clone_id}" : '';
 
 		foreach ( $sprite_array as $sprite )
 		{
-			if ( 'slab' == pl_array_get('type', $sprite, 'image') )
+			if ( 'slab' == pl_array_get('type', $sprite) )
 			{
 				$sprite_font = pl_array_get('font', $sprite, 'josefin_sans');
 				echo load_custom_font( $sprite_font, "$prefix .depthChargeSprite:nth-child($i) h1" );
@@ -110,15 +110,17 @@ class etcDepthCharge extends PageLinesSection
 		$height = $height ? $height : '400';
 
 		// Load all of the other options
-		$fullheight     = $this->opt('fullheight', array('default' => '0') );
-		$contained      = $this->opt('contained', array('default' => '0') );
-		$bd_v_ratios    = array();
-		$sp_v_ratios    = array();
-		$smartsizes     = array();
-		$bd_centered    = array();
-		$sp_v_offsets   = array();
-		$sp_h_offsets   = array();
-		$sp_slingshot   = array();
+		$fullheight   = $this->opt('fullheight', array('default' => '0') );
+		$contained    = $this->opt('contained', array('default' => '0') );
+		$bd_v_ratios  = array();
+		$sp_v_ratios  = array();
+		$smartsizes   = array();
+		$bd_centered  = array();
+		$sp_v_offsets = array();
+		$sp_h_offsets = array();
+		$sp_slingshot = array();
+		$images       = array();
+		$imageurls    = array();
 
 	  	// Process the backdrop array - this should eventually change
 	  	if ( is_array( $backdrop_array ) )
@@ -131,11 +133,6 @@ class etcDepthCharge extends PageLinesSection
 	  			$bd_centered[] 	= pl_array_get('center', $backdrop, '0');
 	  		}
 	  	}
-
-	  	foreach ( $images as $image )
-	  		$imageurls[] = "url('$image')";
-
-		$imagesOutput = implode(",", $imageurls);
 
 		if ( !$images )
 		{
@@ -150,6 +147,11 @@ class etcDepthCharge extends PageLinesSection
 				add_action('wp_print_footer_scripts', array(&$this, 'print_json') );
 			}
 		}
+
+	  	foreach ( $images as $image )
+	  		$imageurls[] = "url('$image')";
+
+		$imagesOutput = implode(",", $imageurls);
 
 		$id = $this->get_the_id();
    		?>
