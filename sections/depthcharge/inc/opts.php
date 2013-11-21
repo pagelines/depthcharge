@@ -25,38 +25,38 @@ $options[] = array(
 	'type'	=> 'multi',
 	'opts'	=> array(
 		array(
-				'type'		=> 'text',
-				'key'		=> 'height',
-				'default'	=>	'400',
-				'label'		=> 'Block Height',
+			'key'		=> 'height',
+			'type'		=> 'text',
+			'default'	=>	'400',
+			'label'		=> 'Block Height',
 		),
 		array(
-				'type'		=> 'count_select',
-				'key'		=> 'backdrop_count',
-				'count_start'	=> '0',
-				'count_number'	=> '12',
-				'default'	=> '1',
-				'label'		=> 'Number of Backdrops'
+			'key'		=> 'backdrop_count',
+			'type'		=> 'count_select',
+			'count_start'	=> '0',
+			'count_number'	=> '12',
+			'default'	=> '1',
+			'label'		=> 'Number of Backdrops'
 		),
 		array(
-				'type'		=> 'count_select',
-				'key'		=> 'sprite_count',
-				'count_start'	=> '0',
-				'count_number'	=> '12',
-				'default'	=> '0',
-				'label'		=> 'Number of Sprites'
+			'key'		=> 'sprite_count',
+			'type'		=> 'count_select',
+			'count_start'	=> '0',
+			'count_number'	=> '12',
+			'default'	=> '0',
+			'label'		=> 'Number of Sprites'
 		),
 		array(
-				'type'		=> 'check',
-				'key'		=> 'fullheight',
-				'default'	=> '0',
-				'label'		=> 'Panel',
+			'key'		=> 'fullheight',
+			'type'		=> 'check',
+			'default'	=> '0',
+			'label'		=> 'Panel',
 		),
 		array(
-				'type'		=> 'check',
-				'default'	=> '0',
-				'key'		=> 'contained',
-				'label'		=> 'Contained',
+			'key'		=> 'contained',
+			'type'		=> 'check',
+			'default'	=> '0',
+			'label'		=> 'Contained',
 		)
 	)
 );
@@ -140,9 +140,9 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 				'.5'    => array('name' => 'Half Reverse'),
 				'.25'   => array('name' => 'Slow Reverse'),
 				'.1'    => array('name' => 'Turtle Reverse'),
-				'-.1'    => array('name' => 'Turtle Forward'),
-				'-.25'    => array('name' => 'Slow Forward'),
-				'-.5'    => array('name' => 'Half Forward'),
+				'-.1'   => array('name' => 'Turtle Forward'),
+				'-.25'  => array('name' => 'Slow Forward'),
+				'-.5'   => array('name' => 'Half Forward'),
 				'-1'    => array('name' => 'Forward'),
 				'-1.25' => array('name' => 'Heightened Forward'),
 				'-1.5'  => array('name' => 'Fast Forward'),
