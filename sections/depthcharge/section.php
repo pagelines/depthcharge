@@ -146,7 +146,7 @@ class etcDepthCharge extends PageLinesSection
 	  		{
 	  			$images[] 		= pl_array_get('image', $backdrop, 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg');
 	  			$bd_v_ratios[]	= pl_array_get('v_ratio', $backdrop, '-1.5');
-	  			$smartsize[] 	= pl_array_get('smartsize', $backdrop, '0');
+	  			$smartsizes[] 	= pl_array_get('smartsize', $backdrop, '0');
 	  			$bd_centered[] 	= pl_array_get('center', $backdrop, '0');
 	  		}
 	  	}
