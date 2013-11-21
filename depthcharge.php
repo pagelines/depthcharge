@@ -10,4 +10,5 @@ Workswith: templates, main, header, footer, morefoot
 Cloning: true
 V3: true
 Filter: full-width
+PageLines: true
 */
