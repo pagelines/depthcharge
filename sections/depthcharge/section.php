@@ -12,34 +12,36 @@ Filter: full-width
 V3: true
 */
 
-class etcDepthCharge extends PageLinesSection {
+class etcDepthCharge extends PageLinesSection
+{
 
+	var $config;
 	var $default_backdrops = 1;
 	var $default_sprites = 0;
 	var $sprite_format_upgrade_mapping = array(
-  			'image' => 'sprite_%s_image',
-  			'class' =>	'sprite_%s_class',
-			'type'  => 'sprite_%s_type',
-			'heading'  => 'sprite_%s_heading',
-			'color' => 'sprite_%s_color',
-			'textwidth' => 'sprite_%s_textwidth',
-			'v_ratio' => 'sprite_%s_v_ratio',
-			'v_offset' => 'sprite_%s_v_offset',
-			'h_offset' => 'sprite_%s_h_offset',
-			'slingshot' => 'sprite_%s_slingshot'
+		'image'     => 'sprite_%s_image',
+		'class'     => 'sprite_%s_class',
+		'type'      => 'sprite_%s_type',
+		'heading'   => 'sprite_%s_heading',
+		'color'     => 'sprite_%s_color',
+		'textwidth' => 'sprite_%s_textwidth',
+		'v_ratio'   => 'sprite_%s_v_ratio',
+		'v_offset'  => 'sprite_%s_v_offset',
+		'h_offset'  => 'sprite_%s_h_offset',
+		'slingshot' => 'sprite_%s_slingshot'
   	);
   	var $backdrop_format_upgrade_mapping = array(
-  			'image' => 'backdrop_%s_image',
-  			'v_ratio' => 'backdrop_%s_v',
-  			'smartsize' => 'backdrop_%s_smartsize',
-  			'center' => 'background_%s_center'
+		'image'     => 'backdrop_%s_image',
+		'v_ratio'   => 'backdrop_%s_v',
+		'smartsize' => 'backdrop_%s_smartsize',
+		'center'    => 'background_%s_center'
   	);
 
-	function section_styles() {
-
+	function section_styles()
+	{
 		// Let's enqueue the skrollr and DC js libraries
-		wp_enqueue_script('skrollr',		$this->base_url.'/js/skrollr.min.js', array(), '0.6.17', true);
-		wp_enqueue_script('etcDepthCharge', $this->base_url.'/js/etcDepthCharge.min.js', array('jquery'), $this->settings['p_ver'], true);
+		wp_enqueue_script('skrollr',		"{$this->base_url}/js/skrollr.min.js", array(), '0.6.17', true);
+		wp_enqueue_script('etcDepthCharge', "{$this->base_url}/js/etcDepthCharge.min.js", array('jquery'), $this->settings['p_ver'], true);
 
   		// Pull and process the sprite array
   		$sprite_array = $this->opt('sprite_array');
@@ -51,16 +53,19 @@ class etcDepthCharge extends PageLinesSection {
 			$sprite_array = array( );
 		}
 
-		foreach( $sprite_array as $sprite ){
-			if ( pl_array_get('type', $sprite, 'img') == 'slab' ) {
+		foreach ( $sprite_array as $sprite )
+		{
+			if ( 'slab' == pl_array_get('type', $sprite, 'img') )
+			{
 				wp_enqueue_script('slabtext', $this->base_url.'/js/jquery.slabtext.min.js',array(),'2.3',true);
 				break;
 			}
 		}
 	}
 
-	function section_head( $clone_id ){
-		$prefix = ($clone_id != '') ? '#depthcharge'.$clone_id : '';
+	function section_head( $clone_id = null )
+	{
+		$prefix       = !$clone_id ? "#depthcharge{$clone_id}" : '';
 		$sprite_array = $this->opt('sprite_array');
 		$sprite_count = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
   		$sprite_array = $this->upgrade_to_array_format( 'sprite_array', $sprite_array, $this->sprite_format_upgrade_mapping, $sprite_count);
@@ -71,11 +76,15 @@ class etcDepthCharge extends PageLinesSection {
 		}
 
   		$i = 1;
-		foreach( $sprite_array as $sprite ){
-			if ( pl_array_get('type', $sprite, 'image' == 'slab' )):
+
+		foreach ( $sprite_array as $sprite )
+		{
+			if ( 'slab' == pl_array_get('type', $sprite, 'image') )
+			{
 				$sprite_font = pl_array_get('font', $sprite, 'josefin_sans');
-				echo load_custom_font( $sprite_font, $prefix.' .depthChargeSprite:nth-child('.$i.') h1' );
-			endif;
+				echo load_custom_font( $sprite_font, "$prefix .depthChargeSprite:nth-child($i) h1" );
+			}
+
 			$i++;
 		}
 	}
@@ -87,8 +96,8 @@ class etcDepthCharge extends PageLinesSection {
 	/**
 	* Section template.
 	*/
-  	function section_template() {
-
+  	function section_template()
+  	{
   		// Let's load up the backdrop and sprite arrays
   		$backdrop_array = $this->opt('backdrop_array');
 		$backdrop_count = ($this->opt('backdrop_count')) 	? $this->opt('backdrop_count') 	: 1;
@@ -124,25 +133,31 @@ class etcDepthCharge extends PageLinesSection {
 	  		$backdrops = count( $backdrop_array );
 
 	  		foreach( $backdrop_array as $backdrop ){
+	  	if ( is_array( $backdrop_array ) )
+	  	{
+	  		foreach ( $backdrop_array as $backdrop )
+	  		{
 	  			$images[] 		= pl_array_get('image', $backdrop, 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg');
 	  			$bd_v_ratios[]	= pl_array_get('v_ratio', $backdrop, '-1.5');
 	  			$smartsize[] 	= pl_array_get('smartsize', $backdrop, '0');
 	  			$bd_centered[] 	= pl_array_get('center', $backdrop, '0');
 	  		}
-
 	  	}
 
 	  	foreach ( $images as $image )
 	  		$imageurls[] = "url('$image')";
-	  	
+
 		$imagesOutput = implode(",", $imageurls);
 
-		if ( !$images ) {
+		if ( !$images )
+		{
 			echo setup_section_notify( $this );
 			return;
 		}
-		else {
-			if ( empty( $this->footer_action ) ) {
+		else
+		{
+			if ( empty( $this->footer_action ) )
+			{
 				$this->footer_action = true;
 				add_action('wp_print_footer_scripts', array(&$this, 'print_json') );
 			}
@@ -189,8 +204,8 @@ class etcDepthCharge extends PageLinesSection {
 	/**
 	 * Outputs JS config once in footer scripts
 	 */
-	function print_json() {
-
+	function print_json()
+	{
 		if ( empty( $this->config ) )
 			return;
 
@@ -204,4 +219,5 @@ class etcDepthCharge extends PageLinesSection {
 		</script>
 		<?php
 	}
-}
+
+} // etcDepthCharge
