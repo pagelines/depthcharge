@@ -78,19 +78,7 @@ class etcDepthCharge extends PageLinesSection {
 			endif;
 			$i++;
 		}
-		
-		add_action('pagelines_before_site', array(&$this, 'skrollr_open'), 9);
-		add_action('wp_footer', array(&$this, 'skrollr_close' ));
 	}
-
-	function skrollr_open() {
-		printf('<div id="skrollr-body">');
-	}
-
-	function skrollr_close() {
-		printf('</div>');
-	}
-
 
 	function section_opts() {
 		return require 'inc/opts.php';
@@ -209,7 +197,10 @@ class etcDepthCharge extends PageLinesSection {
 		?>
 		<!-- DepthCharge Config -->
 		<script>
-		<?php printf('var etc_dc_config = %s;', json_encode( (object) $this->config ) ); ?>
+			jQuery(document).ready( function( $ ) {
+				$('body').wrapInner('<div id="skrollr-body"/>');
+			}( jQuery ) );
+			<?php printf('var etc_dc_config = %s;', json_encode( (object) $this->config ) ); ?>
 		</script>
 		<?php
 	}
