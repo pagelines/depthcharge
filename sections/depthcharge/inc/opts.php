@@ -7,7 +7,7 @@
 $instructions_template = <<<EOD
 <div>
 	<p>Welcome to DepthCharge - the smartest and most advanced parallax engine available, and available exclusively for Pagelines DMS.</p>
-	<p>To get an idea of what you can accomplish easily with this plugin, visit the <a href="http://depthcharge.etc.io" class="btn btn-primary btn-mini">DEMO</a> page.</p> 
+	<p>To get an idea of what you can accomplish easily with this plugin, visit the <a href="http://depthcharge.etc.io" class="btn btn-primary btn-mini">DEMO</a> page.</p>
 	<p>For support inquiries or assistance, visit the <a href="http://help.etc.io" class="btn btn-primary btn-mini">HELP</a> page.</p>
 	<p style="text-transform: uppercase;"><strong>Explanation of Features</strong></p>
 	<p><u>Panel</u> : Turns your DepthCharge "block" into a full-height panel. <em>Pro Tip: Combine multiple panels together to create a windowed website that showcases important items.</em></p>
@@ -67,14 +67,16 @@ $options[] = array(
 	'template' => $instructions_template
 );
 
-$sprites = ($this->opt('sprite_count')) ? $this->opt('sprite_count') : $this->default_sprites;
-$backdrops = ($this->opt('backdrop_count')) ? $this->opt('backdrop_count') : $this->default_backdrops;
-
-for ( $i = 1; $i <= $backdrops; $i++ ) {
-	$opts = array(
+$options[] = array(
+	'key'       => 'backdrop_array',
+	'type'      => 'accordion',
+	'col'       => 2,
+	'title'     => 'Backdrop Setup',
+	'post_type' => 'Backdrop',
+	'opts'      => array(
 		array(
+			'key'     => "v_ratio",
 			'type'    => 'select',
-			'key'     => 'backdrop_'.$i.'_v_ratio',
 			'label'   => 'Scrolling Speed',
 			'default' => '.5',
 			'opts'    => array(
@@ -94,7 +96,7 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 			)
 		),
 		array(
-			'key'       => 'backdrop_'.$i.'_image',
+			'key'       => "image",
 			'label'     => 'Backdrop Image',
 			'default'   => 'http://f.cl.ly/items/1W2B0K2E0S3g3P0z2u1G/scuba_diving_gb.jpg',
 			'type'      => 'image_upload',
@@ -102,36 +104,33 @@ for ( $i = 1; $i <= $backdrops; $i++ ) {
 			'sizelimit' => '2048000'     // Image upload max size default 512kb
 		),
 		array(
+			'key'     => "smartsize",
 			'type'    => 'check',
 			'default' => '0',
-			'key'     => 'backdrop_'.$i.'_smartsize',
 			'label'   => 'SmartSize'
 		),
 		array(
+			'key'     => "center",
 			'type'    => 'check',
 			'default' => '0',
-			'key'     => 'backdrop_'.$i.'_center',
 			'label'   => 'Centered'
 		),
-	);
-	$options[] = array(
-		'key'		=> 'backdrop_array',
-		'title'		=> 'Backdrop Settings',
-		'type'		=> 'accordion',
-		'col'		=> 2,
-		'opts'		=> $opts,
-	);
-}
+	)
+);
 
-for ( $i = 1; $i <= $sprites; $i++ ) {
-	$sprite_type = ($this->opt('sprite'.$i.'_type')) ? $this->opt('sprite'.$i.'_type') : 'img';
-	$opts = array(
+$options[] = array(
+	'key'       => 'sprite_array',
+	'type'      => 'accordion',
+	'col'       => 2,
+	'title'     => 'Sprite Setup',
+	'post_type' => 'Sprite',
+	'opts'      => array(
 		array(
-			'type' 		=> 'select',
-			'key'			=> 'sprite_'.$i.'_v_ratio',
-			'label' 	=> 'Scrolling Speed',
-			'default'	=> '.5',
-			'opts'		=> array(
+			'key'     => 'v_ratio',
+			'type'    => 'select',
+			'label'   => 'Scrolling Speed',
+			'default' => '.5',
+			'opts'    => array(
 				'5'     => array('name' => 'Lightning Reverse'),
 				'2'     => array('name' => 'Speedy Reverse'),
 				'1.5'   => array('name' => 'Fast Reverse'),
@@ -151,62 +150,58 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 			)
 		),
 		array(
+			'key'     => 'slingshot',
 			'type'    => 'check',
 			'default' => '0',
-			'key'     => 'sprite_'.$i.'_slingshot',
 			'label'   => 'Slingshot'
 		),
 		array(
+			'key'   => 'class',
 			'type'  => 'text',
-			'key'   => 'sprite_'.$i.'_class',
 			'label' => 'Custom Class'
 		),
 		array(
+			'key'   => 'v_offset',
 			'type'  => 'text',
-			'key'   => 'sprite_'.$i.'_v_offset',
 			'label' => 'Vertical Offset'
 		),
 		array(
+			'key'   => 'h_offset',
 			'type'  => 'text',
-			'key'   => 'sprite_'.$i.'_h_offset',
 			'label' => 'Horizontal Offset'
 		),
 		array(
+			'key'     => 'type',
 			'type'    => 'select',
-			'key'     => 'sprite_'.$i.'_type',
 			'default' => 'slab',
 			'label'   => 'Type of Sprite',
 			'opts'    => array(
 				'slab' => array('name' => 'SlabText'),
 				'img'  => array('name' => 'Image'),
-				)
-			),
-	);
-
-	if ( $sprite_type == 'img' ):
-		$opts[] = array(
-			'key'           => 'sprite_'.$i.'_image',
+			)
+		),
+		array(
+			'key'           => 'image',
 			'label'			=> 'Sprite Image',
 			'type'          => 'image_upload',
 			'imgsize'       => '256',        // The image preview 'max' size
 			'sizelimit'     => '2048000'     // Image upload max size default 512kb
-		);
-	elseif ( $sprite_type == 'slab' ):
-		$opts[] = array(
-			'key'           => 'sprite_'.$i.'_heading',
+		),
+		array(
+			'key'           => 'heading',
 			'label'			=> 'Heading',
 			'type'          => 'text',
 			'default'		=> 'DepthCharge'
-		);
-		$opts[] = array(
-			'key'           => 'sprite_'.$i.'_font',
+		),
+		array(
+			'key'           => 'font',
 			'label'			=> 'Font',
 			'default'		=> 'josefin_sans',
 			'type'          => 'type'
-		);
-		$opts[] = array(
+		),
+		array(
+			'key'     => 'textwidth',
 			'type'    => 'select',
-			'key'     => 'sprite_'.$i.'_textwidth',
 			'label'   => 'SlabText Width',
 			'default' => '80%',
 			'opts'    => array(
@@ -221,20 +216,15 @@ for ( $i = 1; $i <= $sprites; $i++ ) {
 				'20%'  => array('name' => '20%'),
 				'10%'  => array('name' => '10%'),
 				)
-			);
-		$opts[] = array(
-			'key'     => 'sprite_'.$i.'_color',
+		),
+		array(
+			'key'     => 'color',
 			'label'   => 'Text Color',
 			'type'    => 'color',
 			'default' => 'FFFFFF'
-		);
-	endif;
+		),
 
-	$options[] = array(
-		'title'		=> 'Sprite ' . $i,
-		'type'		=> 'multi',
-		'opts'		=> $opts,
-	);
-}
+	)
+);
 
 return $options;
