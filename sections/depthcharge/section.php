@@ -102,10 +102,15 @@ class etcDepthCharge extends PageLinesSection
   		$backdrop_array = $this->opt('backdrop_array');
   		$sprite_array = $this->opt('sprite_array');
 
+  		// this looks weird but without it, it was coming up with 38 when the field was blank
+  		// may have to do with scope cascade and getting into a global value
+		$height = $this->opt('height', array('scope' => 'local') );
+		$height = $height ? $height : $this->opt('height', array('scope' => 'type') );
+		$height = $height ? $height : '400';
+
 		// Load all of the other options
-		$height         = ($this->opt('height')) 			? $this->opt('height') 			: '400';
-		$fullheight     = ($this->opt('fullheight')) 		? $this->opt('fullheight')		: '0';
-		$contained      = ($this->opt('contained')) 		? 'overflow: hidden;'			: '0';
+		$fullheight     = $this->opt('fullheight', array('default' => '0') );
+		$contained      = $this->opt('contained', array('default' => '0') );
 		$bd_v_ratios    = array();
 		$sp_v_ratios    = array();
 		$smartsizes     = array();
@@ -145,29 +150,38 @@ class etcDepthCharge extends PageLinesSection
 			}
 		}
 
+		$id = $this->get_the_id();
    		?>
-		<div class="depthChargeBlock" id="<?php echo $id ?>" style="background-image: <?php echo $imagesOutput; ?>; height: <?php echo $height; ?>px; <?php echo $contained; ?>">
+		<div class="depthChargeBlock" id="<?php echo $id ?>" style="<?php echo "background-image: $imagesOutput; height: {$height}px; $contained" ?>">
 		<?php
-		if( is_array($sprite_array) ){
-	  		$sprites = count( $sprite_array );
 
-	  		foreach( $sprite_array as $sprite ):
-	  			$sp_v_ratios[] = pl_array_get( 'v_ratio', $sprite, '-1' );
-	  			$sp_v_offsets[] = pl_array_get( 'v_offset', $sprite, '0' );
-	  			$sp_h_offsets[] = pl_array_get( 'h_offset', $sprite, '0' );
-	  			$sp_slingshot[] = pl_array_get( 'slingshot', $sprite, 0 );
-	  		?>
-	  			<div class="depthChargeSprite <?php echo $sprite['class']?>" style="<?php echo (pl_array_get( 'type', $sprite, 'img' ) == 'slab') ? 'width: '.pl_array_get( 'type', $sprite, 'textwidth' ) : '' ?>;">
-					<?php if ( 'img' == pl_array_get( 'type', $sprite, 'img' )): ?>
+		if ( is_array( $sprite_array ) )
+		{
+	  		foreach ( $sprite_array as $sprite )
+	  		{
+				$sp_v_ratios[]  = pl_array_get( 'v_ratio', $sprite, '-1' );
+				$sp_v_offsets[] = pl_array_get( 'v_offset', $sprite, '0' );
+				$sp_h_offsets[] = pl_array_get( 'h_offset', $sprite, '0' );
+				$sp_slingshot[] = pl_array_get( 'slingshot', $sprite, 0 );
+
+				$text_width = pl_array_get( 'textwidth', $sprite, '80%' );
+				$width      = ( 'slab' == pl_array_get( 'type', $sprite, 'img' ) ) ? "width: $text_width" : '';
+				$color      = pl_array_get( 'color', $sprite, 'FFF' );
+		  		?>
+	  			<div class="depthChargeSprite <?php echo $sprite['class'] ?>"
+	  				style="<?php echo $width ?>;">
+					<?php if ( 'img' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
 						<img src="<?php echo pl_array_get( 'image', $sprite, 'http://f.cl.ly/items/1V3Y0p0W3G2i2z1L0c1R/PageLines-Logo.png') ?>" />
-					<?php elseif ( pl_array_get( 'type', $sprite, 'img' ) == 'slab' ):  ?>
-						<h1 style="color: <?php echo '#'.pl_array_get( 'color', $sprite, 'FFF' ) ?>;"><span class="slabtext"><?php pl_array_get( 'heading', $sprite, 'DepthCharge' ) ?></span></h1>
+					<?php elseif ( 'slab' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
+						<h1 style="color: <?php echo "#$color" ?>;">
+							<span class="slabtext"><?php echo pl_array_get( 'heading', $sprite, 'DepthCharge' ) ?></span>
+						</h1>
 					<?php endif; ?>
 				</div>
-			<?php endforeach;
+				<?php
+	  		}
 		}
 
-		$id = $this->get_the_id();
 
 		$this->config[ $id ] = array(
 			'pl'           => pl_draft_mode(),
