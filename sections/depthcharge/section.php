@@ -17,6 +17,7 @@ class etcDepthCharge extends PageLinesSection
 {
 
 	var $config;
+	var $armed;
 	var $default_backdrops = 1;
 	var $default_sprites = 0;
 	var $sprite_format_upgrade_mapping = array(
@@ -38,32 +39,48 @@ class etcDepthCharge extends PageLinesSection
 		'center'    => 'background_%s_center'
   	);
 
+  	function section_persistent()
+  	{
+  		add_action( 'wp_enqueue_scripts', array(&$this, 'armed'), 20 );
+  	}
+
 	function section_styles()
 	{
+		$this->armed = true;
 		// Let's enqueue the skrollr and DC js libraries
 		wp_enqueue_script('skrollr',		"{$this->base_url}/js/skrollr.min.js", array(), '0.6.17', true);
 		wp_enqueue_script('etcDepthCharge', "{$this->base_url}/js/etcDepthCharge.min.js", array('jquery'), $this->settings['p_ver'], true);
+	}
+
+	function armed()
+	{
+		if ( !$this->armed )
+			return;
 
 		// array upgrade only needs to happen once per page
 
   		// Pull and process the sprite array
   		$sprite_array = $this->opt('sprite_array');
-		$sprite_count = $this->opt('sprite_count', array('default' => $this->default_sprites) );
+		// count is determined by accordion now
+		$sprite_count = ( is_array( $sprite_array ) && count( $sprite_array ) ) ? count( $sprite_array ) : $this->default_sprites;
   		$sprite_array = $this->upgrade_to_array_format( 'sprite_array', $sprite_array, $this->sprite_format_upgrade_mapping, $sprite_count );
 
-		// If any of the sprites are slabtext items, let's enqueue the slabtext js
-		if ( !$sprite_array || $sprite_array == 'false' || !is_array( $sprite_array ) )
-			$sprite_array = array( array(), array(), array() );
 
 		$backdrop_array = $this->opt('backdrop_array');
-		$backdrop_count = $this->opt('backdrop_count', array('default' => $this->default_backdrops) );
+
+		// count is determined by accordion now
+		$backdrop_count = ( is_array( $backdrop_array ) && count( $backdrop_array ) ) ? count( $backdrop_array ) : $this->default_backdrops;
   		$backdrop_array = $this->upgrade_to_array_format( 'backdrop_array', $backdrop_array, $this->backdrop_format_upgrade_mapping, $backdrop_count );
 
+		if ( !$sprite_array || !is_array( $sprite_array ) )
+			return;
+
+		// If any of the sprites are slabtext items, let's enqueue the slabtext js
 		foreach ( $sprite_array as $sprite )
 		{
-			if ( 'slab' == pl_array_get('type', $sprite, 'img') )
+			if ( 'slab' == pl_array_get('type', $sprite) )
 			{
-				wp_enqueue_script('slabtext', $this->base_url.'/js/jquery.slabtext.min.js',array(),'2.3',true);
+				wp_enqueue_script('slabtext', "{$this->base_url}/js/jquery.slabtext.min.js",array(),'2.3',true);
 				break;
 			}
 		}
