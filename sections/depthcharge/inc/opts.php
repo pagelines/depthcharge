@@ -28,7 +28,7 @@ $options[] = array(
 			'key'		=> 'height',
 			'type'		=> 'text',
 			'default'	=> '400',
-			'label'		=> 'Block Height',
+			'label'		=> 'Block Height (do not add px)',
 		),
 		array(
 			'key'		=> 'fullheight',
@@ -46,7 +46,7 @@ $options[] = array(
 			'key'		=> 'mobile',
 			'type'		=> 'check',
 			'default'	=> '0',
-			'label'		=> 'Mobile Support'
+			'label'		=> 'Mobile Support (experimental)'
 		)
 	)
 );

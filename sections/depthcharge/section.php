@@ -19,7 +19,7 @@ class etcDepthCharge extends PageLinesSection
 	var $config;
 	var $armed;
 	var $default_backdrops = 1;
-	var $default_sprites = 0;
+	var $default_sprites = 1;
 	var $sprite_format_upgrade_mapping = array(
 		'image'     => 'sprite_%s_image',
 		'class'     => 'sprite_%s_class',
@@ -222,6 +222,7 @@ class etcDepthCharge extends PageLinesSection
 			'bg_smartsize' => $smartsizes,
 			'fullheight'   => $fullheight,
 			'contained'    => (bool) $contained,
+			'mobile'	   => (bool) $mobile,
 		);
 	}
 
