@@ -161,14 +161,20 @@ $options[] = array(
 			'label' => 'Horizontal Offset'
 		),
 		array(
-			'key'     => 'type',
-			'type'    => 'select',
-			'default' => 'slab',
-			'label'   => 'Type of Sprite',
-			'opts'    => array(
-				'slab' => array('name' => 'SlabText'),
-				'img'  => array('name' => 'Image'),
-			)
+			'key'		=> 'divider',
+			'type'		=> 'template',
+			'template'	=> '<hr/>',
+		),
+		array(
+			'key'     	=> 'type',
+			'type'    	=> 'select',
+			'default' 	=> 'slab',
+			'label'   	=> 'Type of Sprite',
+			'opts'    	=> array(
+				'slab' 	=> array('name' => 'SlabText'),
+				'img'  	=> array('name' => 'Image'),
+				'code' 	=> array('name' => 'Code'),
+			),
 		),
 		array(
 			'key'           => 'image',
@@ -178,19 +184,25 @@ $options[] = array(
 			'sizelimit'     => '2048000'     // Image upload max size default 512kb
 		),
 		array(
-			'key'           => 'heading',
+			'key'			=> 'code',
+			'label'			=> 'Raw Code',
+			'type'			=> 'textarea',
+			'default'		=> '<div></div>',
+		),
+		array(
+			'key'           => 'slab_heading',
 			'label'			=> 'Heading',
 			'type'          => 'text',
 			'default'		=> 'DepthCharge'
 		),
 		array(
-			'key'           => 'font',
+			'key'           => 'slab_font',
 			'label'			=> 'Font',
 			'default'		=> 'josefin_sans',
 			'type'          => 'type'
 		),
 		array(
-			'key'     => 'textwidth',
+			'key'     => 'slab_textwidth',
 			'type'    => 'select',
 			'label'   => 'SlabText Width',
 			'default' => '80%',
@@ -208,7 +220,7 @@ $options[] = array(
 				)
 		),
 		array(
-			'key'     => 'color',
+			'key'     => 'slab_color',
 			'label'   => 'Text Color',
 			'type'    => 'color',
 			'default' => 'FFFFFF'
