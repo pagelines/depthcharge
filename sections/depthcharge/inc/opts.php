@@ -41,6 +41,12 @@ $options[] = array(
 			'type'		=> 'check',
 			'default'	=> '0',
 			'label'		=> 'Contained',
+		),
+		array(
+			'key'		=> 'mobile',
+			'type'		=> 'check',
+			'default'	=> '0',
+			'label'		=> 'Mobile Support'
 		)
 	)
 );

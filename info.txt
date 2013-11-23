@@ -42,9 +42,11 @@ Make it a nestable section
 Different element types, like buttons
 ** and much more **
 
-= 1.2 = 2013.11.20
-* Upgraded skrollr library
-* Made mobile support optional
+= 1.2 = 2013.11.24
+* Upgraded js libraries
+* Added option to disable mobile support (off by default now)
+* Misc bug fixes
+* Updated iterface with new accordion options in DMS
 
 = 1.11 = 2013.07.21
 * Mobile performance boost

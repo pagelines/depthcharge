@@ -3,7 +3,7 @@
 Section: DepthCharge
 Author: etc.io
 Author URI: http://www.etc.io
-Version: 1.12
+Version: 1.2
 Description: DepthCharge
 Workswith: templates, main, header, morefoot, content
 Cloning: true
@@ -129,6 +129,7 @@ class etcDepthCharge extends PageLinesSection
 		// Load all of the other options
 		$fullheight   = $this->opt('fullheight', array('default' => '0') );
 		$contained    = $this->opt('contained', array('default' => '0') );
+		$mobile		  = $this->opt('mobile', array('default' => '0') );
 		$bd_v_ratios  = array();
 		$sp_v_ratios  = array();
 		$smartsizes   = array();
@@ -162,6 +163,11 @@ class etcDepthCharge extends PageLinesSection
 			{
 				$this->footer_action = true;
 				add_action('wp_print_footer_scripts', array(&$this, 'print_json') );
+			}
+
+			if ( $mobile )
+			{
+				add_action('wp_print_footer_scripts', array(&$this, 'dc_mobile') );	
 			}
 		}
 
@@ -230,10 +236,25 @@ class etcDepthCharge extends PageLinesSection
 		?>
 		<!-- DepthCharge Config -->
 		<script>
-			jQuery(document).ready( function( $ ) {
-				$('body').wrapInner('<div id="skrollr-body"/>');
-			}( jQuery ) );
 			<?php printf('var etc_dc_config = %s;', json_encode( (object) $this->config ) ); ?>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Enable mobile support
+	 */
+	function dc_mobile()
+	{
+		if ( empty( $this->config ) )
+			return;
+
+		?>
+		<!-- Mobile Support -->
+		<script>
+			jQuery(document).ready( function( $ ) {
+				$('body').wrapInner('<div id="skrollr-body"></div>');
+			}( jQuery ) );
 		</script>
 		<?php
 	}
