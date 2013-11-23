@@ -47,6 +47,12 @@ $options[] = array(
 			'type'		=> 'check',
 			'default'	=> '0',
 			'label'		=> 'Mobile Support (experimental)'
+		),
+		array(
+			'key'		=> 'sprites',
+			'type'		=> 'check',
+			'default'	=> '0',
+			'label'		=> 'Activate Sprites',
 		)
 	)
 );

@@ -131,6 +131,7 @@ class etcDepthCharge extends PageLinesSection
 		$fullheight   = $this->opt('fullheight', array('default' => '0') );
 		$contained    = $this->opt('contained', array('default' => '0') );
 		$mobile		  = $this->opt('mobile', array('default' => '0') );
+		$sprites 	  = $this->opt('sprites', array('default' => '0') );
 		$bd_v_ratios  = array();
 		$sp_v_ratios  = array();
 		$smartsizes   = array();
@@ -182,7 +183,7 @@ class etcDepthCharge extends PageLinesSection
 		<div class="depthChargeBlock" id="<?php echo $id ?>" style="<?php echo "background-image: $imagesOutput; height: {$height}px; $contained" ?>">
 		<?php
 
-		if ( is_array( $sprite_array ) )
+		if ( is_array( $sprite_array ) && $sprites )
 		{
 	  		foreach ( $sprite_array as $sprite )
 	  		{
@@ -218,12 +219,13 @@ class etcDepthCharge extends PageLinesSection
 			'sp_ratio_v'   => $sp_v_ratios,
 			'sp_offset_v'  => $sp_v_offsets,
 			'sp_offset_h'  => $sp_h_offsets,
-			'sp_slingshot' => $sp_slingshot,
+			'sp_slingshot' => (bool) $sp_slingshot,
 			'bg_centered'  => $bd_centered,
 			'bg_smartsize' => $smartsizes,
 			'fullheight'   => $fullheight,
 			'contained'    => (bool) $contained,
 			'mobile'	   => (bool) $mobile,
+			'sprites'	   => (bool) $sprites,
 		);
 	}
 
