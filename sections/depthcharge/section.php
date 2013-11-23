@@ -206,6 +206,10 @@ class etcDepthCharge extends PageLinesSection
 						<h1 style="color: <?php echo "#$color" ?>;">
 							<span class="slabtext"><?php echo pl_array_get( 'heading', $sprite, 'DepthCharge' ) ?></span>
 						</h1>
+					<?php elseif ( 'code' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
+						<div>
+							<?php echo pl_array_get( 'type', $sprite, '<div></div>') ?>
+						</div>
 					<?php endif; ?>
 				</div>
 				<?php
