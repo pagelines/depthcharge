@@ -48,9 +48,15 @@ class etcDepthCharge extends PageLinesSection
 	function section_styles()
 	{
 		$this->armed = true;
+
+		$ver = (defined('DEPTHCHARGE_DEBUG') && DEPTHCHARGE_DEBUG) || (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG)
+			&& file_exists( "$this->base_dir/js/etcDepthCharge.js" )
+			? ''
+			: '.min';
+
 		// Let's enqueue the skrollr and DC js libraries
 		wp_enqueue_script('skrollr',		"{$this->base_url}/js/skrollr.min.js", array(), '0.6.17', true);
-		wp_enqueue_script('etcDepthCharge', "{$this->base_url}/js/etcDepthCharge.min.js", array('jquery'), $this->settings['p_ver'], true);
+		wp_enqueue_script('etcDepthCharge', "{$this->base_url}/js/etcDepthCharge$ver.js", array('jquery', 'skrollr'), $this->settings['p_ver'], true);
 	}
 
 	function armed()
