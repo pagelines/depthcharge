@@ -626,7 +626,22 @@ function prime_dc_interface(){
   });
 }
 
-window.onload = function(){
+/*window.onload = function(){
+  
+};*/
+
++function( $ )
+{
+
+$(document).ready( function() {
+
+  window.onresize = function(){
+    engageDepthCharge();
+    if(skrollr) {
+      skrollr.get().refresh();
+    }
+  };
+
   engageDepthCharge();
   prime_dc_interface();
   if( dc_charter ) {
@@ -643,11 +658,9 @@ window.onload = function(){
         "viewportBreakpoint":380
     });
   }
-};
+  
+});
 
-window.onresize = function(){
-  engageDepthCharge();
-  if(skrollr) {
-    skrollr.get().refresh();
-  }
-};
+
+}( window.jQuery );
+
