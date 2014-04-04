@@ -28,7 +28,7 @@ $options[] = array(
 			'key'		=> 'height',
 			'type'		=> 'text',
 			'default'	=> '400',
-			'label'		=> 'Block Height (do not add px)',
+			'label'		=> 'Block Height (in px)',
 		),
 		array(
 			'key'		=> 'fullheight',

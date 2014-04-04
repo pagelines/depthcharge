@@ -125,7 +125,7 @@ class etcDepthCharge extends PageLinesSection
   		// may have to do with scope cascade and getting into a global value
 		$height = $this->opt('height', array('scope' => 'local') );
 		$height = $height ? $height : $this->opt('height', array('scope' => 'type') );
-		$height = $height ? $height : '400';
+		$height = $height ? intval( $height ) : 400;
 
 		// Load all of the other options
 		$fullheight   = $this->opt('fullheight', array('default' => '0') );
