@@ -529,6 +529,7 @@ function engageDepthCharge(s){
 }
 
 function prime_dc_interface(){
+  console.log("prime_dc_interface");
   function renderSpriteInterface(t,l) {
     if ( l ) {
       t.show();
@@ -539,6 +540,7 @@ function prime_dc_interface(){
 
   function cleanInterface(target)
   {
+    console.log("cleaning interface");
     selected = target.find(':selected').text();
     if ( selected == 'SlabText' ){
       target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).show();
@@ -590,6 +592,7 @@ function prime_dc_interface(){
 
   jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){cleanInterface(jQuery(this))});
  
+  console.log(jQuery('.checkgroup-sprites').length);
   jQuery('.checkgroup-sprites > .checkbox').each(function(){
     var target = jQuery(this);
     if ( target.css('display') != 'none' ){
@@ -599,10 +602,12 @@ function prime_dc_interface(){
       } else {
         outcome = false;
       }
-      if ( !target.hasClass('check-standard') ){
-        outcome = !outcome;
-      }
+      console.log("604: ".outcome);
+      //if ( !target.hasClass('check-standard') ){
+      //  outcome = !outcome;
+      //}
     }
+    console.log("609");
     renderSpriteInterface( target.parents().filter('.form-depthcharge-local').find('#sprite_array'), outcome );
   });
 
@@ -615,13 +620,15 @@ function prime_dc_interface(){
       outcome = false;
     }
 
-    if ( target.hasClass('check-flip') ){
-      outcome = !outcome;
-    }
+    //if ( target.hasClass('check-flip') ){
+    //  outcome = !outcome;
+    //}
+    console.log("624: ".outcome);
     renderSpriteInterface( target.parents().filter('.form-depthcharge-local').find('#sprite_array'), outcome );
   });
 
   jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).change(function() {
+    console.log("####");
     cleanInterface(jQuery(this));
   });
 }
