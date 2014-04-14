@@ -528,6 +528,74 @@ function engageDepthCharge(s){
   });
 }
 
+
+
+  function cleanInterface(target)
+  {
+
+	  //alert(target);
+    console.log("cleaning interface");
+    selected = target.find(':selected').text();
+	parentDiv=target.parent();
+    if ( selected == 'SlabText' ){
+	 
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).show();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_heading"]' ).show();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_font"]' ).show();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).show();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().show();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().next().show();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_textwidth"]' ).show();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_textwidth"]' ).show();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).show();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().show();
+
+      parentDiv.parent().find('.upload-box').hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_code"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_code"]' ).hide();
+    } else if ( selected == 'Image' ) {
+      parentDiv.parent().find('.upload-box').show();
+      
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_code"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_heading"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_font"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().next().hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_textwidth"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_textwidth"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_code"]' ).hide();
+    } else if ( selected == 'Code' ) {
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_code"]' ).show();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_code"]' ).show();
+
+      parentDiv.parent().find('.upload-box').hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_heading"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_font"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().next().hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_textwidth"]' ).hide();
+      parentDiv.parent().find('[id^="sprite_array_item"]').filter( '[id$="_textwidth"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).hide();
+      parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().hide();
+    }
+  }
+//alert("testing");
+  jQuery(document).on('change','select[id^="sprite_array_item"] ',function(){
+	 //alert(jQuery(this).val());
+	 cleanInterface(jQuery(this));
+	  
+  });
+  //jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){ alert("test"); cleanInterface(jQuery(this))});
+ 
+  //alert(jQuery( "sprite_array_item1_type" ).length);
+
+
 function prime_dc_interface(){
   console.log("prime_dc_interface");
   function renderSpriteInterface(t,l) {
@@ -538,60 +606,7 @@ function prime_dc_interface(){
     }
   }
 
-  function cleanInterface(target)
-  {
-    console.log("cleaning interface");
-    selected = target.find(':selected').text();
-    if ( selected == 'SlabText' ){
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).show();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_heading"]' ).show();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_font"]' ).show();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).show();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().show();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().next().show();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_textwidth"]' ).show();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_textwidth"]' ).show();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).show();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().show();
 
-      target.parent().find('.img-upload-box').hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_code"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_code"]' ).hide();
-    } else if ( selected == 'Image' ) {
-      target.parent().find('.img-upload-box').show();
-      
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_code"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_heading"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_font"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().next().hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_textwidth"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_textwidth"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_code"]' ).hide();
-    } else if ( selected == 'Code' ) {
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_code"]' ).show();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_code"]' ).show();
-
-      target.parent().find('.img-upload-box').hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_heading"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_heading"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_font"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_font"]' ).next().next().hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_textwidth"]' ).hide();
-      target.parent().find('[id^="sprite_array_item"]').filter( '[id$="_textwidth"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).hide();
-      target.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().hide();
-    }
-  }
-
-  jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){cleanInterface(jQuery(this))});
- 
   console.log(jQuery('.checkgroup-sprites').length);
   jQuery('.checkgroup-sprites > .checkbox').each(function(){
     var target = jQuery(this);
@@ -627,10 +642,7 @@ function prime_dc_interface(){
     renderSpriteInterface( target.parents().filter('.form-depthcharge-local').find('#sprite_array'), outcome );
   });
 
-  jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).change(function() {
-    console.log("####");
-    cleanInterface(jQuery(this));
-  });
+
 }
 
 /*window.onload = function(){
