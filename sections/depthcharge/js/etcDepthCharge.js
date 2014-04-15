@@ -528,13 +528,10 @@ function engageDepthCharge(s){
   });
 }
 
-
-
+//show the interface as per type of Sprite selected
+//target: is current object
   function cleanInterface(target)
   {
-
-	  //alert(target);
-    console.log("cleaning interface");
     selected = target.find(':selected').text();
 	parentDiv=target.parent();
     if ( selected == 'SlabText' ){
@@ -585,16 +582,12 @@ function engageDepthCharge(s){
       parentDiv.parent().find('label[for^="sprite_array_item"]').filter( 'label[for$="_color"]' ).next().hide();
     }
   }
-//alert("testing");
+
   jQuery(document).on('change','select[id^="sprite_array_item"] ',function(){
-	 //alert(jQuery(this).val());
 	 cleanInterface(jQuery(this));
 	  
   });
-  //jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){ alert("test"); cleanInterface(jQuery(this))});
- 
-  //alert(jQuery( "sprite_array_item1_type" ).length);
-
+  
 
 function prime_dc_interface(){
   console.log("prime_dc_interface");
@@ -648,6 +641,11 @@ function prime_dc_interface(){
 /*window.onload = function(){
   
 };*/
+
+//Trigger the sprite layout as per choosen object/sprite
+$(window).load(function(){
+    jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){ cleanInterface(jQuery(this))});
+});
 
 +function( $ )
 {
