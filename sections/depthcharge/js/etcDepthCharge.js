@@ -528,10 +528,14 @@ function engageDepthCharge(s){
   });
 }
 
-//show the interface as per type of Sprite selected
-//target: is current object
+
+//********CST function to Display or Hide the visible fields Depending on Sprite DropDown*********STARTS****************************************//
+
   function cleanInterface(target)
   {
+
+	  //alert(target);
+    console.log("cleaning interface");
     selected = target.find(':selected').text();
 	parentDiv=target.parent();
     if ( selected == 'SlabText' ){
@@ -583,11 +587,74 @@ function engageDepthCharge(s){
     }
   }
 
-  jQuery(document).on('change','select[id^="sprite_array_item"] ',function(){
-	 cleanInterface(jQuery(this));
-	  
-  });
-  
+//********CST function to Display or Hide the visible fields Depending on Sprite DropDown*********ENDS*********************************************//
+
+	
+$(window).load(function(){
+	
+	
+	
+//********************************CST Code to Update the Visible Fields on Change of Sprite DropDown**********STARTS***************************//
+	
+    jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){ cleanInterface(jQuery(this))});
+	
+	jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).change(function(){ cleanInterface(jQuery(this))});
+	
+//********************************CST Code to Update the Visible Fields on Change of Sprite DropDown***********ENDS***************************//
+	
+	
+	
+	
+	
+//********CST code to Display or Hide the Whole Sprite Set Up Depending on the Check Box "Activate Sprite"*********STARTS**********************//
+		var $curr = jQuery('input[id="sprites"]');
+		//$curr.css( "background", "#f99" );
+		var crr = $curr.prev().val();
+		//alert(crr);
+
+	
+
+	if(crr == 0){
+		//alert("no");
+		jQuery('div[id="sprite_array"]').hide();
+		jQuery("div.depthChargeSprite").hide();
+	}
+	else{
+		//alert("yes");
+		jQuery('div[id="sprite_array"]').show();
+		jQuery("div.depthChargeSprite").show();
+	}	
+	
+	
+
+	if(!jQuery('input[id="sprites"]').is(':checked')){
+		//alert("no");
+		jQuery('div[id="sprite_array"]').hide();
+		//$(".myDiv[rel!=1]").hide();
+	}
+	else{
+		//alert("yes");
+		jQuery('div[id="sprite_array"]').show();
+	}	
+	
+jQuery('input[id="sprites"]').on('click',function () {
+	var chk 	= jQuery(this).prev().val();
+	
+	if(chk == 1){
+		jQuery('div[id="sprite_array"]').show();
+		//$(".myDiv[rel!=1]").hide();
+	}
+	else {
+		jQuery('div[id="sprite_array"]').hide();
+	}
+	});
+//********CST code to Display or Hide the Whole Sprite Set Up Depending on the Check Box "Activate Sprite"*********ENDS**********************//
+	
+	
+	
+});
+
+
 
 function prime_dc_interface(){
   console.log("prime_dc_interface");
@@ -642,11 +709,6 @@ function prime_dc_interface(){
   
 };*/
 
-//Trigger the sprite layout as per choosen object/sprite
-$(window).load(function(){
-    jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).each(function(){ cleanInterface(jQuery(this))});
-});
-
 +function( $ )
 {
 
@@ -680,4 +742,3 @@ $(document).ready( function() {
 
 
 }( window.jQuery );
-
