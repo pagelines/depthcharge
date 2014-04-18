@@ -3,6 +3,7 @@
 // Copyright etc.io
 // Version: 1.2
 // All Rights Reserved
+// http://cameronspear.com/blog/animating-translate3d-with-jquery/
 // ********
 
 // Let's create an extendable object for each container (you'll be able to stack them in a russian doll as well)
@@ -381,6 +382,7 @@ function applyAttributes(t){
   var key;
   var attributes = [];
 
+	console.log('Checking--'+t);
   // Let's delete the current data tags that are attached (have to use js not jQuery because it doesn't update)
   existingData = getDataAttributes(t.container);
   for ( key in existingData ) {
@@ -530,7 +532,6 @@ function engageDepthCharge(s){
 
 
 //********CST function to Display or Hide the visible fields Depending on Sprite DropDown*********STARTS****************************************//
-
   function cleanInterface(target)
   {
 
@@ -590,7 +591,7 @@ function engageDepthCharge(s){
 //********CST function to Display or Hide the visible fields Depending on Sprite DropDown*********ENDS*********************************************//
 
 	
-$(window).load(function(){
+jQuery(window).load(function(){
 	
 	
 	
