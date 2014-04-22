@@ -3,7 +3,7 @@
 Section: DepthCharge
 Author: etc.io
 Author URI: http://www.etc.io
-Version: 2.0
+Version: 2.0.1
 Description: DepthCharge
 Workswith: templates, main, header, morefoot, content
 Cloning: true
@@ -24,7 +24,7 @@ class etcDepthCharge extends PageLinesSection
 		'image'     => 'sprite_%s_image',
 		'class'     => 'sprite_%s_class',
 		'type'      => 'sprite_%s_type',
-		'heading'   => 'sprite_%s_slab_heading',
+		'slab_heading'   => 'sprite_%s_slab_heading',
 		'color'     => 'sprite_%s_slab_color',
 		'font'		=> 'sprite_%s_slab_font',
 		'textwidth' => 'sprite_%s_slab_textwidth',
@@ -193,6 +193,7 @@ class etcDepthCharge extends PageLinesSection
 		{
 	  		foreach ( $sprite_array as $sprite )
 	  		{
+
 				$sp_v_ratios[]  = pl_array_get( 'v_ratio', $sprite, '-1' );
 				$sp_v_offsets[] = pl_array_get( 'v_offset', $sprite, '0' );
 				$sp_h_offsets[] = pl_array_get( 'h_offset', $sprite, '0' );
@@ -210,7 +211,7 @@ class etcDepthCharge extends PageLinesSection
 						<img src="<?php echo pl_array_get( 'image', $sprite, 'http://f.cl.ly/items/1V3Y0p0W3G2i2z1L0c1R/PageLines-Logo.png') ?>" />
 					<?php elseif ( 'slab' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
 						<h1 style="color: <?php echo "#$color" ?>;">
-							<span class="slabtext"><?php echo pl_array_get( 'heading', $sprite, 'DepthCharge' ) ?></span>
+							<span class="slabtext"><?php echo pl_array_get( 'slab_heading', $sprite, 'DepthCharge' ) ?></span>
 						</h1>
 					<?php elseif ( 'code' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
 						<div>

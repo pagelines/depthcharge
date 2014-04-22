@@ -1,7 +1,7 @@
 // ********
 // DepthCharge Custom JS Engine
 // Copyright etc.io
-// Version: 2.0
+// Version: 2.0.1
 // All Rights Reserved
 // http://cameronspear.com/blog/animating-translate3d-with-jquery/
 // ********
