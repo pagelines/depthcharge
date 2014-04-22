@@ -382,7 +382,6 @@ function applyAttributes(t){
   var key;
   var attributes = [];
 
-	console.log('Checking--'+t);
   // Let's delete the current data tags that are attached (have to use js not jQuery because it doesn't update)
   existingData = getDataAttributes(t.container);
   for ( key in existingData ) {
@@ -495,7 +494,6 @@ function churnWaypoints(t,p){
 }
 
 function engageDepthCharge(s){
-  console.log('engageDepthCharge');
   win = [];
   doc = [];
   // Let's set some static stats about our playground
@@ -537,7 +535,7 @@ function engageDepthCharge(s){
   {
 
 	  //alert(target);
-    console.log("cleaning interface");
+    //console.log("cleaning interface");
     selected = target.find(':selected').text();
 	parentDiv=target.parent();
     if ( selected == 'SlabText' ){
@@ -678,7 +676,7 @@ jQuery('input[id="sprites"]').on('click',function () {
 
 
 function prime_dc_interface(){
-  console.log("prime_dc_interface");
+  //console.log("prime_dc_interface");
   function renderSpriteInterface(t,l) {
     if ( l ) {
       t.show();
@@ -688,7 +686,7 @@ function prime_dc_interface(){
   }
 
 
-  console.log(jQuery('.checkgroup-sprites').length);
+  //console.log(jQuery('.checkgroup-sprites').length);
   jQuery('.checkgroup-sprites > .checkbox').each(function(){
     var target = jQuery(this);
     if ( target.css('display') != 'none' ){
