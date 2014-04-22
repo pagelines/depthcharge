@@ -1,7 +1,7 @@
 // ********
 // DepthCharge Custom JS Engine
 // Copyright etc.io
-// Version: 1.2
+// Version: 2.0
 // All Rights Reserved
 // http://cameronspear.com/blog/animating-translate3d-with-jquery/
 // ********
@@ -495,6 +495,7 @@ function churnWaypoints(t,p){
 }
 
 function engageDepthCharge(s){
+  console.log('engageDepthCharge');
   win = [];
   doc = [];
   // Let's set some static stats about our playground
@@ -592,8 +593,31 @@ function engageDepthCharge(s){
 
 	
 jQuery(window).load(function(){
-	
-	
+
+  engageDepthCharge();
+  prime_dc_interface();
+
+  window.onresize = function(){
+    engageDepthCharge();
+    if(skrollr) {
+      skrollr.get().refresh();
+    }
+  };
+
+  if( dc_charter ) {
+    skrollr.init({
+      forceHeight: false,
+      smoothScroll: true,
+      smoothScrollingDuration: 200
+    });
+  }
+
+  if(jQuery('.depthChargeSprite .slabtext')[0]){
+    jQuery(".depthChargeSprite h1").slabText({
+        // Don't slabtext the headers if the viewport is under 380px
+        "viewportBreakpoint":380
+    });
+  }	
 	
 //********************************CST Code to Update the Visible Fields on Change of Sprite DropDown**********STARTS***************************//
 	
@@ -602,10 +626,6 @@ jQuery(window).load(function(){
 	jQuery( '[id^="sprite_array_item"]' ).filter( '[id$="_type"]' ).change(function(){ cleanInterface(jQuery(this))});
 	
 //********************************CST Code to Update the Visible Fields on Change of Sprite DropDown***********ENDS***************************//
-	
-	
-	
-	
 	
 //********CST code to Display or Hide the Whole Sprite Set Up Depending on the Check Box "Activate Sprite"*********STARTS**********************//
 		var $curr = jQuery('input[id="sprites"]');
@@ -678,12 +698,10 @@ function prime_dc_interface(){
       } else {
         outcome = false;
       }
-      console.log("604: ".outcome);
       //if ( !target.hasClass('check-standard') ){
       //  outcome = !outcome;
       //}
     }
-    console.log("609");
     renderSpriteInterface( target.parents().filter('.form-depthcharge-local').find('#sprite_array'), outcome );
   });
 
@@ -699,47 +717,8 @@ function prime_dc_interface(){
     //if ( target.hasClass('check-flip') ){
     //  outcome = !outcome;
     //}
-    console.log("624: ".outcome);
     renderSpriteInterface( target.parents().filter('.form-depthcharge-local').find('#sprite_array'), outcome );
   });
 
 
 }
-
-/*window.onload = function(){
-  
-};*/
-
-+function( $ )
-{
-
-$(document).ready( function() {
-
-  window.onresize = function(){
-    engageDepthCharge();
-    if(skrollr) {
-      skrollr.get().refresh();
-    }
-  };
-
-  engageDepthCharge();
-  prime_dc_interface();
-  if( dc_charter ) {
-    skrollr.init({
-      forceHeight: false,
-      smoothScroll: true,
-      smoothScrollingDuration: 200
-    });
-  }
-
-  if(jQuery('.depthChargeSprite .slabtext')[0]){
-    jQuery(".depthChargeSprite h1").slabText({
-        // Don't slabtext the headers if the viewport is under 380px
-        "viewportBreakpoint":380
-    });
-  }
-  
-});
-
-
-}( window.jQuery );
