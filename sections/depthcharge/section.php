@@ -26,7 +26,7 @@ class etcDepthCharge extends PageLinesSection
 		'type'      => 'sprite_%s_type',
 		'heading'   => 'sprite_%s_slab_heading',
 		'color'     => 'sprite_%s_slab_color',
-		'font'		=> 'sprite_%s_slab_font',
+		'font'			=> 'sprite_%s_slab_font',
 		'textwidth' => 'sprite_%s_slab_textwidth',
 		'v_ratio'   => 'sprite_%s_v_ratio',
 		'v_offset'  => 'sprite_%s_v_offset',
@@ -215,7 +215,7 @@ class etcDepthCharge extends PageLinesSection
 						</h1>
 					<?php elseif ( 'code' == pl_array_get( 'type', $sprite, 'img' ) ): ?>
 						<div>
-							<?php echo pl_array_get( 'type', $sprite, '<div></div>') ?>
+							<?php echo pl_array_get( 'raw_code', $sprite, '<div></div>') ?>
 						</div>
 					<?php endif; ?>
 				</div>
