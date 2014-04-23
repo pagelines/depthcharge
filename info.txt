@@ -41,6 +41,9 @@ Make it a nestable section
 Different element types, like buttons
 ** and much more **
 
+= 2.0.3 = 2014.04.23
+* One more bug related to code output
+
 = 2.0.2 = 2014.04.23
 * Fixed issue with font and width not being properly applied to sprite slabtext
 

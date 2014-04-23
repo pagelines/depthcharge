@@ -190,7 +190,7 @@ $options[] = array(
 			'sizelimit'     => '2048000'     // Image upload max size default 512kb
 		),
 		array(
-			'key'			=> 'code',
+			'key'			=> 'raw_code',
 			'label'			=> 'Raw Code',
 			'type'			=> 'textarea',
 			'default'		=> '<div></div>',
