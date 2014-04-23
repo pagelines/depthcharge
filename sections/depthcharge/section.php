@@ -3,7 +3,7 @@
 Section: DepthCharge
 Author: etc.io
 Author URI: http://www.etc.io
-Version: 2.0.1
+Version: 2.0.2
 Description: DepthCharge
 Workswith: templates, main, header, morefoot, content
 Cloning: true
@@ -24,7 +24,7 @@ class etcDepthCharge extends PageLinesSection
 		'image'     => 'sprite_%s_image',
 		'class'     => 'sprite_%s_class',
 		'type'      => 'sprite_%s_type',
-		'slab_heading'   => 'sprite_%s_slab_heading',
+		'heading'   => 'sprite_%s_slab_heading',
 		'color'     => 'sprite_%s_slab_color',
 		'font'		=> 'sprite_%s_slab_font',
 		'textwidth' => 'sprite_%s_slab_textwidth',
@@ -106,7 +106,7 @@ class etcDepthCharge extends PageLinesSection
 		{
 			if ( 'slab' == pl_array_get('type', $sprite) )
 			{
-				$sprite_font = pl_array_get('font', $sprite, 'josefin_sans');
+				$sprite_font = pl_array_get('slab_font', $sprite, 'josefin_sans');
 				echo load_custom_font( $sprite_font, "$prefix .depthChargeSprite:nth-child($i) h1" );
 			}
 
@@ -199,7 +199,7 @@ class etcDepthCharge extends PageLinesSection
 				$sp_h_offsets[] = pl_array_get( 'h_offset', $sprite, '0' );
 				$sp_slingshot[] = pl_array_get( 'slingshot', $sprite, 0 );
 
-				$text_width = pl_array_get( 'textwidth', $sprite, '80%' );
+				$text_width = pl_array_get( 'slab_textwidth', $sprite, '80%' );
 				$width      = ( 'slab' == pl_array_get( 'type', $sprite, 'img' ) ) ? "width: $text_width" : '';
 				$color      = pl_array_get( 'color', $sprite, 'FFF' );
 				$class      = !empty( $sprite['class'] ) ? " {$sprite['class']}" : '';
