@@ -33,7 +33,6 @@ Simon Prosser (pagelines.com)
 == Changelog ==
 
 *** UPCOMING FEATURES ***
-Adding static html type in addition to slabtext and image
 Adding percentage based offset support
 Change from a fixed position architecture to floating div for better performance
 More precise controls for changing speed, including a slider
@@ -41,6 +40,17 @@ Preset Recipes
 Make it a nestable section
 Different element types, like buttons
 ** and much more **
+
+= 2.0.2 = 2014.04.23
+* Fixed issue with font and width not being properly applied to sprite slabtext
+
+= 2.0.1 = 2014.04.22
+* Fixed issue with slab text not displaying the header correctly
+
+= 2.0 = 2014.04.21
+* DMS 2 compatibility
+* Performance improvements
+* Code output option
 
 = 1.2 = 2013.11.24
 * Upgraded js libraries
