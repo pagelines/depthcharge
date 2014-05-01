@@ -41,6 +41,9 @@ Make it a nestable section
 Different element types, like buttons
 ** and much more **
 
+= 2.0.4 = 2014.05.01
+* Fixed height not being applied in all cases due to change in scope in DMS 2
+
 = 2.0.3 = 2014.04.23
 * One more bug related to code output
 
