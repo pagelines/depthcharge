@@ -129,7 +129,8 @@ class etcDepthCharge extends PageLinesSection
 
   		// this looks weird but without it, it was coming up with 38 when the field was blank
   		// may have to do with scope cascade and getting into a global value
-		$height = $this->opt('height', array('scope' => 'local') );
+		//$height = $this->opt('height', array('scope' => 'local') );
+		$height = $this->opt('height');
 		$height = $height ? $height : $this->opt('height', array('scope' => 'type') );
 		$height = $height ? intval( $height ) : 400;
 
